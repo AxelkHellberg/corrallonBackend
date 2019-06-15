@@ -17,8 +17,7 @@ class UserService extends GenericService_1.GenericeService {
         super(new myClass());
         this.login = function (username, password) {
             return __awaiter(this, void 0, void 0, function* () {
-                const user = yield this.genericRepository.findOne({ where: { "username": username, "password": encriptutils.encrypt(password) } });
-                return user;
+                return yield this.genericRepository.login(username, password);
             });
         };
     }

@@ -2,6 +2,8 @@ import { getConnectionDatabase } from './dbHandler';
 import { GenericRepository } from '../repository/GenericRepository';
 import { ErrorVDF } from './ErrorVDF';
 import { GenericeService } from '../services/GenericService';
+import { Msg } from '../msg/msg';
+import { FindResponse } from './FindResponse';
 
 const responseError = async function (res, e: Error) {
   if (e instanceof ErrorVDF)
@@ -12,10 +14,15 @@ const responseError = async function (res, e: Error) {
 
 const getHandlerGenericEntity = async function (req, res, classEntity, repository: GenericeService<any>) {
   try {
-    const objs = await repository.find()
-    res.send(objs)
+    console.log(req.query)
+    if ("select" in req.query)
+      try { req.query.select = JSON.parse(req.query.select) } catch (e) { throw Msg.MALFORMED_JSON_SELECT };
+    if ("order" in req.query)
+      try { req.query.order = JSON.parse(req.query.order) } catch (e) { throw Msg.MALFORMED_JSON_ORDER };
+    const objs = await repository.find(req.query)
+    res.send(new FindResponse(objs))
   } catch (e) {
-    await responseError(res, new ErrorVDF(e.toString(), e.toString()))
+    await responseError(res, new ErrorVDF(e.toString(), e.toString(), 500))
   }
 }
 

@@ -12,5 +12,7 @@ MsgSpanish.NAME_MANDATORY = "El campo nombre es obligatorio";
 MsgSpanish.DNI_MANDATORY = "El campo dni es obligatorio";
 MsgSpanish.USERNAME_DUPLICATED = "nombre de usuario duplicado";
 MsgSpanish.UNAHUTORIZED = "You are not authorized to use this site";
+MsgSpanish.MALFORMED_JSON_SELECT = "El formato del json array usado como select es invalido";
+MsgSpanish.MALFORMED_JSON_ORDER = "El formato del json array usado como order es invalido";
 exports.MsgSpanish = MsgSpanish;
 //# sourceMappingURL=MsgSpanish.js.map

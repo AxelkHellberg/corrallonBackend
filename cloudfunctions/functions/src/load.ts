@@ -4,9 +4,20 @@ import { User } from "./entity/User";
 import { Profile } from "./entity/Profile";
 import { PermissionWS } from "./entity/PermissionWS";
 import { HTTPMethod } from "./entity/HTTPMethod";
+import { Report } from "./entity/Report";
 
 createConnection().then(async connection => {
-  const get = new HTTPMethod()
+
+  /*  let r = new Report()
+    r.from = "User"
+    r.select = "username"
+    r.where = "id=1"
+    r.description = "Test report"
+    await connection.manager.save(r)*/
+  let obj = await connection.getRepository("Report").find()
+  console.log(obj[0]["from"])
+  console.log(await connection.getRepository(obj[0]["from"]).find())
+  /*const get = new HTTPMethod()
   const post = new HTTPMethod()
   const patch = new HTTPMethod()
   const deleteM = new HTTPMethod()
@@ -78,7 +89,7 @@ createConnection().then(async connection => {
   standardUser.dni = "prueba";
   standardUser.lastName = "segura";
   standardUser.profile = userProfile;
-  await connection.manager.save(standardUser);
+  await connection.manager.save(standardUser);*/
 
   /*let perfil = new Profile()
   perfil.id = 1

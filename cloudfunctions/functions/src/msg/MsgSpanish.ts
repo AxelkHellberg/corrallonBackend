@@ -9,6 +9,8 @@ export class MsgSpanish {
     public static DNI_MANDATORY: string = "El campo dni es obligatorio"
     public static USERNAME_DUPLICATED: string = "nombre de usuario duplicado"
     public static UNAHUTORIZED: string = "You are not authorized to use this site"
+    public static MALFORMED_JSON_SELECT: string = "El formato del json array usado como select es invalido"
+    public static MALFORMED_JSON_ORDER: string = "El formato del json array usado como order es invalido"
 
 
 }

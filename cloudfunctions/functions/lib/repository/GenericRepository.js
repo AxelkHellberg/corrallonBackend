@@ -11,15 +11,45 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const dbHandler_1 = require("../components/dbHandler");
 class GenericRepository {
     constructor() {
-        this.find = function () {
+        this.find = function (params = {}) {
             return __awaiter(this, void 0, void 0, function* () {
-                const objs = yield this.getRepository().find();
-                return objs;
+                const ENTITY_REF_NAME = "e";
+                let builder = yield this.getRepository().createQueryBuilder(ENTITY_REF_NAME);
+                if ("select" in params) {
+                    let newSelect = [];
+                    //*1 To use the method "select" correctly, we must to add the ENTITY_REF_NAME to each column. In others the cases, typeorm will return an empty array
+                    for (let i = 0; i < params.select.length; i++)
+                        newSelect[i] = ENTITY_REF_NAME + "." + params.select[i];
+                    builder = yield builder.select(newSelect);
+                }
+                if ("q" in params)
+                    builder = yield builder.where(params.q);
+                if ("order" in params)
+                    builder = yield builder.orderBy(params.order);
+                let limit = 20000;
+                if ("limit" in params)
+                    limit = params.limit;
+                builder = yield builder.limit(limit);
+                if ("offset" in params)
+                    builder = yield builder.offset(params.offset);
+                let objs = yield builder.getMany();
+                //If you didn't use select propertie, we just return the object that we had gotten from the database
+                if (!("select" in params))
+                    return objs;
+                //in some cases, the object could have other attributes besides those that come from the selection of *1
+                let newObjs = [];
+                for (let i = 0; i < objs.length; i++) {
+                    newObjs[i] = {};
+                    for (let j = 0; j < params.select.length; j++)
+                        newObjs[i][params.select[j]] = objs[i][params.select[j]];
+                }
+                return newObjs;
             });
         };
     }
     updateById(data, id) {
         return __awaiter(this, void 0, void 0, function* () {
+            delete data[id];
             return yield dbHandler_1.getConnectionDatabase().createQueryBuilder()
                 .update(this.getClass())
                 .set(data)

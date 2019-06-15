@@ -11,9 +11,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 let encriptutils = require('../components/encryputils');
 class GenericeService {
     constructor(repository) {
-        this.find = function () {
+        this.find = function (params = {}) {
             return __awaiter(this, void 0, void 0, function* () {
-                const objs = yield this.genericRepository.find();
+                const objs = yield this.genericRepository.find(params);
                 return objs;
             });
         };

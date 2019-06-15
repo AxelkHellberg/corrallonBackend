@@ -14,8 +14,8 @@ export abstract class GenericeService<E> {
         this.genericRepository = repository
     }
 
-    public find = async function (): Promise<E[]> {
-        const objs = await this.genericRepository.find()
+    public find = async function (params: any = {}): Promise<E[]> {
+        const objs = await this.genericRepository.find(params)
         return objs
     }
 

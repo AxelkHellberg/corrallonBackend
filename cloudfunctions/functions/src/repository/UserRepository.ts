@@ -26,7 +26,6 @@ export class UserRepository extends GenericRepository<User>{
         return user
     }
 
-
     public getRepository(): Repository<User> {
         return getRepository(myClass);
     }
@@ -34,8 +33,6 @@ export class UserRepository extends GenericRepository<User>{
     public getClass() {
         return myClass
     }
-
-
 
     public async save(newObj: User): Promise<User> {
         if (await this.existeUsernameToInsert(newObj.username))

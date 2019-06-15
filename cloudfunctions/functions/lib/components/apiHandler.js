@@ -9,6 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const ErrorVDF_1 = require("./ErrorVDF");
+const msg_1 = require("../msg/msg");
+const FindResponse_1 = require("./FindResponse");
 const responseError = function (res, e) {
     return __awaiter(this, void 0, void 0, function* () {
         if (e instanceof ErrorVDF_1.ErrorVDF)
@@ -21,11 +23,28 @@ exports.responseError = responseError;
 const getHandlerGenericEntity = function (req, res, classEntity, repository) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const objs = yield repository.find();
-            res.send(objs);
+            console.log(req.query);
+            if ("select" in req.query)
+                try {
+                    req.query.select = JSON.parse(req.query.select);
+                }
+                catch (e) {
+                    throw msg_1.Msg.MALFORMED_JSON_SELECT;
+                }
+            ;
+            if ("order" in req.query)
+                try {
+                    req.query.order = JSON.parse(req.query.order);
+                }
+                catch (e) {
+                    throw msg_1.Msg.MALFORMED_JSON_ORDER;
+                }
+            ;
+            const objs = yield repository.find(req.query);
+            res.send(new FindResponse_1.FindResponse(objs));
         }
         catch (e) {
-            yield responseError(res, new ErrorVDF_1.ErrorVDF(e.toString(), e.toString()));
+            yield responseError(res, new ErrorVDF_1.ErrorVDF(e.toString(), e.toString(), 500));
         }
     });
 };

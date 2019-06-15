@@ -17,8 +17,7 @@ export class UserService extends GenericeService<User> {
     }
 
     login = async function (username, password): Promise<User> {
-        const user = await this.genericRepository.findOne({ where: { "username": username, "password": encriptutils.encrypt(password) } });
-        return user
+        return await this.genericRepository.login(username, password);
     }
 
 

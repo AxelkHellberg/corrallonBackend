@@ -20,8 +20,12 @@ function existeUsername(username) {
 }
 typeorm_1.createConnection().then(() => {
     let u = new UserService_1.UserService();
-    /* u.joinsTest().then(
-         (a) => console.log("%j", a)
-     ).catch(e => { console.log(e) })*/
+    u.find({ "order": { "id": "DESC" }, "select": ["id", "username"], "limit": 1, "offset": 1 }).then((a) => console.log("%j", a)).catch(e => { console.log(e); });
 });
+/*createConnection().then(() => {
+    let u: UserService = new UserService()
+    u.hasPermissionsTest(2, "/entities/users/", 1).then(
+        (a) => console.log("%j", a)
+    ).catch(e => { console.log(e) })
+})*/ 
 //# sourceMappingURL=testDb.js.map

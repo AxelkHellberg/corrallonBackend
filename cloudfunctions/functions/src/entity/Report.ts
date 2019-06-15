@@ -1,0 +1,29 @@
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, AfterLoad, BeforeUpdate, BeforeInsert, ManyToOne, Index, JoinColumn } from "typeorm";
+import { GenericEntity } from "./GenericEntity";
+import { ErrorVDF } from "../components/ErrorVDF";
+import { Msg } from "../msg/msg";
+import { Profile } from "./Profile";
+import { JoinReport } from "./JoinReport";
+let encriptutils = require('../components/encryputils')
+
+@Entity()
+export class Report extends GenericEntity {
+
+    @PrimaryGeneratedColumn()
+    public id: number;
+
+    @Column()
+    public description: string;
+
+    @Column()
+    public from: string;
+
+    @Column()
+    public where: string;
+
+    @Column()
+    public select: string;
+
+    @OneToMany(type => JoinReport, joinReport => joinReport.report)
+    public joinsReport: JoinReport[];
+}
