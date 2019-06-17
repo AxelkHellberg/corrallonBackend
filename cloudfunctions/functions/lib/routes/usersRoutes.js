@@ -18,17 +18,25 @@ const jwt = require("../components/jwt");
 const service = new UserService_1.UserService();
 const currentClass = User_1.User;
 /******************************************** */
-router.post('/', (req, res) => __awaiter(this, void 0, void 0, function* () {
-    apiHandler.postHandlerGenericEntity(req, res, currentClass, service);
+router.post('/', (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+    yield apiHandler.postHandlerGenericEntity(req, res, currentClass, service);
+    next();
 }));
-router.get('/', (req, res) => __awaiter(this, void 0, void 0, function* () {
-    apiHandler.getHandlerGenericEntity(req, res, currentClass, service);
+router.get('/', (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+    yield apiHandler.getHandlerGenericEntity(req, res, currentClass, service);
+    next();
 }));
-router.get('/:id', (req, res) => __awaiter(this, void 0, void 0, function* () {
-    apiHandler.getHandlerGenericEntity(req, res, currentClass, service);
+router.get('/:id', (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+    yield apiHandler.getByIdHandlerGenericEntity(req, res, currentClass, service);
+    next();
 }));
-router.patch('/:id', (req, res) => __awaiter(this, void 0, void 0, function* () {
-    apiHandler.updateHandlerGenericEntity(req, res, currentClass, service);
+router.patch('/:id', (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+    yield apiHandler.updateHandlerGenericEntity(req, res, currentClass, service);
+    next();
+}));
+router.delete('/:id', (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+    yield apiHandler.deleteHandlerGenericEntity(req, res, currentClass, service);
+    next();
 }));
 module.exports = router;
 //# sourceMappingURL=usersRoutes.js.map

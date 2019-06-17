@@ -14,7 +14,7 @@ const service = new ReportService()
 const currentClass = Report
 /******************************************** */
 
-router.post('/execute', async (req, res) => {
+router.post('/execute', async (req, res, next) => {
     try {
         if (!("id" in req.body))
             throw new ErrorVDF(Msg.ID_MANDATORY, Msg.ID_MANDATORY, 500)
@@ -22,11 +22,13 @@ router.post('/execute', async (req, res) => {
         if (!("filters" in req.body))
             req.body.filters = {}
         req.body.filters["myUserId"] = res.locals.jwtPayload.u
-        res.send(await service.execute(report, req.body.filters))
+        let responseData = await service.execute(report, req.body.filters)
+        res.locals.responseData = responseData
+        res.send(responseData)
     } catch (e) {
-        apiHandler.responseError(res, e)
+        await apiHandler.responseError(res, e)
     }
-
+    next()
 });
 
 module.exports = router;

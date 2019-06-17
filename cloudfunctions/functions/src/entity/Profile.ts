@@ -6,7 +6,7 @@ import { Report } from "./Report";
 let encriptutils = require('../components/encryputils')
 @Entity()
 export class Profile extends GenericEntity {
-
+    public static ID_ADMIN: number = 1
     @PrimaryGeneratedColumn()
     id: number;
 

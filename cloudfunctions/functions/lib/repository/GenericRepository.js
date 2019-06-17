@@ -67,6 +67,16 @@ class GenericRepository {
             return yield dbHandler_1.getConnectionDatabase().manager.save(newObj);
         });
     }
+    delete(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.getRepository()
+                .createQueryBuilder()
+                .delete()
+                .from(this.getClass())
+                .where("id = :id", { id })
+                .execute();
+        });
+    }
 }
 exports.GenericRepository = GenericRepository;
 //# sourceMappingURL=GenericRepository.js.map

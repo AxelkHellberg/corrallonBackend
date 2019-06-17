@@ -23,6 +23,11 @@ class GenericeService {
             return yield this.genericRepository.findById(id);
         });
     }
+    delete(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.genericRepository.delete(id);
+        });
+    }
     updateById(data, id) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield this.genericRepository.updateById(data, id);

@@ -17,10 +17,11 @@ const responseError = function (res, e) {
             res.status(e.responseCode < 100 ? 500 : e.responseCode).send({ "responseCode": e.responseCode < 100 ? 500 : e.responseCode, "internalMessage": e.internalMessage, "userMessage": e.userMessage });
         else
             res.status(500).send({ "responseCode": 500, "internalMessage": e.toString(), "userMessage": e.toString() });
+        res.locals.hasError = true;
     });
 };
 exports.responseError = responseError;
-const getHandlerGenericEntity = function (req, res, classEntity, repository) {
+const getHandlerGenericEntity = function (req, res, classEntity, service) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             console.log(req.query);
@@ -40,8 +41,10 @@ const getHandlerGenericEntity = function (req, res, classEntity, repository) {
                     throw msg_1.Msg.MALFORMED_JSON_ORDER;
                 }
             ;
-            const objs = yield repository.find(req.query);
-            res.send(new FindResponse_1.FindResponse(objs));
+            const objs = yield service.find(req.query);
+            let findResponse = new FindResponse_1.FindResponse(objs);
+            res.locals.responseData = findResponse;
+            res.send(findResponse);
         }
         catch (e) {
             yield responseError(res, new ErrorVDF_1.ErrorVDF(e.toString(), e.toString(), 500));
@@ -49,13 +52,46 @@ const getHandlerGenericEntity = function (req, res, classEntity, repository) {
     });
 };
 exports.getHandlerGenericEntity = getHandlerGenericEntity;
-const postHandlerGenericEntity = function (req, res, classEntity, repository) {
+const getByIdHandlerGenericEntity = function (req, res, classEntity, service) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            if (!("id" in req.params))
+                throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.ID_MANDATORY, msg_1.Msg.ID_MANDATORY, 400);
+            const obj = yield service.findById(req.params.id);
+            if (obj == null)
+                throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.REGISTER_NOT_FOUND, msg_1.Msg.REGISTER_NOT_FOUND, 400);
+            res.locals.responseData = obj;
+            res.send(obj);
+        }
+        catch (e) {
+            yield responseError(res, new ErrorVDF_1.ErrorVDF(e.toString(), e.toString(), 500));
+        }
+    });
+};
+exports.getByIdHandlerGenericEntity = getByIdHandlerGenericEntity;
+const deleteHandlerGenericEntity = function (req, res, classEntity, service) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            if (!("id" in req.params))
+                throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.ID_MANDATORY, msg_1.Msg.ID_MANDATORY, 400);
+            const obj = yield service.delete(req.params.id);
+            if (obj == null)
+                throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.REGISTER_NOT_FOUND, msg_1.Msg.REGISTER_NOT_FOUND, 400);
+            res.locals.responseData = obj;
+            res.status(204).send(obj);
+        }
+        catch (e) {
+            yield responseError(res, new ErrorVDF_1.ErrorVDF(e.toString(), e.toString(), 500));
+        }
+    });
+};
+exports.deleteHandlerGenericEntity = deleteHandlerGenericEntity;
+const postHandlerGenericEntity = function (req, res, classEntity, service) {
     return __awaiter(this, void 0, void 0, function* () {
         let newObj = new classEntity();
-        console.log(req.body);
         Object.assign(newObj, req.body);
         try {
-            yield repository.save(newObj);
+            yield service.save(newObj);
             res.send(newObj);
         }
         catch (e) {

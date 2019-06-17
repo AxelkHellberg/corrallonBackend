@@ -14,21 +14,29 @@ const service = new UserService()
 const currentClass = User
 /******************************************** */
 
-router.post('/', async (req, res) => {
-  apiHandler.postHandlerGenericEntity(req, res, currentClass, service)
+router.post('/', async (req, res, next) => {
+  await apiHandler.postHandlerGenericEntity(req, res, currentClass, service)
+  next()
 });
 
-router.get('/', async (req, res) => {
-  apiHandler.getHandlerGenericEntity(req, res, currentClass, service)
+router.get('/', async (req, res, next) => {
+  await apiHandler.getHandlerGenericEntity(req, res, currentClass, service)
+  next()
 });
 
-router.get('/:id', async (req, res) => {
-  apiHandler.getHandlerGenericEntity(req, res, currentClass, service)
+router.get('/:id', async (req, res, next) => {
+  await apiHandler.getByIdHandlerGenericEntity(req, res, currentClass, service)
+  next()
 });
 
-router.patch('/:id', async (req, res) => {
-  apiHandler.updateHandlerGenericEntity(req, res, currentClass, service)
+router.patch('/:id', async (req, res, next) => {
+  await apiHandler.updateHandlerGenericEntity(req, res, currentClass, service)
+  next()
 });
 
+router.delete('/:id', async (req, res, next) => {
+  await apiHandler.deleteHandlerGenericEntity(req, res, currentClass, service)
+  next()
+});
 
 module.exports = router;

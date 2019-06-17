@@ -2,6 +2,7 @@ import { createConnection } from "typeorm";
 import { checkJwt } from "./middlewares/checkJwt";
 import { validatePermissions } from "./middlewares/validatePermissions";
 import { validatePermissionsReports } from "./middlewares/validatePermissionsReports";
+import { test } from "./middlewares/test";
 
 const apiHandler = require("./components/apiHandler")
 
@@ -33,7 +34,7 @@ var users = require('./routes/usersRoutes');
 var auth = require('./routes/authRoutes');
 var reports = require('./routes/reportsRoutes');
 
-appOnPremise.use('/' + ENTITIES_BASE_URL + '/users', [checkJwt, validatePermissions], users);
+appOnPremise.use('/' + ENTITIES_BASE_URL + '/users', [checkJwt, validatePermissions], users, test);
 appOnPremise.use('/reports', [checkJwt, validatePermissionsReports], reports);
 appOnPremise.use('/auth', auth);
 

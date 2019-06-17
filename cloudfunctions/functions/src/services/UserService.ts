@@ -10,7 +10,6 @@ let encriptutils = require('../components/encryputils')
 
 const myClass = UserRepository
 
-
 export class UserService extends GenericeService<User> {
     constructor() {
         super(new myClass())
@@ -34,7 +33,6 @@ export class UserService extends GenericeService<User> {
         return user
     }
 
-
     public async hasPermissionsEntity(idUser: number, path: string, idHttp: number): Promise<boolean> {
         let u: User = await this.genericRepository.getRepository().createQueryBuilder("user")
             .leftJoinAndSelect("user.profile", "profile")
@@ -55,7 +53,4 @@ export class UserService extends GenericeService<User> {
         console.log(u)
         return u != null
     }
-
-
-
 }

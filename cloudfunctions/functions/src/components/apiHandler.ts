@@ -10,28 +10,60 @@ const responseError = async function (res, e: Error) {
     res.status(e.responseCode < 100 ? 500 : e.responseCode).send({ "responseCode": e.responseCode < 100 ? 500 : e.responseCode, "internalMessage": e.internalMessage, "userMessage": e.userMessage })
   else
     res.status(500).send({ "responseCode": 500, "internalMessage": e.toString(), "userMessage": e.toString() })
+  res.locals.hasError = true
 }
 
-const getHandlerGenericEntity = async function (req, res, classEntity, repository: GenericeService<any>) {
+const getHandlerGenericEntity = async function (req, res, classEntity, service: GenericeService<any>) {
   try {
     console.log(req.query)
     if ("select" in req.query)
       try { req.query.select = JSON.parse(req.query.select) } catch (e) { throw Msg.MALFORMED_JSON_SELECT };
     if ("order" in req.query)
       try { req.query.order = JSON.parse(req.query.order) } catch (e) { throw Msg.MALFORMED_JSON_ORDER };
-    const objs = await repository.find(req.query)
-    res.send(new FindResponse(objs))
+    const objs = await service.find(req.query)
+    let findResponse = new FindResponse(objs)
+    res.locals.responseData = findResponse
+    res.send(findResponse)
   } catch (e) {
     await responseError(res, new ErrorVDF(e.toString(), e.toString(), 500))
   }
 }
 
-const postHandlerGenericEntity = async function (req, res, classEntity, repository: GenericeService<any>) {
+const getByIdHandlerGenericEntity = async function (req, res, classEntity, service: GenericeService<any>) {
+  try {
+    if (!("id" in req.params))
+      throw new ErrorVDF(Msg.ID_MANDATORY, Msg.ID_MANDATORY, 400)
+    const obj = await service.findById(req.params.id)
+    if (obj == null)
+      throw new ErrorVDF(Msg.REGISTER_NOT_FOUND, Msg.REGISTER_NOT_FOUND, 400)
+    res.locals.responseData = obj
+    res.send(obj)
+  } catch (e) {
+    await responseError(res, new ErrorVDF(e.toString(), e.toString(), 500))
+  }
+}
+
+const deleteHandlerGenericEntity = async function (req, res, classEntity, service: GenericeService<any>) {
+  try {
+    if (!("id" in req.params))
+      throw new ErrorVDF(Msg.ID_MANDATORY, Msg.ID_MANDATORY, 400)
+    const obj = await service.delete(req.params.id)
+    if (obj == null)
+      throw new ErrorVDF(Msg.REGISTER_NOT_FOUND, Msg.REGISTER_NOT_FOUND, 400)
+    res.locals.responseData = obj
+    res.status(204).send(obj)
+  } catch (e) {
+    await responseError(res, new ErrorVDF(e.toString(), e.toString(), 500))
+  }
+}
+
+
+
+const postHandlerGenericEntity = async function (req, res, classEntity, service: GenericeService<any>) {
   let newObj = new classEntity()
-  console.log(req.body)
   Object.assign(newObj, req.body)
   try {
-    await repository.save(newObj)
+    await service.save(newObj)
     res.send(newObj);
   } catch (e) {
     await responseError(res, e)
@@ -56,4 +88,4 @@ const updateHandlerGenericEntity = async function (req, res, classEntity, reposi
 
 
 
-export { getHandlerGenericEntity, postHandlerGenericEntity, updateHandlerGenericEntity, responseError }
+export { deleteHandlerGenericEntity, getHandlerGenericEntity, getByIdHandlerGenericEntity, postHandlerGenericEntity, updateHandlerGenericEntity, responseError }

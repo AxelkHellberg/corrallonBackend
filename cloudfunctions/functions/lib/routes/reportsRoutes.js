@@ -20,7 +20,7 @@ const jwt = require("../components/jwt");
 const service = new ReportService_1.ReportService();
 const currentClass = Report_1.Report;
 /******************************************** */
-router.post('/execute', (req, res) => __awaiter(this, void 0, void 0, function* () {
+router.post('/execute', (req, res, next) => __awaiter(this, void 0, void 0, function* () {
     try {
         if (!("id" in req.body))
             throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.ID_MANDATORY, msg_1.Msg.ID_MANDATORY, 500);
@@ -28,11 +28,14 @@ router.post('/execute', (req, res) => __awaiter(this, void 0, void 0, function* 
         if (!("filters" in req.body))
             req.body.filters = {};
         req.body.filters["myUserId"] = res.locals.jwtPayload.u;
-        res.send(yield service.execute(report, req.body.filters));
+        let responseData = yield service.execute(report, req.body.filters);
+        res.locals.responseData = responseData;
+        res.send(responseData);
     }
     catch (e) {
-        apiHandler.responseError(res, e);
+        yield apiHandler.responseError(res, e);
     }
+    next();
 }));
 module.exports = router;
 //# sourceMappingURL=reportsRoutes.js.map

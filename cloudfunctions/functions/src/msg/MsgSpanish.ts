@@ -4,6 +4,7 @@ export class MsgSpanish {
     /**Entities error */
     /**User name */
     public static ID_MANDATORY: string = "El campo id es obligatorio"
+    public static REGISTER_NOT_FOUND: string = "El registro solicitado no existe"
 
     public static PASSWORD_MANDATORY: string = "El campo password es obligatorio"
     public static USERNAME_MANDATORY: string = "El campo username es obligatorio"

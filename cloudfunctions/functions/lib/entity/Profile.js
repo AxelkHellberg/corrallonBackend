@@ -17,6 +17,7 @@ const Report_1 = require("./Report");
 let encriptutils = require('../components/encryputils');
 let Profile = class Profile extends GenericEntity_1.GenericEntity {
 };
+Profile.ID_ADMIN = 1;
 __decorate([
     typeorm_1.PrimaryGeneratedColumn(),
     __metadata("design:type", Number)

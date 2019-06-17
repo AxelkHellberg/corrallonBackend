@@ -33,6 +33,4 @@ export class ReportService extends GenericeService<Report> {
         let objs = await builder.getMany()
         return objs
     }
-
-
 }

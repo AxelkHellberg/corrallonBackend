@@ -54,6 +54,15 @@ export abstract class GenericRepository<E>{
     public async save(newObj: E): Promise<E> {
         return await getConnectionDatabase().manager.save(newObj)
     }
+
+    public async delete(id: number): Promise<any> {
+        return await this.getRepository()
+            .createQueryBuilder()
+            .delete()
+            .from(this.getClass())
+            .where("id = :id", { id })
+            .execute();
+    }
     public abstract getRepository(): Repository<E>
     public abstract getClass()
 
