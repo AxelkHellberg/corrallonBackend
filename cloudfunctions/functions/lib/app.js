@@ -2,6 +2,7 @@
 const typeorm_1 = require("typeorm");
 const checkJwt_1 = require("./middlewares/checkJwt");
 const validatePermissions_1 = require("./middlewares/validatePermissions");
+const validatePermissionsReports_1 = require("./middlewares/validatePermissionsReports");
 const apiHandler = require("./components/apiHandler");
 var createError = require('http-errors');
 var express = require('express');
@@ -11,6 +12,7 @@ var logger = require('morgan');
 const functions = require('firebase-functions');
 const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
+const ENTITIES_BASE_URL = "entities";
 var appOnPremise = express();
 // view engine setup
 appOnPremise.use(logger('dev'));
@@ -23,7 +25,9 @@ appOnPremise.use(bodyParser.json());
 appOnPremise.use(express.static(path.join(__dirname, 'public')));
 var users = require('./routes/usersRoutes');
 var auth = require('./routes/authRoutes');
-appOnPremise.use('/entities', [checkJwt_1.checkJwt, validatePermissions_1.validatePermissions], users);
+var reports = require('./routes/reportsRoutes');
+appOnPremise.use('/' + ENTITIES_BASE_URL + '/users', [checkJwt_1.checkJwt, validatePermissions_1.validatePermissions], users);
+appOnPremise.use('/reports', [checkJwt_1.checkJwt, validatePermissionsReports_1.validatePermissionsReports], reports);
 appOnPremise.use('/auth', auth);
 // catch 404 and forward to error handler
 appOnPremise.use(function (req, res, next) {

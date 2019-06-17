@@ -10,25 +10,24 @@ const apiHandler = require("../components/apiHandler")
 const jwt = require("../components/jwt")
 
 /******************************************** */
-const SERVICE_NAME = "users"
-const repository = new UserService()
+const service = new UserService()
 const currentClass = User
 /******************************************** */
 
-router.post('/' + SERVICE_NAME, async (req, res) => {
-  apiHandler.postHandlerGenericEntity(req, res, currentClass, repository)
+router.post('/', async (req, res) => {
+  apiHandler.postHandlerGenericEntity(req, res, currentClass, service)
 });
 
-router.get('/' + SERVICE_NAME, async (req, res) => {
-  apiHandler.getHandlerGenericEntity(req, res, currentClass, repository)
+router.get('/', async (req, res) => {
+  apiHandler.getHandlerGenericEntity(req, res, currentClass, service)
 });
 
-router.get('/' + SERVICE_NAME + "/:id", async (req, res) => {
-  apiHandler.getHandlerGenericEntity(req, res, currentClass, repository)
+router.get('/:id', async (req, res) => {
+  apiHandler.getHandlerGenericEntity(req, res, currentClass, service)
 });
 
-router.patch('/' + SERVICE_NAME + "/:id", async (req, res) => {
-  apiHandler.updateHandlerGenericEntity(req, res, currentClass, repository)
+router.patch('/:id', async (req, res) => {
+  apiHandler.updateHandlerGenericEntity(req, res, currentClass, service)
 });
 
 

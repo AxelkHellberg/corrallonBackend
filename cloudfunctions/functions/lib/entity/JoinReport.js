@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const GenericEntity_1 = require("./GenericEntity");
 const Report_1 = require("./Report");
+const JoinType_1 = require("./JoinType");
 let JoinReport = class JoinReport extends GenericEntity_1.GenericEntity {
 };
 __decorate([
@@ -21,7 +22,11 @@ __decorate([
 __decorate([
     typeorm_1.Column(),
     __metadata("design:type", String)
-], JoinReport.prototype, "join", void 0);
+], JoinReport.prototype, "joinColumn", void 0);
+__decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", String)
+], JoinReport.prototype, "joinAlias", void 0);
 __decorate([
     typeorm_1.Column(),
     __metadata("design:type", Number)
@@ -29,8 +34,19 @@ __decorate([
 __decorate([
     typeorm_1.ManyToOne(type => Report_1.Report, report => report.joinsReport),
     typeorm_1.JoinColumn({ name: "reportId" }),
+    typeorm_1.Index(),
     __metadata("design:type", Report_1.Report)
 ], JoinReport.prototype, "report", void 0);
+__decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", Number)
+], JoinReport.prototype, "joinTypeId", void 0);
+__decorate([
+    typeorm_1.ManyToOne(type => JoinType_1.JoinType, joinType => joinType.joinReports),
+    typeorm_1.JoinColumn({ name: "joinTypeId" }),
+    typeorm_1.Index(),
+    __metadata("design:type", JoinType_1.JoinType)
+], JoinReport.prototype, "joinType", void 0);
 JoinReport = __decorate([
     typeorm_1.Entity()
 ], JoinReport);

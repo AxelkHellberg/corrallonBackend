@@ -3,12 +3,13 @@ import { User } from '../entity/User';
 import { GenericRepository } from './GenericRepository';
 import { getRepository, Repository } from 'typeorm';
 import { Profile } from '../entity/Profile';
+import { Report } from '../entity/Report';
 /************CONFIG CLASS**************** */
-const myClass = Profile
+const myClass = Report
 /**************************************** */
+export class ReportRepository extends GenericRepository<Report>{
 
-export class ProlfileRepository extends GenericRepository<Profile>{
-    public getRepository(): Repository<Profile> {
+    public getRepository(): Repository<Report> {
         return getRepository(myClass);
     }
 

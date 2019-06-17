@@ -20,8 +20,22 @@ export class UserService extends GenericeService<User> {
         return await this.genericRepository.login(username, password);
     }
 
+    public async find(params: any = {}): Promise<User[]> {
+        let users: User[] = await super.find(params)
+        console.log(users)
+        for (let i: number = 0; i < users.length; i++)
+            delete users[i]["password"]
+        return users
+    }
 
-    public async hasPermissions(idUser: number, path: string, idHttp: number): Promise<boolean> {
+    public async findById(id: number): Promise<User> {
+        let user: User = await super.findById(id)
+        delete user["password"]
+        return user
+    }
+
+
+    public async hasPermissionsEntity(idUser: number, path: string, idHttp: number): Promise<boolean> {
         let u: User = await this.genericRepository.getRepository().createQueryBuilder("user")
             .leftJoinAndSelect("user.profile", "profile")
             .leftJoinAndSelect("profile.permissionsWS", "permissionsWS")
@@ -29,6 +43,16 @@ export class UserService extends GenericeService<User> {
             .where("user.id = :idUser and  :path REGEXP  permissionsWS.servicePath and httpMethod.id = :idHttp", { idUser, path, idHttp })
             //            .where("user.id = :id and  :path LIKE '/users/__%' ", { id: 2, path: "/users/" })
             .getOne();
+        return u != null
+    }
+
+    public async hasPermissionsReport(idUser: number, reportId: number): Promise<boolean> {
+        let u: User = await this.genericRepository.getRepository().createQueryBuilder("user")
+            .leftJoinAndSelect("user.profile", "profile")
+            .leftJoinAndSelect("profile.reportAvailable", "report")
+            .where("user.id = :idUser and  report.id=:reportId", { idUser, reportId })
+            .getOne();
+        console.log(u)
         return u != null
     }
 

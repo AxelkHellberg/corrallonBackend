@@ -12,7 +12,7 @@ export const validatePermissions = async (req: Request, res: Response, next: Nex
   console.log(newUrl)
   console.log(newUrl, res.locals.jwtPayload.u, mapHTTPMethodDB[req.method])
   const userService = new UserService()
-  let hasPermission: boolean = await userService.hasPermissions(res.locals.jwtPayload.u, newUrl, mapHTTPMethodDB[req.method])
+  let hasPermission: boolean = await userService.hasPermissionsEntity(res.locals.jwtPayload.u, newUrl, mapHTTPMethodDB[req.method])
   if (!hasPermission) {
     apiHandler.responseError(res, new ErrorVDF(Msg.UNAHUTORIZED, Msg.UNAHUTORIZED, 401))
     return

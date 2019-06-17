@@ -11,36 +11,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const GenericEntity_1 = require("./GenericEntity");
-const User_1 = require("./User");
-const PermissionWS_1 = require("./PermissionWS");
-const Report_1 = require("./Report");
-let encriptutils = require('../components/encryputils');
-let Profile = class Profile extends GenericEntity_1.GenericEntity {
+const JoinReport_1 = require("./JoinReport");
+let JoinType = class JoinType extends GenericEntity_1.GenericEntity {
 };
+JoinType.LEFT_JOIN_ID = 1;
+JoinType.INNER_JOIN_ID = 2;
 __decorate([
     typeorm_1.PrimaryGeneratedColumn(),
     __metadata("design:type", Number)
-], Profile.prototype, "id", void 0);
+], JoinType.prototype, "id", void 0);
 __decorate([
     typeorm_1.Column(),
     __metadata("design:type", String)
-], Profile.prototype, "name", void 0);
+], JoinType.prototype, "description", void 0);
 __decorate([
-    typeorm_1.ManyToMany(type => PermissionWS_1.PermissionWS, permissionsws => permissionsws.profiles),
-    typeorm_1.JoinTable(),
+    typeorm_1.OneToMany(type => JoinReport_1.JoinReport, joinReport => joinReport.joinType),
     __metadata("design:type", Array)
-], Profile.prototype, "permissionsWS", void 0);
-__decorate([
-    typeorm_1.ManyToMany(type => Report_1.Report, report => report.allowedProfiles),
-    typeorm_1.JoinTable({ name: "permissionReport" }),
-    __metadata("design:type", Array)
-], Profile.prototype, "reportAvailable", void 0);
-__decorate([
-    typeorm_1.OneToMany(type => User_1.User, user => user.profile),
-    __metadata("design:type", Array)
-], Profile.prototype, "users", void 0);
-Profile = __decorate([
+], JoinType.prototype, "joinReports", void 0);
+JoinType = __decorate([
     typeorm_1.Entity()
-], Profile);
-exports.Profile = Profile;
-//# sourceMappingURL=Profile.js.map
+], JoinType);
+exports.JoinType = JoinType;
+//# sourceMappingURL=JoinType.js.map

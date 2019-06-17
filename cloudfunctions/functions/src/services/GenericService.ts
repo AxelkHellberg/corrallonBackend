@@ -14,10 +14,14 @@ export abstract class GenericeService<E> {
         this.genericRepository = repository
     }
 
-    public find = async function (params: any = {}): Promise<E[]> {
-        const objs = await this.genericRepository.find(params)
-        return objs
+    public async find(params: any = {}): Promise<E[]> {
+        return await this.genericRepository.find(params)
     }
+
+    public async findById(id: number): Promise<E> {
+        return await this.genericRepository.findById(id)
+    }
+
 
     public async updateById(data, id) {
         return await this.genericRepository.updateById(data, id)

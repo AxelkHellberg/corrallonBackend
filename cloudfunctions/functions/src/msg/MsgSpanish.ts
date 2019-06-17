@@ -3,6 +3,8 @@ export class MsgSpanish {
     public static AUTHENTICATION_METHOD_NOT_ALLOW: string = "Sólo se permite método de autenticación Bearer"
     /**Entities error */
     /**User name */
+    public static ID_MANDATORY: string = "El campo id es obligatorio"
+
     public static PASSWORD_MANDATORY: string = "El campo password es obligatorio"
     public static USERNAME_MANDATORY: string = "El campo username es obligatorio"
     public static NAME_MANDATORY: string = "El campo nombre es obligatorio"

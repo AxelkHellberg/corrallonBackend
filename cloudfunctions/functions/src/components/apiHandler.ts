@@ -7,7 +7,7 @@ import { FindResponse } from './FindResponse';
 
 const responseError = async function (res, e: Error) {
   if (e instanceof ErrorVDF)
-    res.status(e.responseCode).send({ "responseCode": e.responseCode == 0 ? 500 : e.responseCode, "internalMessage": e.internalMessage, "userMessage": e.userMessage })
+    res.status(e.responseCode < 100 ? 500 : e.responseCode).send({ "responseCode": e.responseCode < 100 ? 500 : e.responseCode, "internalMessage": e.internalMessage, "userMessage": e.userMessage })
   else
     res.status(500).send({ "responseCode": 500, "internalMessage": e.toString(), "userMessage": e.toString() })
 }

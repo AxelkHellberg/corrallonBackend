@@ -1,18 +1,18 @@
 import { getConnectionDatabase } from "../components/dbHandler";
 import { Repository } from "typeorm";
+import { DBConection } from "../config/DBConection";
 
 
 export abstract class GenericRepository<E>{
 
 
     public find = async function (params: any = {}): Promise<E[]> {
-        const ENTITY_REF_NAME = "e"
-        let builder = await this.getRepository().createQueryBuilder(ENTITY_REF_NAME)
+        let builder = await this.getRepository().createQueryBuilder(DBConection.ENTITY_REF_NAME)
         if ("select" in params) {
             let newSelect = []
             //*1 To use the method "select" correctly, we must to add the ENTITY_REF_NAME to each column. In others the cases, typeorm will return an empty array
             for (let i: number = 0; i < params.select.length; i++)
-                newSelect[i] = ENTITY_REF_NAME + "." + params.select[i]
+                newSelect[i] = DBConection.ENTITY_REF_NAME + "." + params.select[i]
             builder = await builder.select(newSelect)
         }
         if ("q" in params)
@@ -37,6 +37,10 @@ export abstract class GenericRepository<E>{
                 newObjs[i][params.select[j]] = objs[i][params.select[j]]
         }
         return newObjs
+    }
+
+    public async findById(id: number): Promise<E> {
+        return await this.getRepository().createQueryBuilder(DBConection.ENTITY_REF_NAME).where("id=" + id).getOne()
     }
 
     public async updateById(data, id): Promise<any> {

@@ -6,6 +6,7 @@ MsgSpanish.NOT_AUTHENTICATION_HEADER = "No se envió token de autenticación";
 MsgSpanish.AUTHENTICATION_METHOD_NOT_ALLOW = "Sólo se permite método de autenticación Bearer";
 /**Entities error */
 /**User name */
+MsgSpanish.ID_MANDATORY = "El campo id es obligatorio";
 MsgSpanish.PASSWORD_MANDATORY = "El campo password es obligatorio";
 MsgSpanish.USERNAME_MANDATORY = "El campo username es obligatorio";
 MsgSpanish.NAME_MANDATORY = "El campo nombre es obligatorio";

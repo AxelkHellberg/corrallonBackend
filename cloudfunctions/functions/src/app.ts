@@ -1,6 +1,8 @@
 import { createConnection } from "typeorm";
 import { checkJwt } from "./middlewares/checkJwt";
 import { validatePermissions } from "./middlewares/validatePermissions";
+import { validatePermissionsReports } from "./middlewares/validatePermissionsReports";
+
 const apiHandler = require("./components/apiHandler")
 
 var createError = require('http-errors');
@@ -11,7 +13,7 @@ var logger = require('morgan');
 const functions = require('firebase-functions')
 const bodyParser = require('body-parser')
 const exphbs = require('express-handlebars')
-
+const ENTITIES_BASE_URL = "entities"
 
 var appOnPremise = express();
 
@@ -29,8 +31,10 @@ appOnPremise.use(express.static(path.join(__dirname, 'public')));
 
 var users = require('./routes/usersRoutes');
 var auth = require('./routes/authRoutes');
+var reports = require('./routes/reportsRoutes');
 
-appOnPremise.use('/entities', [checkJwt, validatePermissions], users);
+appOnPremise.use('/' + ENTITIES_BASE_URL + '/users', [checkJwt, validatePermissions], users);
+appOnPremise.use('/reports', [checkJwt, validatePermissionsReports], reports);
 appOnPremise.use('/auth', auth);
 
 // catch 404 and forward to error handler

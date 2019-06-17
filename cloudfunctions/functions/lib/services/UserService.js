@@ -21,7 +21,29 @@ class UserService extends GenericService_1.GenericeService {
             });
         };
     }
-    hasPermissions(idUser, path, idHttp) {
+    find(params = {}) {
+        const _super = Object.create(null, {
+            find: { get: () => super.find }
+        });
+        return __awaiter(this, void 0, void 0, function* () {
+            let users = yield _super.find.call(this, params);
+            console.log(users);
+            for (let i = 0; i < users.length; i++)
+                delete users[i]["password"];
+            return users;
+        });
+    }
+    findById(id) {
+        const _super = Object.create(null, {
+            findById: { get: () => super.findById }
+        });
+        return __awaiter(this, void 0, void 0, function* () {
+            let user = yield _super.findById.call(this, id);
+            delete user["password"];
+            return user;
+        });
+    }
+    hasPermissionsEntity(idUser, path, idHttp) {
         return __awaiter(this, void 0, void 0, function* () {
             let u = yield this.genericRepository.getRepository().createQueryBuilder("user")
                 .leftJoinAndSelect("user.profile", "profile")
@@ -30,6 +52,17 @@ class UserService extends GenericService_1.GenericeService {
                 .where("user.id = :idUser and  :path REGEXP  permissionsWS.servicePath and httpMethod.id = :idHttp", { idUser, path, idHttp })
                 //            .where("user.id = :id and  :path LIKE '/users/__%' ", { id: 2, path: "/users/" })
                 .getOne();
+            return u != null;
+        });
+    }
+    hasPermissionsReport(idUser, reportId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let u = yield this.genericRepository.getRepository().createQueryBuilder("user")
+                .leftJoinAndSelect("user.profile", "profile")
+                .leftJoinAndSelect("profile.reportAvailable", "report")
+                .where("user.id = :idUser and  report.id=:reportId", { idUser, reportId })
+                .getOne();
+            console.log(u);
             return u != null;
         });
     }

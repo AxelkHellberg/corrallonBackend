@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, AfterLoad, BeforeUpdate, BeforeInsert, ManyToOne, Index, JoinColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, AfterLoad, BeforeUpdate, BeforeInsert, ManyToOne, Index, JoinColumn, ManyToMany } from "typeorm";
 import { GenericEntity } from "./GenericEntity";
 import { ErrorVDF } from "../components/ErrorVDF";
 import { Msg } from "../msg/msg";
@@ -22,8 +22,14 @@ export class Report extends GenericEntity {
     public where: string;
 
     @Column()
+    public entityAlias: string;
+
+    @Column()
     public select: string;
 
     @OneToMany(type => JoinReport, joinReport => joinReport.report)
     public joinsReport: JoinReport[];
+
+    @ManyToMany(type => Profile, profile => profile.reportAvailable)
+    allowedProfiles: Profile[];
 }

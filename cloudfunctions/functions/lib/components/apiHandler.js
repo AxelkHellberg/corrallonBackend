@@ -14,7 +14,7 @@ const FindResponse_1 = require("./FindResponse");
 const responseError = function (res, e) {
     return __awaiter(this, void 0, void 0, function* () {
         if (e instanceof ErrorVDF_1.ErrorVDF)
-            res.status(e.responseCode).send({ "responseCode": e.responseCode == 0 ? 500 : e.responseCode, "internalMessage": e.internalMessage, "userMessage": e.userMessage });
+            res.status(e.responseCode < 100 ? 500 : e.responseCode).send({ "responseCode": e.responseCode < 100 ? 500 : e.responseCode, "internalMessage": e.internalMessage, "userMessage": e.userMessage });
         else
             res.status(500).send({ "responseCode": 500, "internalMessage": e.toString(), "userMessage": e.toString() });
     });

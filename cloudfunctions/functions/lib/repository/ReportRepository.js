@@ -2,11 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const GenericRepository_1 = require("./GenericRepository");
 const typeorm_1 = require("typeorm");
-const Profile_1 = require("../entity/Profile");
+const Report_1 = require("../entity/Report");
 /************CONFIG CLASS**************** */
-const myClass = Profile_1.Profile;
+const myClass = Report_1.Report;
 /**************************************** */
-class ProlfileRepository extends GenericRepository_1.GenericRepository {
+class ReportRepository extends GenericRepository_1.GenericRepository {
     getRepository() {
         return typeorm_1.getRepository(myClass);
     }
@@ -14,5 +14,5 @@ class ProlfileRepository extends GenericRepository_1.GenericRepository {
         return myClass;
     }
 }
-exports.ProlfileRepository = ProlfileRepository;
-//# sourceMappingURL=PerfilesRepository.js.map
+exports.ReportRepository = ReportRepository;
+//# sourceMappingURL=ReportRepository.js.map

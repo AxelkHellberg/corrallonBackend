@@ -11,13 +11,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 let encriptutils = require('../components/encryputils');
 class GenericeService {
     constructor(repository) {
-        this.find = function (params = {}) {
-            return __awaiter(this, void 0, void 0, function* () {
-                const objs = yield this.genericRepository.find(params);
-                return objs;
-            });
-        };
         this.genericRepository = repository;
+    }
+    find(params = {}) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.genericRepository.find(params);
+        });
+    }
+    findById(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.genericRepository.findById(id);
+        });
     }
     updateById(data, id) {
         return __awaiter(this, void 0, void 0, function* () {

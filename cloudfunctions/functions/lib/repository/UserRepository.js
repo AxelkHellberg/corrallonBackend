@@ -14,7 +14,9 @@ const typeorm_1 = require("typeorm");
 const ErrorVDF_1 = require("../components/ErrorVDF");
 const msg_1 = require("../msg/msg");
 let encriptutils = require('../components/encryputils');
+/************CONFIG CLASS**************** */
 const myClass = User_1.User;
+/**************************************** */
 class UserRepository extends GenericRepository_1.GenericRepository {
     constructor() {
         super(...arguments);

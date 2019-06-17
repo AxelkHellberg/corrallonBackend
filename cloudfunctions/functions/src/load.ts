@@ -5,19 +5,49 @@ import { Profile } from "./entity/Profile";
 import { PermissionWS } from "./entity/PermissionWS";
 import { HTTPMethod } from "./entity/HTTPMethod";
 import { Report } from "./entity/Report";
+import { DBConection } from "./config/DBConection";
+import { JoinReport } from "./entity/JoinReport";
+import { jSXAttribute } from "babel-types";
+import { JoinType } from "./entity/JoinType";
 
 createConnection().then(async connection => {
 
-  /*  let r = new Report()
-    r.from = "User"
-    r.select = "username"
-    r.where = "id=1"
-    r.description = "Test report"
-    await connection.manager.save(r)*/
-  let obj = await connection.getRepository("Report").find()
-  console.log(obj[0]["from"])
-  console.log(await connection.getRepository(obj[0]["from"]).find())
-  /*const get = new HTTPMethod()
+  let jt = new JoinType()
+  jt.id = 1
+  jt.description = "left"
+  await connection.manager.save(jt)
+  jt.id = 2
+  jt.description = "inner"
+  await connection.manager.save(jt)
+  let r = new Report()
+  r.id = 1
+  r.from = "User"
+  r.entityAlias = "user"
+  r.select = "username"
+  r.where = "user.id=:myUserId"
+  r.description = "Test report"
+  await connection.manager.save(r)
+  r.id = 2
+  await connection.manager.save(r)
+
+  let j: JoinReport = new JoinReport()
+  j.id = 1
+  j.joinColumn = "user.profile"
+  j.joinAlias = "profile"
+  j.report = r
+  j.joinTypeId = 1
+  await connection.manager.save(j)
+  j.id = 2
+  j.joinColumn = "profile.permissionsWS"
+  j.joinAlias = "permissionsWS"
+  j.joinTypeId = 1
+  await connection.manager.save(j)
+  j.id = 3
+  j.joinColumn = "permissionsWS.httpMethod"
+  j.joinAlias = "httpMethod"
+  j.joinTypeId = 1
+  await connection.manager.save(j)
+  const get = new HTTPMethod()
   const post = new HTTPMethod()
   const patch = new HTTPMethod()
   const deleteM = new HTTPMethod()
@@ -71,6 +101,7 @@ createConnection().then(async connection => {
   userProfile.id = 2
   userProfile.name = "userProfile"
   userProfile.permissionsWS = [permisoToProfile1, permisoToProfile2]
+  userProfile.reportAvailable = [r]
   await connection.manager.save(userProfile);
   const adminUser = new User();
   adminUser.id = 1
@@ -89,7 +120,8 @@ createConnection().then(async connection => {
   standardUser.dni = "prueba";
   standardUser.lastName = "segura";
   standardUser.profile = userProfile;
-  await connection.manager.save(standardUser);*/
+
+  await connection.manager.save(standardUser);
 
   /*let perfil = new Profile()
   perfil.id = 1

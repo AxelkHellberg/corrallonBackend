@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const User_1 = require("../entity/User");
-const UserService_1 = require("../services/UserService");
+const UserRepository_1 = require("../repository/UserRepository");
 function existeUsername(username) {
     return __awaiter(this, void 0, void 0, function* () {
         const userRepository = typeorm_1.getRepository(User_1.User);
@@ -18,10 +18,17 @@ function existeUsername(username) {
         return list == null;
     });
 }
-typeorm_1.createConnection().then(() => {
-    let u = new UserService_1.UserService();
-    u.find({ "order": { "id": "DESC" }, "select": ["id", "username"], "limit": 1, "offset": 1 }).then((a) => console.log("%j", a)).catch(e => { console.log(e); });
-});
+typeorm_1.createConnection().then(() => __awaiter(this, void 0, void 0, function* () {
+    let ur = new UserRepository_1.UserRepository();
+    let userId = 2;
+    let reportId = 1;
+    let u = yield ur.getRepository().createQueryBuilder("user")
+        .leftJoinAndSelect("user.profile", "profile")
+        .leftJoinAndSelect("profile.reportAvailable", "report")
+        .where("user.id = :userId and  report.id=:reportId", { userId, reportId })
+        .getOne();
+    return u != null;
+}));
 /*createConnection().then(() => {
     let u: UserService = new UserService()
     u.hasPermissionsTest(2, "/entities/users/", 1).then(

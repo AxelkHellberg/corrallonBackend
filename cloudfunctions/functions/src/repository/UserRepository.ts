@@ -5,9 +5,9 @@ import { getRepository, Repository, Not } from 'typeorm';
 import { ErrorVDF } from '../components/ErrorVDF';
 import { Msg } from '../msg/msg';
 let encriptutils = require('../components/encryputils')
-
+/************CONFIG CLASS**************** */
 const myClass = User
-
+/**************************************** */
 export class UserRepository extends GenericRepository<User>{
 
     existeUsernameToInsert = async function (username): Promise<boolean> {
