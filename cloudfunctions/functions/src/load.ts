@@ -7,7 +7,6 @@ import { HTTPMethod } from "./entity/HTTPMethod";
 import { Report } from "./entity/Report";
 import { DBConection } from "./config/DBConection";
 import { JoinReport } from "./entity/JoinReport";
-import { jSXAttribute } from "babel-types";
 import { JoinType } from "./entity/JoinType";
 
 createConnection().then(async connection => {
@@ -111,6 +110,7 @@ createConnection().then(async connection => {
   adminUser.dni = "123456";
   adminUser.lastName = "super";
   adminUser.profile = adminProfil;
+  adminUser.fileNumber = "123"
   await connection.manager.save(adminUser);
   const standardUser = new User();
   standardUser.id = 2
@@ -119,6 +119,7 @@ createConnection().then(async connection => {
   standardUser.username = "lsegura";
   standardUser.dni = "prueba";
   standardUser.lastName = "segura";
+  standardUser.fileNumber = "123"
   standardUser.profile = userProfile;
 
   await connection.manager.save(standardUser);

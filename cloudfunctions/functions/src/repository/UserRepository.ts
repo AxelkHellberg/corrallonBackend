@@ -37,6 +37,7 @@ export class UserRepository extends GenericRepository<User>{
     public async save(newObj: User): Promise<User> {
         if (await this.existeUsernameToInsert(newObj.username))
             throw new ErrorVDF(Msg.USERNAME_DUPLICATED, Msg.USERNAME_DUPLICATED, 400)
+        newObj.profileId = 2
         return super.save(newObj)
     }
 

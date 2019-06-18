@@ -8,19 +8,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const typeorm_1 = require("typeorm");
-const User_1 = require("../entity/User");
-function existeUsername(username) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const userRepository = typeorm_1.getRepository(User_1.User);
-        const list = yield userRepository.findOne({ where: { "username": username } });
-        return list == null;
-    });
-}
-/*createConnection().then(() => {
-    let u: UserService = new UserService()
-    u.hasPermissionsTest(2, "/entities/users/", 1).then(
-        (a) => console.log("%j", a)
-    ).catch(e => { console.log(e) })
-})*/ 
-//# sourceMappingURL=testDb.js.map
+const publicService_1 = require("../components/publicService");
+const utils_1 = require("../components/utils");
+exports.checkJwt = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+    let publicService = publicService_1.getPublicServices();
+    let newUrl = utils_1.normalizeUrl(req.originalUrl);
+    for (let i = 0; i < publicService.length; i++)
+        if (publicService[i] == newUrl) {
+            res.locals.publicService = true;
+        }
+});
+//# sourceMappingURL=publicService.js.map

@@ -17,8 +17,8 @@ export class User extends GenericEntity {
     @Column()
     lastName: string;
 
-    @Column()
-    fileNumber: string; //Legajo
+    @Column({ nullable: true })
+    fileNumber: string = null; //Legajo
 
     @Column()
     dni: string;

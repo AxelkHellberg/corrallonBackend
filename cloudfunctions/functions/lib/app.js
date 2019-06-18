@@ -1,9 +1,12 @@
 "use strict";
 const typeorm_1 = require("typeorm");
 const checkJwt_1 = require("./middlewares/checkJwt");
-const validatePermissions_1 = require("./middlewares/validatePermissions");
+const validatePermissionsEntity_1 = require("./middlewares/validatePermissionsEntity");
 const validatePermissionsReports_1 = require("./middlewares/validatePermissionsReports");
 const test_1 = require("./middlewares/test");
+const authorizationDecision_1 = require("./middlewares/authorizationDecision");
+const validatePermissionUser_1 = require("./middlewares/validatePermissionUser");
+const checkPublicService_1 = require("./middlewares/checkPublicService");
 const apiHandler = require("./components/apiHandler");
 var createError = require('http-errors');
 var express = require('express');
@@ -27,8 +30,8 @@ appOnPremise.use(express.static(path.join(__dirname, 'public')));
 var users = require('./routes/usersRoutes');
 var auth = require('./routes/authRoutes');
 var reports = require('./routes/reportsRoutes');
-appOnPremise.use('/' + ENTITIES_BASE_URL + '/users', [checkJwt_1.checkJwt, validatePermissions_1.validatePermissions], users, test_1.test);
-appOnPremise.use('/reports', [checkJwt_1.checkJwt, validatePermissionsReports_1.validatePermissionsReports], reports);
+appOnPremise.use('/' + ENTITIES_BASE_URL + '/users', [checkPublicService_1.checkPublicService, checkJwt_1.checkJwt, validatePermissionsEntity_1.validatePermissionsEntity, validatePermissionUser_1.validatePermissionsUser, authorizationDecision_1.authorizationDecision], users, [test_1.test]);
+appOnPremise.use('/reports', [checkJwt_1.checkJwt, validatePermissionsReports_1.validatePermissionsReports, authorizationDecision_1.authorizationDecision], reports);
 appOnPremise.use('/auth', auth);
 // catch 404 and forward to error handler
 appOnPremise.use(function (req, res, next) {

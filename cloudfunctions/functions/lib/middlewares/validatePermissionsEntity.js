@@ -8,18 +8,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const ErrorVDF_1 = require("../components/ErrorVDF");
-const msg_1 = require("../msg/msg");
-const UserService_1 = require("../services/UserService");
-const apiHandler = require("../components/apiHandler");
-exports.validatePermissionsReports = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
-    if (!("id" in req.body)) {
-        apiHandler.responseError(res, new ErrorVDF_1.ErrorVDF(msg_1.Msg.ID_MANDATORY, msg_1.Msg.ID_MANDATORY, 500));
+const utils_1 = require("../components/utils");
+const validatePermision_1 = require("../components/validatePermision");
+const mapHTTPMethodDB = require("../config/mapHTTPMethodDB");
+exports.validatePermissionsEntity = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+    if (res.locals.publicService) {
+        next();
         return;
     }
-    const us = new UserService_1.UserService();
-    res.locals.hasPermission = yield us.hasPermissionsReport(res.locals.jwtPayload.u, req.body.id);
-    console.log(res.locals.hasPermission);
+    console.log("AAAAAAAAAA");
+    let newUrl = utils_1.normalizeUrl(req.originalUrl);
+    //Get the jwt token from the head
+    res.locals.hasPermission = yield validatePermision_1.hasPermissionEntity(res.locals.jwtPayload.u, res.locals.jwtPayload.p, newUrl, req.method);
     next();
 });
-//# sourceMappingURL=validatePermissionsReports.js.map
+//# sourceMappingURL=validatePermissionsEntity.js.map

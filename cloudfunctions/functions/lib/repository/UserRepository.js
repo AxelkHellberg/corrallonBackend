@@ -52,6 +52,7 @@ class UserRepository extends GenericRepository_1.GenericRepository {
         return __awaiter(this, void 0, void 0, function* () {
             if (yield this.existeUsernameToInsert(newObj.username))
                 throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.USERNAME_DUPLICATED, msg_1.Msg.USERNAME_DUPLICATED, 400);
+            newObj.profileId = 2;
             return _super.save.call(this, newObj);
         });
     }

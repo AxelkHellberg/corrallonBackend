@@ -13,6 +13,10 @@ const msg_1 = require("../msg/msg");
 const jwt = require("../components/jwt");
 const apiHandler = require("../components/apiHandler");
 exports.checkJwt = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+    if (res.locals.publicService) {
+        next();
+        return;
+    }
     //Get the jwt token from the head
     const authHead = req.headers.authorization;
     if (!authHead) {

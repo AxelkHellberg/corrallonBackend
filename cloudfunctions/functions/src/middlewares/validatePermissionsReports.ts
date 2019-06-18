@@ -5,14 +5,13 @@ import { UserService } from "../services/UserService";
 const apiHandler = require("../components/apiHandler")
 
 export const validatePermissionsReports = async (req: Request, res: Response, next: NextFunction) => {
-  if (!("id" in req.body))
-    throw new ErrorVDF(Msg.ID_MANDATORY, Msg.ID_MANDATORY, 500)
-  const us: UserService = new UserService()
-  const hasPermissions: boolean = await us.hasPermissionsReport(res.locals.jwtPayload.u, req.body.id)
-  if (!hasPermissions) {
-    apiHandler.responseError(res, new ErrorVDF(Msg.UNAHUTORIZED, Msg.UNAHUTORIZED, 401))
+  if (!("id" in req.body)) {
+    apiHandler.responseError(res, new ErrorVDF(Msg.ID_MANDATORY, Msg.ID_MANDATORY, 500))
     return
   }
+  const us: UserService = new UserService()
+  res.locals.hasPermission = await us.hasPermissionsReport(res.locals.jwtPayload.u, req.body.id)
+  console.log(res.locals.hasPermission)
   next()
 
 };

@@ -114,6 +114,7 @@ typeorm_1.createConnection().then((connection) => __awaiter(this, void 0, void 0
     adminUser.dni = "123456";
     adminUser.lastName = "super";
     adminUser.profile = adminProfil;
+    adminUser.fileNumber = "123";
     yield connection.manager.save(adminUser);
     const standardUser = new User_1.User();
     standardUser.id = 2;
@@ -122,6 +123,7 @@ typeorm_1.createConnection().then((connection) => __awaiter(this, void 0, void 0
     standardUser.username = "lsegura";
     standardUser.dni = "prueba";
     standardUser.lastName = "segura";
+    standardUser.fileNumber = "123";
     standardUser.profile = userProfile;
     yield connection.manager.save(standardUser);
     /*let perfil = new Profile()

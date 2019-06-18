@@ -1,8 +1,11 @@
 import { createConnection } from "typeorm";
 import { checkJwt } from "./middlewares/checkJwt";
-import { validatePermissions } from "./middlewares/validatePermissions";
+import { validatePermissionsEntity } from "./middlewares/validatePermissionsEntity";
 import { validatePermissionsReports } from "./middlewares/validatePermissionsReports";
 import { test } from "./middlewares/test";
+import { authorizationDecision } from "./middlewares/authorizationDecision";
+import { validatePermissionsUser } from "./middlewares/validatePermissionUser";
+import { checkPublicService } from "./middlewares/checkPublicService";
 
 const apiHandler = require("./components/apiHandler")
 
@@ -29,13 +32,12 @@ appOnPremise.use(bodyParser.json());
 
 appOnPremise.use(express.static(path.join(__dirname, 'public')));
 
-
 var users = require('./routes/usersRoutes');
 var auth = require('./routes/authRoutes');
 var reports = require('./routes/reportsRoutes');
 
-appOnPremise.use('/' + ENTITIES_BASE_URL + '/users', [checkJwt, validatePermissions], users, test);
-appOnPremise.use('/reports', [checkJwt, validatePermissionsReports], reports);
+appOnPremise.use('/' + ENTITIES_BASE_URL + '/users', [checkPublicService, checkJwt, validatePermissionsEntity, validatePermissionsUser, authorizationDecision], users, [test]);
+appOnPremise.use('/reports', [checkJwt, validatePermissionsReports, authorizationDecision], reports);
 appOnPremise.use('/auth', auth);
 
 // catch 404 and forward to error handler
@@ -60,5 +62,3 @@ try {
   cloudFunction = functions.https.onRequest(appOnPremise)
 } catch (e) { }
 export = { cloudFunction, appOnPremise }
-
-

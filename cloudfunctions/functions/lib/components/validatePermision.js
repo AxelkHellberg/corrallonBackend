@@ -8,19 +8,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const typeorm_1 = require("typeorm");
-const User_1 = require("../entity/User");
-function existeUsername(username) {
+const UserService_1 = require("../services/UserService");
+const Profile_1 = require("../entity/Profile");
+const mapHTTPMethodDB = require("../config/mapHTTPMethodDB");
+exports.hasPermissionEntity = function (userId, perfilId, url, method) {
     return __awaiter(this, void 0, void 0, function* () {
-        const userRepository = typeorm_1.getRepository(User_1.User);
-        const list = yield userRepository.findOne({ where: { "username": username } });
-        return list == null;
+        const userService = new UserService_1.UserService();
+        console.log(userId, perfilId, url, mapHTTPMethodDB[method]);
+        let hasPermission = yield userService.hasPermissionsEntity(userId, url, mapHTTPMethodDB[method]);
+        console.log(hasPermission);
+        return perfilId == Profile_1.Profile.ID_ADMIN || hasPermission;
     });
-}
-/*createConnection().then(() => {
-    let u: UserService = new UserService()
-    u.hasPermissionsTest(2, "/entities/users/", 1).then(
-        (a) => console.log("%j", a)
-    ).catch(e => { console.log(e) })
-})*/ 
-//# sourceMappingURL=testDb.js.map
+};
+//# sourceMappingURL=validatePermision.js.map
