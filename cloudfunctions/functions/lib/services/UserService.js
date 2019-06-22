@@ -11,10 +11,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const UserRepository_1 = require("../repository/UserRepository");
 const GenericService_1 = require("./GenericService");
 let encriptutils = require('../components/encryputils');
-const myClass = UserRepository_1.UserRepository;
+const myRepository = UserRepository_1.UserRepository;
 class UserService extends GenericService_1.GenericeService {
     constructor() {
-        super(new myClass());
+        super(new myRepository());
         this.login = function (username, password) {
             return __awaiter(this, void 0, void 0, function* () {
                 return yield this.genericRepository.login(username, password);

@@ -11,7 +11,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const ErrorVDF_1 = require("./ErrorVDF");
 const msg_1 = require("../msg/msg");
 const FindResponse_1 = require("./FindResponse");
-const responseError = function (res, e) {
+exports.responseError = function (res, e) {
     return __awaiter(this, void 0, void 0, function* () {
         if (e instanceof ErrorVDF_1.ErrorVDF)
             res.status(e.responseCode < 100 ? 500 : e.responseCode).send({ "responseCode": e.responseCode < 100 ? 500 : e.responseCode, "internalMessage": e.internalMessage, "userMessage": e.userMessage });
@@ -20,8 +20,7 @@ const responseError = function (res, e) {
         res.locals.hasError = true;
     });
 };
-exports.responseError = responseError;
-const getHandlerGenericEntity = function (req, res, classEntity, service) {
+exports.getHandlerGenericEntity = function (req, res, classEntity, service) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             console.log(req.query);
@@ -47,12 +46,11 @@ const getHandlerGenericEntity = function (req, res, classEntity, service) {
             res.send(findResponse);
         }
         catch (e) {
-            yield responseError(res, new ErrorVDF_1.ErrorVDF(e.toString(), e.toString(), 500));
+            yield exports.responseError(res, new ErrorVDF_1.ErrorVDF(e.toString(), e.toString(), 500));
         }
     });
 };
-exports.getHandlerGenericEntity = getHandlerGenericEntity;
-const getByIdHandlerGenericEntity = function (req, res, classEntity, service) {
+exports.getByIdHandlerGenericEntity = function (req, res, classEntity, service) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             if (!("id" in req.params))
@@ -64,12 +62,11 @@ const getByIdHandlerGenericEntity = function (req, res, classEntity, service) {
             res.send(obj);
         }
         catch (e) {
-            yield responseError(res, new ErrorVDF_1.ErrorVDF(e.toString(), e.toString(), 500));
+            yield exports.responseError(res, new ErrorVDF_1.ErrorVDF(e.toString(), e.toString(), 500));
         }
     });
 };
-exports.getByIdHandlerGenericEntity = getByIdHandlerGenericEntity;
-const deleteHandlerGenericEntity = function (req, res, classEntity, service) {
+exports.deleteHandlerGenericEntity = function (req, res, classEntity, service) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             if (!("id" in req.params))
@@ -81,12 +78,11 @@ const deleteHandlerGenericEntity = function (req, res, classEntity, service) {
             res.status(204).send(obj);
         }
         catch (e) {
-            yield responseError(res, new ErrorVDF_1.ErrorVDF(e.toString(), e.toString(), 500));
+            yield exports.responseError(res, new ErrorVDF_1.ErrorVDF(e.toString(), e.toString(), 500));
         }
     });
 };
-exports.deleteHandlerGenericEntity = deleteHandlerGenericEntity;
-const postHandlerGenericEntity = function (req, res, classEntity, service) {
+exports.postHandlerGenericEntity = function (req, res, classEntity, service) {
     return __awaiter(this, void 0, void 0, function* () {
         let newObj = new classEntity();
         Object.assign(newObj, req.body);
@@ -95,11 +91,10 @@ const postHandlerGenericEntity = function (req, res, classEntity, service) {
             res.send(newObj);
         }
         catch (e) {
-            yield responseError(res, e);
+            yield exports.responseError(res, e);
         }
     });
 };
-exports.postHandlerGenericEntity = postHandlerGenericEntity;
 /**
  * This function update generically a register of a class by its id
  *
@@ -107,13 +102,12 @@ exports.postHandlerGenericEntity = postHandlerGenericEntity;
  * @param res param that will be set with the response information
  * @param classEntity Class of the entity to update
  */
-const updateHandlerGenericEntity = function (req, res, classEntity, repository) {
+exports.updateHandlerGenericEntity = function (req, res, classEntity, repository) {
     return __awaiter(this, void 0, void 0, function* () {
         delete req.body["id"]; //The client can't change the id associated to the register
         repository.updateById(req.body, req.params.id).then((objUpdated) => { res.send(objUpdated); }).catch((e) => __awaiter(this, void 0, void 0, function* () {
-            yield responseError(res, e);
+            yield exports.responseError(res, e);
         }));
     });
 };
-exports.updateHandlerGenericEntity = updateHandlerGenericEntity;
 //# sourceMappingURL=apiHandler.js.map

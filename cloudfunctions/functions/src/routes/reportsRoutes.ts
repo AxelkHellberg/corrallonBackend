@@ -4,9 +4,9 @@ import { ReportService } from "../services/ReportService";
 import { ErrorVDF } from "../components/ErrorVDF";
 import { Msg } from "../msg/msg";
 import { Report } from "../entity/Report";
+import { responseError } from "../components/apiHandler";
 var express = require('express');
 var router = express.Router();
-const apiHandler = require("../components/apiHandler")
 const jwt = require("../components/jwt")
 
 /******************CONFIG CLASS************************** */
@@ -26,7 +26,7 @@ router.post('/execute', async (req, res, next) => {
         res.locals.responseData = responseData
         res.send(responseData)
     } catch (e) {
-        await apiHandler.responseError(res, e)
+        await responseError(res, e)
     }
     next()
 });

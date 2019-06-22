@@ -32,13 +32,21 @@ appOnPremise.use(bodyParser.json());
 
 appOnPremise.use(express.static(path.join(__dirname, 'public')));
 
-var users = require('./routes/usersRoutes');
 var auth = require('./routes/authRoutes');
 var reports = require('./routes/reportsRoutes');
+let genericEntitiesServicePath = [] //all services that need the same validation path
+genericEntitiesServicePath.push({ "route": require('./routes/usersRoutes'), "serviceName": "users" })
+genericEntitiesServicePath.push({ "route": require('./routes/plantasRoutes'), "serviceName": "plantas" })
+genericEntitiesServicePath.push({ "route": require('./routes/sistemasRoutes'), "serviceName": "sistemas" })
+genericEntitiesServicePath.push({ "route": require('./routes/tagsRoutes'), "serviceName": "tags" })
+genericEntitiesServicePath.push({ "route": require('./routes/equipamientosRoutes'), "serviceName": "equipamientos" })
 
-appOnPremise.use('/' + ENTITIES_BASE_URL + '/users', [checkPublicService, checkJwt, validatePermissionsEntity, validatePermissionsUser, authorizationDecision], users, [test]);
-appOnPremise.use('/reports', [checkJwt, validatePermissionsReports, authorizationDecision], reports);
 appOnPremise.use('/auth', auth);
+appOnPremise.use('/reports', [checkJwt, validatePermissionsReports, authorizationDecision], reports);
+for (let i: number = 0; i < genericEntitiesServicePath.length; i++) {
+  const cEntity = genericEntitiesServicePath[i]
+  appOnPremise.use('/' + ENTITIES_BASE_URL + '/' + cEntity.serviceName, [checkPublicService, checkJwt, validatePermissionsEntity, validatePermissionsUser, authorizationDecision], cEntity.route, [test]);
+}
 
 // catch 404 and forward to error handler
 appOnPremise.use(function (req, res, next) {

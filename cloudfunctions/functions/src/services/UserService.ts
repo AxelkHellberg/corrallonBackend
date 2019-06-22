@@ -8,11 +8,11 @@ import { GenericRepository } from '../repository/GenericRepository';
 import { GenericeService } from './GenericService';
 let encriptutils = require('../components/encryputils')
 
-const myClass = UserRepository
+const myRepository = UserRepository
 
 export class UserService extends GenericeService<User> {
     constructor() {
-        super(new myClass())
+        super(new myRepository())
     }
 
     login = async function (username, password): Promise<User> {

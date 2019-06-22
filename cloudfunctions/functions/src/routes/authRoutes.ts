@@ -1,11 +1,9 @@
 
-import { User } from "../entity/User";
-import { GenericRepository } from "../repository/GenericRepository";
-import { UserRepository } from "../repository/UserRepository";
 import { UserService } from "../services/UserService";
+import { responseError } from "../components/apiHandler";
+import { ErrorVDF } from "../components/ErrorVDF";
 var express = require('express');
 var router = express.Router();
-const apiHandler = require("../components/apiHandler")
 const jwt = require("../components/jwt")
 
 /******************************************** */
@@ -19,7 +17,7 @@ router.post('/login', async (req, res, next) => {
     let accessToken = jwt.createAccessToken(user)
     res.send({ accessToken })
   } catch (e) {
-    apiHandler.responseError(res, e, 500)
+    responseError(res, e)
   }
 });
 

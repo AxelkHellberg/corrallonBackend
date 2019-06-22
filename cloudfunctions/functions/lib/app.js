@@ -27,12 +27,20 @@ appOnPremise.use(express.static(path.join(__dirname, 'public')));
 appOnPremise.use(bodyParser.urlencoded({ extended: true }));
 appOnPremise.use(bodyParser.json());
 appOnPremise.use(express.static(path.join(__dirname, 'public')));
-var users = require('./routes/usersRoutes');
 var auth = require('./routes/authRoutes');
 var reports = require('./routes/reportsRoutes');
-appOnPremise.use('/' + ENTITIES_BASE_URL + '/users', [checkPublicService_1.checkPublicService, checkJwt_1.checkJwt, validatePermissionsEntity_1.validatePermissionsEntity, validatePermissionUser_1.validatePermissionsUser, authorizationDecision_1.authorizationDecision], users, [test_1.test]);
-appOnPremise.use('/reports', [checkJwt_1.checkJwt, validatePermissionsReports_1.validatePermissionsReports, authorizationDecision_1.authorizationDecision], reports);
+let genericEntitiesServicePath = []; //all services that need the same validation path
+genericEntitiesServicePath.push({ "route": require('./routes/usersRoutes'), "serviceName": "users" });
+genericEntitiesServicePath.push({ "route": require('./routes/plantasRoutes'), "serviceName": "plantas" });
+genericEntitiesServicePath.push({ "route": require('./routes/sistemasRoutes'), "serviceName": "sistemas" });
+genericEntitiesServicePath.push({ "route": require('./routes/tagsRoutes'), "serviceName": "tags" });
+genericEntitiesServicePath.push({ "route": require('./routes/equipamientosRoutes'), "serviceName": "equipamientos" });
 appOnPremise.use('/auth', auth);
+appOnPremise.use('/reports', [checkJwt_1.checkJwt, validatePermissionsReports_1.validatePermissionsReports, authorizationDecision_1.authorizationDecision], reports);
+for (let i = 0; i < genericEntitiesServicePath.length; i++) {
+    const cEntity = genericEntitiesServicePath[i];
+    appOnPremise.use('/' + ENTITIES_BASE_URL + '/' + cEntity.serviceName, [checkPublicService_1.checkPublicService, checkJwt_1.checkJwt, validatePermissionsEntity_1.validatePermissionsEntity, validatePermissionUser_1.validatePermissionsUser, authorizationDecision_1.authorizationDecision], cEntity.route, [test_1.test]);
+}
 // catch 404 and forward to error handler
 appOnPremise.use(function (req, res, next) {
     next(createError(404));

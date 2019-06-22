@@ -12,9 +12,9 @@ const ReportService_1 = require("../services/ReportService");
 const ErrorVDF_1 = require("../components/ErrorVDF");
 const msg_1 = require("../msg/msg");
 const Report_1 = require("../entity/Report");
+const apiHandler_1 = require("../components/apiHandler");
 var express = require('express');
 var router = express.Router();
-const apiHandler = require("../components/apiHandler");
 const jwt = require("../components/jwt");
 /******************CONFIG CLASS************************** */
 const service = new ReportService_1.ReportService();
@@ -33,7 +33,7 @@ router.post('/execute', (req, res, next) => __awaiter(this, void 0, void 0, func
         res.send(responseData);
     }
     catch (e) {
-        yield apiHandler.responseError(res, e);
+        yield apiHandler_1.responseError(res, e);
     }
     next();
 }));

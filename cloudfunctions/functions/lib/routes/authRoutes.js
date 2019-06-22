@@ -9,9 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const UserService_1 = require("../services/UserService");
+const apiHandler_1 = require("../components/apiHandler");
 var express = require('express');
 var router = express.Router();
-const apiHandler = require("../components/apiHandler");
 const jwt = require("../components/jwt");
 /******************************************** */
 const service = new UserService_1.UserService();
@@ -24,7 +24,7 @@ router.post('/login', (req, res, next) => __awaiter(this, void 0, void 0, functi
         res.send({ accessToken });
     }
     catch (e) {
-        apiHandler.responseError(res, e, 500);
+        apiHandler_1.responseError(res, e);
     }
 }));
 router.post('/decodeToken', (req, res, next) => __awaiter(this, void 0, void 0, function* () {

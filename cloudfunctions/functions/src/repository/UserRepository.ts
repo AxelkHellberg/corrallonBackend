@@ -8,7 +8,7 @@ let encriptutils = require('../components/encryputils')
 /************CONFIG CLASS**************** */
 const myClass = User
 /**************************************** */
-export class UserRepository extends GenericRepository<User>{
+export class UserRepository extends GenericRepository<User/**config */>{
 
     existeUsernameToInsert = async function (username): Promise<boolean> {
         const user: User = await this.getRepository().findOne({ where: { "username": username } });
@@ -34,7 +34,7 @@ export class UserRepository extends GenericRepository<User>{
         return myClass
     }
 
-    public async save(newObj: User): Promise<User> {
+    public async save(newObj: User): Promise<User/**config */> {
         if (await this.existeUsernameToInsert(newObj.username))
             throw new ErrorVDF(Msg.USERNAME_DUPLICATED, Msg.USERNAME_DUPLICATED, 400)
         newObj.profileId = 2

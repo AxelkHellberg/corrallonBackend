@@ -5,7 +5,7 @@ import { GenericeService } from '../services/GenericService';
 import { Msg } from '../msg/msg';
 import { FindResponse } from './FindResponse';
 
-const responseError = async function (res, e: Error) {
+export const responseError = async function (res, e: Error) {
   if (e instanceof ErrorVDF)
     res.status(e.responseCode < 100 ? 500 : e.responseCode).send({ "responseCode": e.responseCode < 100 ? 500 : e.responseCode, "internalMessage": e.internalMessage, "userMessage": e.userMessage })
   else
@@ -13,7 +13,7 @@ const responseError = async function (res, e: Error) {
   res.locals.hasError = true
 }
 
-const getHandlerGenericEntity = async function (req, res, classEntity, service: GenericeService<any>) {
+export const getHandlerGenericEntity = async function (req, res, classEntity, service: GenericeService<any>) {
   try {
     console.log(req.query)
     if ("select" in req.query)
@@ -29,7 +29,7 @@ const getHandlerGenericEntity = async function (req, res, classEntity, service: 
   }
 }
 
-const getByIdHandlerGenericEntity = async function (req, res, classEntity, service: GenericeService<any>) {
+export const getByIdHandlerGenericEntity = async function (req, res, classEntity, service: GenericeService<any>) {
   try {
     if (!("id" in req.params))
       throw new ErrorVDF(Msg.ID_MANDATORY, Msg.ID_MANDATORY, 400)
@@ -43,7 +43,7 @@ const getByIdHandlerGenericEntity = async function (req, res, classEntity, servi
   }
 }
 
-const deleteHandlerGenericEntity = async function (req, res, classEntity, service: GenericeService<any>) {
+export const deleteHandlerGenericEntity = async function (req, res, classEntity, service: GenericeService<any>) {
   try {
     if (!("id" in req.params))
       throw new ErrorVDF(Msg.ID_MANDATORY, Msg.ID_MANDATORY, 400)
@@ -59,7 +59,7 @@ const deleteHandlerGenericEntity = async function (req, res, classEntity, servic
 
 
 
-const postHandlerGenericEntity = async function (req, res, classEntity, service: GenericeService<any>) {
+export const postHandlerGenericEntity = async function (req, res, classEntity, service: GenericeService<any>) {
   let newObj = new classEntity()
   Object.assign(newObj, req.body)
   try {
@@ -77,7 +77,7 @@ const postHandlerGenericEntity = async function (req, res, classEntity, service:
  * @param res param that will be set with the response information
  * @param classEntity Class of the entity to update
  */
-const updateHandlerGenericEntity = async function (req, res, classEntity, repository: GenericeService<any>) {
+export const updateHandlerGenericEntity = async function (req, res, classEntity, repository: GenericeService<any>) {
   delete req.body["id"] //The client can't change the id associated to the register
   repository.updateById(req.body, req.params.id).then(
     (objUpdated) => { res.send(objUpdated) }
@@ -88,4 +88,3 @@ const updateHandlerGenericEntity = async function (req, res, classEntity, reposi
 
 
 
-export { deleteHandlerGenericEntity, getHandlerGenericEntity, getByIdHandlerGenericEntity, postHandlerGenericEntity, updateHandlerGenericEntity, responseError }
