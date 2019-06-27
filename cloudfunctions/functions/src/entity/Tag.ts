@@ -5,6 +5,7 @@ import { Sistema } from "./Sistema";
 import { Equipamiento } from "./Equipamiento";
 import { ErrorVDF } from "../components/ErrorVDF";
 import { Msg } from "../msg/msg";
+import { LecturaTag } from "./LecturaTag";
 @Entity()
 export class Tag extends GenericEntity {
 
@@ -22,6 +23,10 @@ export class Tag extends GenericEntity {
 
     @OneToMany(type => Sistema, sistema => sistema.tag)
     public sistemas: Sistema[]
+
+
+    @OneToMany(type => LecturaTag, lecturaTag => lecturaTag.tag)
+    public lecturasTags: LecturaTag[]
 
     @BeforeInsert()
     private validateInsert(): void {

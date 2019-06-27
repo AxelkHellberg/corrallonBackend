@@ -13,6 +13,7 @@ const typeorm_1 = require("typeorm");
 const GenericEntity_1 = require("./GenericEntity");
 const ErrorVDF_1 = require("../components/ErrorVDF");
 const msg_1 = require("../msg/msg");
+const PlantillaRonda_1 = require("./PlantillaRonda");
 let Horario = class Horario extends GenericEntity_1.GenericEntity {
     validateInsert() {
         if (this.hora == null)
@@ -33,6 +34,10 @@ __decorate([
     typeorm_1.Column(),
     __metadata("design:type", Number)
 ], Horario.prototype, "minuto", void 0);
+__decorate([
+    typeorm_1.OneToMany(type => PlantillaRonda_1.PlantillaRonda, plantillaRonda => plantillaRonda.horario),
+    __metadata("design:type", Array)
+], Horario.prototype, "plantillasRonda", void 0);
 __decorate([
     typeorm_1.BeforeInsert(),
     __metadata("design:type", Function),

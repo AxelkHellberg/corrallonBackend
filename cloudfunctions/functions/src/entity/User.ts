@@ -4,6 +4,7 @@ import { ErrorVDF } from "../components/ErrorVDF";
 import { Msg } from "../msg/msg";
 import { Profile } from "./Profile";
 import { GuiaManiobra } from "./GuiaManiobra";
+import { Ronda } from "./Ronda";
 let encriptutils = require('../components/encryputils')
 
 @Entity()
@@ -63,5 +64,9 @@ export class User extends GenericEntity {
 
     @OneToMany(type => GuiaManiobra, guiaManiobra => guiaManiobra.user)
     public guiasManiobras: GuiaManiobra[]
+
+
+    @OneToMany(type => Ronda, ronda => ronda.user)
+    public rondas: Ronda[]
 
 }

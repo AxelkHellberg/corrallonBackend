@@ -13,6 +13,7 @@ const typeorm_1 = require("typeorm");
 const GenericEntity_1 = require("./GenericEntity");
 const ErrorVDF_1 = require("../components/ErrorVDF");
 const msg_1 = require("../msg/msg");
+const CampoRonda_1 = require("./CampoRonda");
 let UnidadMedida = class UnidadMedida extends GenericEntity_1.GenericEntity {
     validateInsert() {
         if (this.nombre == null)
@@ -27,6 +28,10 @@ __decorate([
     typeorm_1.Column(),
     __metadata("design:type", String)
 ], UnidadMedida.prototype, "nombre", void 0);
+__decorate([
+    typeorm_1.OneToMany(type => CampoRonda_1.CampoRonda, campoRonda => campoRonda.unidadMedida),
+    __metadata("design:type", Array)
+], UnidadMedida.prototype, "camposRonda", void 0);
 __decorate([
     typeorm_1.BeforeInsert(),
     __metadata("design:type", Function),

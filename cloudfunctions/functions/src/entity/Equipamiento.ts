@@ -4,6 +4,7 @@ import { Sistema } from "./Sistema";
 import { Msg } from "../msg/msg";
 import { ErrorVDF } from "../components/ErrorVDF";
 import { Tag } from "./Tag";
+import { CampoRonda } from "./CampoRonda";
 @Entity()
 export class Equipamiento extends GenericEntity {
     @PrimaryGeneratedColumn()
@@ -28,6 +29,9 @@ export class Equipamiento extends GenericEntity {
     @ManyToOne(type => Tag, tag => tag.equipamientos)
     @JoinColumn({ name: "tagId" })
     public tag: Tag;
+
+    @OneToMany(type => CampoRonda, campoRonda => campoRonda.equipamiento)
+    public camposRonda: CampoRonda[]
 
     @BeforeInsert()
     private validateInsert(): void {

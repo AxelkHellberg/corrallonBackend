@@ -13,6 +13,7 @@ const typeorm_1 = require("typeorm");
 const GenericEntity_1 = require("./GenericEntity");
 const ErrorVDF_1 = require("../components/ErrorVDF");
 const msg_1 = require("../msg/msg");
+const Ronda_1 = require("./Ronda");
 let EstadoRonda = class EstadoRonda extends GenericEntity_1.GenericEntity {
     constructor() {
         super(...arguments);
@@ -35,6 +36,10 @@ __decorate([
     typeorm_1.Column({ nullable: true }),
     __metadata("design:type", Number)
 ], EstadoRonda.prototype, "posicion", void 0);
+__decorate([
+    typeorm_1.OneToMany(type => Ronda_1.Ronda, ronda => ronda.estadoRonda),
+    __metadata("design:type", Array)
+], EstadoRonda.prototype, "rondas", void 0);
 __decorate([
     typeorm_1.BeforeInsert(),
     __metadata("design:type", Function),

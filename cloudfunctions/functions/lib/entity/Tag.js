@@ -15,6 +15,7 @@ const Sistema_1 = require("./Sistema");
 const Equipamiento_1 = require("./Equipamiento");
 const ErrorVDF_1 = require("../components/ErrorVDF");
 const msg_1 = require("../msg/msg");
+const LecturaTag_1 = require("./LecturaTag");
 let Tag = class Tag extends GenericEntity_1.GenericEntity {
     constructor() {
         super(...arguments);
@@ -45,6 +46,10 @@ __decorate([
     typeorm_1.OneToMany(type => Sistema_1.Sistema, sistema => sistema.tag),
     __metadata("design:type", Array)
 ], Tag.prototype, "sistemas", void 0);
+__decorate([
+    typeorm_1.OneToMany(type => LecturaTag_1.LecturaTag, lecturaTag => lecturaTag.tag),
+    __metadata("design:type", Array)
+], Tag.prototype, "lecturasTags", void 0);
 __decorate([
     typeorm_1.BeforeInsert(),
     __metadata("design:type", Function),

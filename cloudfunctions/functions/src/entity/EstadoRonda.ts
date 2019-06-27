@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToMany, AfterLoad, BeforeUpd
 import { GenericEntity } from "./GenericEntity";
 import { ErrorVDF } from "../components/ErrorVDF";
 import { Msg } from "../msg/msg";
+import { Ronda } from "./Ronda";
 @Entity()
 export class EstadoRonda extends GenericEntity {
 
@@ -13,6 +14,9 @@ export class EstadoRonda extends GenericEntity {
 
     @Column({ nullable: true })
     posicion: number = null;
+
+    @OneToMany(type => Ronda, ronda => ronda.estadoRonda)
+    public rondas: Ronda[]
 
     @BeforeInsert()
     private validateInsert(): void {

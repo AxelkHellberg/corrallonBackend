@@ -13,11 +13,8 @@ const typeorm_1 = require("typeorm");
 const GenericEntity_1 = require("./GenericEntity");
 const ErrorVDF_1 = require("../components/ErrorVDF");
 const msg_1 = require("../msg/msg");
+const CampoRonda_1 = require("./CampoRonda");
 let TipoCampoRonda = class TipoCampoRonda extends GenericEntity_1.GenericEntity {
-    constructor() {
-        super(...arguments);
-        this.lista = null;
-    }
     validateInsert() {
         if (this.nombre == null)
             throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.NAME_MANDATORY, msg_1.Msg.NAME_MANDATORY, 400);
@@ -32,9 +29,9 @@ __decorate([
     __metadata("design:type", String)
 ], TipoCampoRonda.prototype, "nombre", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true }),
-    __metadata("design:type", String)
-], TipoCampoRonda.prototype, "lista", void 0);
+    typeorm_1.OneToMany(type => CampoRonda_1.CampoRonda, campoRonda => campoRonda.tipoCampoRonda),
+    __metadata("design:type", Array)
+], TipoCampoRonda.prototype, "camposRonda", void 0);
 __decorate([
     typeorm_1.BeforeInsert(),
     __metadata("design:type", Function),

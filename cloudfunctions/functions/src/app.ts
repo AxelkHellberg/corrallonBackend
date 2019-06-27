@@ -46,6 +46,13 @@ genericEntitiesServicePath.push({ "route": require('./routes/tipoCampoRondaRoute
 genericEntitiesServicePath.push({ "route": require('./routes/estadoRondaRoutes'), "serviceName": "estados-ronda" })
 genericEntitiesServicePath.push({ "route": require('./routes/horarioRoutes'), "serviceName": "horarios" })
 genericEntitiesServicePath.push({ "route": require('./routes/camposRondaRoutes'), "serviceName": "campos-ronda" })
+genericEntitiesServicePath.push({ "route": require('./routes/rondasRoutes'), "serviceName": "rondas" })
+genericEntitiesServicePath.push({ "route": require('./routes/plantillasRonda'), "serviceName": "plantillas-ronda" })
+genericEntitiesServicePath.push({ "route": require('./routes/valoresCamposRondaRoutes'), "serviceName": "rondas" })
+genericEntitiesServicePath.push({ "route": require('./routes/rondasRoutes'), "serviceName": "rondas" })
+genericEntitiesServicePath.push({ "route": require('./routes/valoresCamposRondaRoutes'), "serviceName": "valores-campos-ronda" })
+genericEntitiesServicePath.push({ "route": require('./routes/plantillasRonda'), "serviceName": "plantillas-ronda" })
+genericEntitiesServicePath.push({ "route": require('./routes/listasRondaRoutes'), "serviceName": "listas-rondas" })
 
 appOnPremise.use('/auth', auth);
 appOnPremise.use('/reports', [checkJwt, validatePermissionsReports, authorizationDecision], reports);

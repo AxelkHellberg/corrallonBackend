@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToMany, AfterLoad, BeforeUpd
 import { GenericEntity } from "./GenericEntity";
 import { ErrorVDF } from "../components/ErrorVDF";
 import { Msg } from "../msg/msg";
+import { PlantillaRonda } from "./PlantillaRonda";
 @Entity()
 export class Horario extends GenericEntity {
 
@@ -13,6 +14,10 @@ export class Horario extends GenericEntity {
 
     @Column()
     minuto: number;
+
+
+    @OneToMany(type => PlantillaRonda, plantillaRonda => plantillaRonda.horario)
+    public plantillasRonda: PlantillaRonda[]
 
     @BeforeInsert()
     private validateInsert(): void {

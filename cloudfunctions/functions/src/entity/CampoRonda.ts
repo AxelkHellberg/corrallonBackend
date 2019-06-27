@@ -9,6 +9,9 @@ import { Equipamiento } from "./Equipamiento";
 import { TipoCampoRondaService } from "../services/TipoCampoRondaService";
 import { TipoCampoRonda } from "./TipoCampoRonda";
 import { UnidadMedida } from "./UnidadMedida";
+import { ListaRonda } from "./ListaRonda";
+import { PlantillaRonda } from "./PlantillaRonda";
+import { ValorCampoRonda } from "./ValorCampoRonda";
 @Entity()
 export class CampoRonda extends GenericEntity {
 
@@ -47,6 +50,15 @@ export class CampoRonda extends GenericEntity {
     @ManyToOne(type => UnidadMedida, unidadMedida => unidadMedida.camposRonda)
     @JoinColumn({ name: "unidadMedidaId" })
     public unidadMedida: UnidadMedida;
+
+    @OneToMany(type => ListaRonda, listaRonda => listaRonda.campoRonda)
+    public listasRonda: ListaRonda[]
+
+    @OneToMany(type => PlantillaRonda, plantillaRonda => plantillaRonda.campoRonda)
+    public plantillasRonda: PlantillaRonda[]
+
+    @OneToMany(type => ValorCampoRonda, valorCampoRonda => valorCampoRonda.campoRonda)
+    public valoresCamposRonda: ValorCampoRonda[]
 
     @BeforeInsert()
     private validateInsert(): void {
