@@ -6,7 +6,7 @@ const Profile_1 = require("../entity/Profile");
 /************CONFIG CLASS**************** */
 const myClass = Profile_1.Profile;
 /**************************************** */
-class ProlfileRepository extends GenericRepository_1.GenericRepository {
+class ProlfileRepository /**config *//**config */  extends GenericRepository_1.GenericRepository {
     getRepository() {
         return typeorm_1.getRepository(myClass);
     }

@@ -10,7 +10,7 @@ import { JoinType } from '../entity/JoinType';
 const myClass = ReportRepository
 /******************************************************* */
 
-export class ReportService extends GenericeService<Report> {
+export class ReportService/**config */ extends GenericeService<Report/**config */> {
     constructor() {
         super(new myClass())
     }

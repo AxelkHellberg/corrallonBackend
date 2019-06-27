@@ -16,7 +16,7 @@ const JoinType_1 = require("../entity/JoinType");
 /******************CONFIG CLASS************************** */
 const myClass = ReportRepository_1.ReportRepository;
 /******************************************************* */
-class ReportService extends GenericService_1.GenericeService {
+class ReportService /**config *//**config */  extends GenericService_1.GenericeService {
     constructor() {
         super(new myClass());
         this.findById = function (id) {

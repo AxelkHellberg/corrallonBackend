@@ -6,7 +6,7 @@ import { Sistema } from '../entity/Sistema';
 const myClass = Sistema
 /**************************************** */
 
-export class SistemaRepository extends GenericRepository<Sistema/**config */>{
+export class SistemaRepository/**config */ extends GenericRepository<Sistema/**config */>{
     public getRepository(): Repository<Sistema/**config */> {
         return getRepository(myClass);
     }

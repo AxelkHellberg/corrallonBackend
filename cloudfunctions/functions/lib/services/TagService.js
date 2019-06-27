@@ -5,7 +5,7 @@ const TagRepository_1 = require("../repository/TagRepository");
 /****************Configuration******************** */
 const myRepository = TagRepository_1.TagRepository;
 /************************************* */
-class TagService extends GenericService_1.GenericeService {
+class TagService /**config *//**config */  extends GenericService_1.GenericeService {
     constructor() {
         super(new myRepository());
     }

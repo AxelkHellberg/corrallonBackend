@@ -12,7 +12,7 @@ const UserRepository_1 = require("../repository/UserRepository");
 const GenericService_1 = require("./GenericService");
 let encriptutils = require('../components/encryputils');
 const myRepository = UserRepository_1.UserRepository;
-class UserService extends GenericService_1.GenericeService {
+class UserService /**config *//**config */  extends GenericService_1.GenericeService {
     constructor() {
         super(new myRepository());
         this.login = function (username, password) {

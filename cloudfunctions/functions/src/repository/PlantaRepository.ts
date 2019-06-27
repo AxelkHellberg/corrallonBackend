@@ -8,7 +8,7 @@ import { Planta } from '../entity/Planta';
 const myClass = Planta
 /**************************************** */
 
-export class PlantaRepository extends GenericRepository<Planta/**config */>{
+export class PlantaRepository/**config */ extends GenericRepository<Planta/**config */>{
     public getRepository(): Repository<Planta/**config */> {
         return getRepository(myClass);
     }

@@ -16,6 +16,7 @@ const ErrorVDF_1 = require("../components/ErrorVDF");
 const msg_1 = require("../msg/msg");
 const Equipamiento_1 = require("./Equipamiento");
 const Tag_1 = require("./Tag");
+const CampoManiobra_1 = require("./CampoManiobra");
 let Sistema = class Sistema extends GenericEntity_1.GenericEntity {
     validateInsert() {
         if (this.nombre == null)
@@ -58,6 +59,10 @@ __decorate([
     typeorm_1.OneToMany(type => Equipamiento_1.Equipamiento, equipamiento => equipamiento.sistema),
     __metadata("design:type", Array)
 ], Sistema.prototype, "equipamientos", void 0);
+__decorate([
+    typeorm_1.OneToMany(type => CampoManiobra_1.CampoManiobra, campoManiobra => campoManiobra.sistema),
+    __metadata("design:type", Array)
+], Sistema.prototype, "camposManiobras", void 0);
 __decorate([
     typeorm_1.BeforeInsert(),
     __metadata("design:type", Function),

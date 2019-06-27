@@ -24,7 +24,7 @@ router.post('/login', (req, res, next) => __awaiter(this, void 0, void 0, functi
         res.send({ accessToken });
     }
     catch (e) {
-        apiHandler_1.responseError(res, e);
+        yield apiHandler_1.responseError(res, e);
     }
 }));
 router.post('/decodeToken', (req, res, next) => __awaiter(this, void 0, void 0, function* () {

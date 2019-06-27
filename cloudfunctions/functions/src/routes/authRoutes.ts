@@ -17,7 +17,7 @@ router.post('/login', async (req, res, next) => {
     let accessToken = jwt.createAccessToken(user)
     res.send({ accessToken })
   } catch (e) {
-    responseError(res, e)
+    await responseError(res, e)
   }
 });
 

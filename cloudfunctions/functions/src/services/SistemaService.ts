@@ -5,7 +5,7 @@ import { SistemaRepository } from "../repository/SistemaRepository";
 /****************Configuration******************** */
 const myRepository = SistemaRepository
 /************************************* */
-export class SistemaService extends GenericeService<Sistema> {
+export class SistemaService/**config */ extends GenericeService<Sistema/**config */> {
     constructor() {
         super(new myRepository())
     }

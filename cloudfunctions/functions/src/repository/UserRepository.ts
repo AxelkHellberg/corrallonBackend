@@ -8,7 +8,7 @@ let encriptutils = require('../components/encryputils')
 /************CONFIG CLASS**************** */
 const myClass = User
 /**************************************** */
-export class UserRepository extends GenericRepository<User/**config */>{
+export class UserRepository/**config */ extends GenericRepository<User/**config */>{
 
     existeUsernameToInsert = async function (username): Promise<boolean> {
         const user: User = await this.getRepository().findOne({ where: { "username": username } });

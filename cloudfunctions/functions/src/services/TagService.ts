@@ -7,7 +7,7 @@ import { Tag } from "../entity/Tag";
 /****************Configuration******************** */
 const myRepository = TagRepository
 /************************************* */
-export class TagService extends GenericeService<Tag> {
+export class TagService/**config */ extends GenericeService<Tag/**config */> {
     constructor() {
         super(new myRepository())
     }

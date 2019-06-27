@@ -14,6 +14,7 @@ const GenericEntity_1 = require("./GenericEntity");
 const ErrorVDF_1 = require("../components/ErrorVDF");
 const msg_1 = require("../msg/msg");
 const Profile_1 = require("./Profile");
+const GuiaManiobra_1 = require("./GuiaManiobra");
 let encriptutils = require('../components/encryputils');
 let User = class User extends GenericEntity_1.GenericEntity {
     constructor() {
@@ -92,6 +93,10 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], User.prototype, "encryptPassword", null);
+__decorate([
+    typeorm_1.OneToMany(type => GuiaManiobra_1.GuiaManiobra, guiaManiobra => guiaManiobra.user),
+    __metadata("design:type", Array)
+], User.prototype, "guiasManiobras", void 0);
 User = __decorate([
     typeorm_1.Entity()
 ], User);

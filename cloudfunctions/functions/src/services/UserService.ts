@@ -10,7 +10,7 @@ let encriptutils = require('../components/encryputils')
 
 const myRepository = UserRepository
 
-export class UserService extends GenericeService<User> {
+export class UserService/**config */ extends GenericeService<User/**config */> {
     constructor() {
         super(new myRepository())
     }

@@ -3,6 +3,7 @@ import { GenericEntity } from "./GenericEntity";
 import { ErrorVDF } from "../components/ErrorVDF";
 import { Msg } from "../msg/msg";
 import { Profile } from "./Profile";
+import { GuiaManiobra } from "./GuiaManiobra";
 let encriptutils = require('../components/encryputils')
 
 @Entity()
@@ -59,4 +60,8 @@ export class User extends GenericEntity {
     private encryptPassword(): void {
         this.password = encriptutils.encrypt(this.password)
     }
+
+    @OneToMany(type => GuiaManiobra, guiaManiobra => guiaManiobra.user)
+    public guiasManiobras: GuiaManiobra[]
+
 }

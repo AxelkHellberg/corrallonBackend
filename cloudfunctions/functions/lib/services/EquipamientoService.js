@@ -5,7 +5,7 @@ const EquipamientoRepository_1 = require("../repository/EquipamientoRepository")
 /****************Configuration******************** */
 const myRepository = EquipamientoRepository_1.EquipamientoRepository;
 /************************************* */
-class EquipamientoService extends GenericService_1.GenericeService {
+class EquipamientoService /**config *//**config */  extends GenericService_1.GenericeService {
     constructor() {
         super(new myRepository());
     }

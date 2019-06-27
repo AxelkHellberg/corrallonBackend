@@ -8,6 +8,7 @@ import { ErrorVDF } from "../components/ErrorVDF";
 import { Msg } from "../msg/msg";
 import { Equipamiento } from "./Equipamiento";
 import { Tag } from "./Tag";
+import { CampoManiobra } from "./CampoManiobra";
 @Entity()
 export class Sistema extends GenericEntity {
     @PrimaryGeneratedColumn()
@@ -37,6 +38,9 @@ export class Sistema extends GenericEntity {
 
     @OneToMany(type => Equipamiento, equipamiento => equipamiento.sistema)
     public equipamientos: Equipamiento[]
+
+    @OneToMany(type => CampoManiobra, campoManiobra => campoManiobra.sistema)
+    public camposManiobras: CampoManiobra[]
 
     @BeforeInsert()
     private validateInsert(): void {

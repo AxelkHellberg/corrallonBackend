@@ -7,19 +7,16 @@ import { authorizationDecision } from "./middlewares/authorizationDecision";
 import { validatePermissionsUser } from "./middlewares/validatePermissionUser";
 import { checkPublicService } from "./middlewares/checkPublicService";
 
-const apiHandler = require("./components/apiHandler")
-
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 const functions = require('firebase-functions')
 const bodyParser = require('body-parser')
-const exphbs = require('express-handlebars')
 const ENTITIES_BASE_URL = "entities"
 
-var appOnPremise = express();
+const appOnPremise = express();
 
 // view engine setup
 appOnPremise.use(logger('dev'));
@@ -32,20 +29,28 @@ appOnPremise.use(bodyParser.json());
 
 appOnPremise.use(express.static(path.join(__dirname, 'public')));
 
-var auth = require('./routes/authRoutes');
-var reports = require('./routes/reportsRoutes');
-let genericEntitiesServicePath = [] //all services that need the same validation path
+const auth = require('./routes/authRoutes');
+const reports = require('./routes/reportsRoutes');
+const genericEntitiesServicePath = [] //all services that need the same validation path
 genericEntitiesServicePath.push({ "route": require('./routes/usersRoutes'), "serviceName": "users" })
 genericEntitiesServicePath.push({ "route": require('./routes/plantasRoutes'), "serviceName": "plantas" })
 genericEntitiesServicePath.push({ "route": require('./routes/sistemasRoutes'), "serviceName": "sistemas" })
 genericEntitiesServicePath.push({ "route": require('./routes/tagsRoutes'), "serviceName": "tags" })
 genericEntitiesServicePath.push({ "route": require('./routes/equipamientosRoutes'), "serviceName": "equipamientos" })
+genericEntitiesServicePath.push({ "route": require('./routes/guiasManiobrasRoutes'), "serviceName": "guias-maniobra" })
+genericEntitiesServicePath.push({ "route": require('./routes/camposManiobraRoutes'), "serviceName": "campos-maniobra" })
+genericEntitiesServicePath.push({ "route": require('./routes/valoresCamposManiobrasRoutes'), "serviceName": "valores-campos-maniobra" })
+genericEntitiesServicePath.push({ "route": require('./routes/plantillaGuiaManiobraRoutes'), "serviceName": "plantillas-guias-maniobra" })
+genericEntitiesServicePath.push({ "route": require('./routes/unidadMedidaRoutes'), "serviceName": "unidades-medida" })
+genericEntitiesServicePath.push({ "route": require('./routes/tipoCampoRondaRoutes'), "serviceName": "tipos-campo-ronda" })
+genericEntitiesServicePath.push({ "route": require('./routes/estadoRondaRoutes'), "serviceName": "estados-ronda" })
+genericEntitiesServicePath.push({ "route": require('./routes/horarioRoutes'), "serviceName": "horarios" })
+genericEntitiesServicePath.push({ "route": require('./routes/camposRondaRoutes'), "serviceName": "campos-ronda" })
 
 appOnPremise.use('/auth', auth);
 appOnPremise.use('/reports', [checkJwt, validatePermissionsReports, authorizationDecision], reports);
-for (let i: number = 0; i < genericEntitiesServicePath.length; i++) {
-  const cEntity = genericEntitiesServicePath[i]
-  appOnPremise.use('/' + ENTITIES_BASE_URL + '/' + cEntity.serviceName, [checkPublicService, checkJwt, validatePermissionsEntity, validatePermissionsUser, authorizationDecision], cEntity.route, [test]);
+for (let service of genericEntitiesServicePath) {
+  appOnPremise.use('/' + ENTITIES_BASE_URL + '/' + service.serviceName, [checkPublicService, checkJwt, validatePermissionsEntity, validatePermissionsUser, authorizationDecision], service.route, [test]);
 }
 
 // catch 404 and forward to error handler

@@ -17,7 +17,7 @@ let encriptutils = require('../components/encryputils');
 /************CONFIG CLASS**************** */
 const myClass = User_1.User;
 /**************************************** */
-class UserRepository extends GenericRepository_1.GenericRepository {
+class UserRepository /**config *//**config */  extends GenericRepository_1.GenericRepository {
     constructor() {
         super(...arguments);
         this.existeUsernameToInsert = function (username) {

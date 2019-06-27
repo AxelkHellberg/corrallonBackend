@@ -5,7 +5,7 @@ const GenericService_1 = require("./GenericService");
 /****************Configuration******************** */
 const myRepository = PlantaRepository_1.PlantaRepository;
 /************************************* */
-class PlantaService extends GenericService_1.GenericeService {
+class PlantaService /**config *//**config */  extends GenericService_1.GenericeService {
     constructor() {
         super(new myRepository());
     }

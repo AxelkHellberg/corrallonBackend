@@ -7,7 +7,7 @@ import { Profile } from '../entity/Profile';
 const myClass = Profile
 /**************************************** */
 
-export class ProlfileRepository extends GenericRepository<Profile/**config */>{
+export class ProlfileRepository/**config */ extends GenericRepository<Profile/**config */>{
     public getRepository(): Repository<Profile/**config */> {
         return getRepository(myClass);
     }

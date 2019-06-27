@@ -6,7 +6,7 @@ const Tag_1 = require("../entity/Tag");
 /************CONFIG CLASS**************** */
 const myClass = Tag_1.Tag;
 /**************************************** */
-class TagRepository extends GenericRepository_1.GenericRepository {
+class TagRepository /**config *//**config */  extends GenericRepository_1.GenericRepository {
     getRepository() {
         return typeorm_1.getRepository(myClass);
     }

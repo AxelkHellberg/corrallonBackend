@@ -29,7 +29,7 @@ export abstract class GenericeService<E> {
     public async updateById(data, id) {
         return await this.genericRepository.updateById(data, id)
     }
-    public async save(newObj: E) {
+    public async save(newObj: E): Promise<E> {
         return await this.genericRepository.save(newObj)
     }
 }

@@ -6,7 +6,7 @@ const Equipamiento_1 = require("../entity/Equipamiento");
 /************CONFIG CLASS**************** */
 const myClass = Equipamiento_1.Equipamiento;
 /**************************************** */
-class EquipamientoRepository extends GenericRepository_1.GenericRepository {
+class EquipamientoRepository /**config *//**config */  extends GenericRepository_1.GenericRepository {
     getRepository() {
         return typeorm_1.getRepository(myClass);
     }

@@ -10,7 +10,7 @@ import { Tag } from '../entity/Tag';
 const myClass = Tag
 /**************************************** */
 
-export class TagRepository extends GenericRepository<Tag/**config */>{
+export class TagRepository/**config */ extends GenericRepository<Tag/**config */>{
     public getRepository(): Repository<Tag/**config */> {
         return getRepository(myClass);
     }

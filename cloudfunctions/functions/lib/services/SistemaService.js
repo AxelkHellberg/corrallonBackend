@@ -5,7 +5,7 @@ const SistemaRepository_1 = require("../repository/SistemaRepository");
 /****************Configuration******************** */
 const myRepository = SistemaRepository_1.SistemaRepository;
 /************************************* */
-class SistemaService extends GenericService_1.GenericeService {
+class SistemaService /**config *//**config */  extends GenericService_1.GenericeService {
     constructor() {
         super(new myRepository());
     }
