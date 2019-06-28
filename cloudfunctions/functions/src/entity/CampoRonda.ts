@@ -54,8 +54,12 @@ export class CampoRonda extends GenericEntity {
     @OneToMany(type => ListaRonda, listaRonda => listaRonda.campoRonda)
     public listasRonda: ListaRonda[]
 
-    @OneToMany(type => PlantillaRonda, plantillaRonda => plantillaRonda.campoRonda)
-    public plantillasRonda: PlantillaRonda[]
+    @Column()
+    plantillaRondaId: number;
+
+    @ManyToOne(type => PlantillaRonda, plantillaRonda => plantillaRonda.camposRonda)
+    @JoinColumn({ name: "plantillaRondaId" })
+    public plantillaRonda: PlantillaRonda;
 
     @OneToMany(type => ValorCampoRonda, valorCampoRonda => valorCampoRonda.campoRonda)
     public valoresCamposRonda: ValorCampoRonda[]

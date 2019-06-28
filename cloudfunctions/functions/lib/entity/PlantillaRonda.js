@@ -54,9 +54,9 @@ __decorate([
     __metadata("design:type", Boolean)
 ], PlantillaRonda.prototype, "obligatorioEquipo", void 0);
 __decorate([
-    typeorm_1.OneToMany(type => CampoRonda_1.CampoRonda, campoRonda => campoRonda.plantillasRonda),
+    typeorm_1.OneToMany(type => CampoRonda_1.CampoRonda, campoRonda => campoRonda.plantillaRonda),
     __metadata("design:type", Array)
-], PlantillaRonda.prototype, "campoRonda", void 0);
+], PlantillaRonda.prototype, "camposRonda", void 0);
 __decorate([
     typeorm_1.Column(),
     __metadata("design:type", Number)

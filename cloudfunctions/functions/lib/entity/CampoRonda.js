@@ -79,9 +79,14 @@ __decorate([
     __metadata("design:type", Array)
 ], CampoRonda.prototype, "listasRonda", void 0);
 __decorate([
-    typeorm_1.OneToMany(type => PlantillaRonda_1.PlantillaRonda, plantillaRonda => plantillaRonda.campoRonda),
-    __metadata("design:type", Array)
-], CampoRonda.prototype, "plantillasRonda", void 0);
+    typeorm_1.Column(),
+    __metadata("design:type", Number)
+], CampoRonda.prototype, "plantillaRondaId", void 0);
+__decorate([
+    typeorm_1.ManyToOne(type => PlantillaRonda_1.PlantillaRonda, plantillaRonda => plantillaRonda.camposRonda),
+    typeorm_1.JoinColumn({ name: "plantillaRondaId" }),
+    __metadata("design:type", PlantillaRonda_1.PlantillaRonda)
+], CampoRonda.prototype, "plantillaRonda", void 0);
 __decorate([
     typeorm_1.OneToMany(type => ValorCampoRonda_1.ValorCampoRonda, valorCampoRonda => valorCampoRonda.campoRonda),
     __metadata("design:type", Array)

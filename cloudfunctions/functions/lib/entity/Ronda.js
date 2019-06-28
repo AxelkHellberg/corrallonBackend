@@ -28,9 +28,9 @@ __decorate([
     __metadata("design:type", Number)
 ], Ronda.prototype, "porcentaje", void 0);
 __decorate([
-    typeorm_1.Column(),
-    __metadata("design:type", typeorm_1.Timestamp)
-], Ronda.prototype, "tiempoRonda", void 0);
+    typeorm_1.Column({ nullable: true }),
+    __metadata("design:type", Number)
+], Ronda.prototype, "tiempoRondaMinutos", void 0);
 __decorate([
     typeorm_1.Column(),
     __metadata("design:type", Number)

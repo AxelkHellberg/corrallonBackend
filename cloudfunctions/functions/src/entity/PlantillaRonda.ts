@@ -29,8 +29,8 @@ export class PlantillaRonda extends GenericEntity {
     @Column()
     obligatorioEquipo: boolean = false;
 
-    @OneToMany(type => CampoRonda, campoRonda => campoRonda.plantillasRonda)
-    public campoRonda: CampoRonda[]
+    @OneToMany(type => CampoRonda, campoRonda => campoRonda.plantillaRonda)
+    public camposRonda: CampoRonda[]
 
     @Column()
     horarioId: number; //GET

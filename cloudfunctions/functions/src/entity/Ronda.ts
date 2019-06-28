@@ -20,8 +20,8 @@ export class Ronda extends GenericEntity {
     @Column({ type: "float", precision: 5, scale: 2 })
     public porcentaje: number;
 
-    @Column()
-    public tiempoRonda: Timestamp;
+    @Column({ nullable: true })
+    public tiempoRondaMinutos: number;
 
     @Column()
     public userId: number;

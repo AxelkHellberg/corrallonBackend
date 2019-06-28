@@ -6,7 +6,7 @@ const ValorCampoRonda_1 = require("../entity/ValorCampoRonda");
 /************CONFIG CLASS**************** */
 const myClass = ValorCampoRonda_1.ValorCampoRonda;
 /**************************************** */
-class ValorCampoManiobraRepository /**config *//**config */  extends GenericRepository_1.GenericRepository {
+class ValorCampoRondaRepository /**config *//**config */  extends GenericRepository_1.GenericRepository {
     getRepository() {
         return typeorm_1.getRepository(myClass);
     }
@@ -14,5 +14,5 @@ class ValorCampoManiobraRepository /**config *//**config */  extends GenericRepo
         return myClass;
     }
 }
-exports.ValorCampoManiobraRepository = ValorCampoManiobraRepository;
+exports.ValorCampoRondaRepository = ValorCampoRondaRepository;
 //# sourceMappingURL=ValorCampoRondaRepository.js.map
