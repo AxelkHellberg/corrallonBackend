@@ -5,6 +5,7 @@ import { Msg } from "../msg/msg";
 import { ErrorVDF } from "../components/ErrorVDF";
 import { Tag } from "./Tag";
 import { CampoRonda } from "./CampoRonda";
+import { FallaEquipamiento } from "./FallaEquipamiento";
 @Entity()
 export class Equipamiento extends GenericEntity {
     @PrimaryGeneratedColumn()
@@ -33,6 +34,9 @@ export class Equipamiento extends GenericEntity {
     @OneToMany(type => CampoRonda, campoRonda => campoRonda.equipamiento)
     public camposRonda: CampoRonda[]
 
+    @OneToMany(type => FallaEquipamiento, fallaEquipamiento => fallaEquipamiento.equipamiento)
+    public fallasEquipamiento: FallaEquipamiento[]
+
     @BeforeInsert()
     private validateInsert(): void {
         if (this.nombre == null)
@@ -42,5 +46,4 @@ export class Equipamiento extends GenericEntity {
     }
 
 }
-
 

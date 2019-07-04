@@ -16,6 +16,7 @@ const msg_1 = require("../msg/msg");
 const ErrorVDF_1 = require("../components/ErrorVDF");
 const Tag_1 = require("./Tag");
 const CampoRonda_1 = require("./CampoRonda");
+const FallaEquipamiento_1 = require("./FallaEquipamiento");
 let Equipamiento = class Equipamiento extends GenericEntity_1.GenericEntity {
     validateInsert() {
         if (this.nombre == null)
@@ -58,6 +59,10 @@ __decorate([
     typeorm_1.OneToMany(type => CampoRonda_1.CampoRonda, campoRonda => campoRonda.equipamiento),
     __metadata("design:type", Array)
 ], Equipamiento.prototype, "camposRonda", void 0);
+__decorate([
+    typeorm_1.OneToMany(type => FallaEquipamiento_1.FallaEquipamiento, fallaEquipamiento => fallaEquipamiento.equipamiento),
+    __metadata("design:type", Array)
+], Equipamiento.prototype, "fallasEquipamiento", void 0);
 __decorate([
     typeorm_1.BeforeInsert(),
     __metadata("design:type", Function),

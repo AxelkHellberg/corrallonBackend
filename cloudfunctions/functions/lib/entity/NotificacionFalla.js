@@ -14,6 +14,8 @@ const GenericEntity_1 = require("./GenericEntity");
 const ErrorVDF_1 = require("../components/ErrorVDF");
 const msg_1 = require("../msg/msg");
 const HistorialEstadoFalla_1 = require("./HistorialEstadoFalla");
+const FallaEquipamiento_1 = require("./FallaEquipamiento");
+const FallaSistema_1 = require("./FallaSistema");
 let NotificacionFalla = class NotificacionFalla extends GenericEntity_1.GenericEntity {
     validateInsert() {
         if (this.descripcion == null)
@@ -34,6 +36,14 @@ __decorate([
     typeorm_1.OneToMany(type => HistorialEstadoFalla_1.HistorialEstadoFalla, historialEstadoFalla => historialEstadoFalla.notificacionFalla),
     __metadata("design:type", Array)
 ], NotificacionFalla.prototype, "historialEstadosFallas", void 0);
+__decorate([
+    typeorm_1.OneToMany(type => FallaEquipamiento_1.FallaEquipamiento, fallaEquipamiento => fallaEquipamiento.equipamiento),
+    __metadata("design:type", Array)
+], NotificacionFalla.prototype, "fallasEquipamiento", void 0);
+__decorate([
+    typeorm_1.OneToMany(type => FallaSistema_1.FallaSistema, fallaSistema => fallaSistema.sistema),
+    __metadata("design:type", Array)
+], NotificacionFalla.prototype, "fallasSistema", void 0);
 __decorate([
     typeorm_1.BeforeInsert(),
     __metadata("design:type", Function),

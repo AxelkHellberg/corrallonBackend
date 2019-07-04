@@ -1,0 +1,1 @@
+{"version":3,"file":"FallaSistemaService.js","sourceRoot":"","sources":["../../src/services/FallaSistemaService.ts"],"names":[],"mappings":";;AAAA,qDAAmD;AAKnD,iFAA8E;AAE9E,qDAAqD;AACrD,MAAM,YAAY,GAAG,+CAAsB,CAAA;AAC3C,yCAAyC;AACzC,MAAa,mBAAmB,CAAA,YAAY,AAAZ,YAAY,CAAC,SAAQ,gCAAyC;IAC1F;QACI,KAAK,CAAC,IAAI,YAAY,EAAE,CAAC,CAAA;IAC7B,CAAC;CACJ;AAJD,kDAIC"}

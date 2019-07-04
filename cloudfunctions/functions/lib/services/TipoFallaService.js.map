@@ -1,0 +1,1 @@
+{"version":3,"file":"TipoFallaService.js","sourceRoot":"","sources":["../../src/services/TipoFallaService.ts"],"names":[],"mappings":";;AAAA,qDAAmD;AACnD,2EAAwE;AAExE,qDAAqD;AACrD,MAAM,YAAY,GAAG,yCAAmB,CAAA;AACxC,yCAAyC;AACzC,MAAa,gBAAgB,CAAA,YAAY,AAAZ,YAAY,CAAC,SAAQ,gCAAsC;IACpF;QACI,KAAK,CAAC,IAAI,YAAY,EAAE,CAAC,CAAA;IAC7B,CAAC;CACJ;AAJD,4CAIC"}

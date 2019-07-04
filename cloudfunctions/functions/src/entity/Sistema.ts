@@ -9,6 +9,7 @@ import { Msg } from "../msg/msg";
 import { Equipamiento } from "./Equipamiento";
 import { Tag } from "./Tag";
 import { CampoManiobra } from "./CampoManiobra";
+import { FallaSistema } from "./FallaSistema";
 @Entity()
 export class Sistema extends GenericEntity {
     @PrimaryGeneratedColumn()
@@ -41,6 +42,9 @@ export class Sistema extends GenericEntity {
 
     @OneToMany(type => CampoManiobra, campoManiobra => campoManiobra.sistema)
     public camposManiobras: CampoManiobra[]
+
+    @OneToMany(type => FallaSistema, fallaSistema => fallaSistema.sistema)
+    public fallasSistema: FallaSistema[]
 
     @BeforeInsert()
     private validateInsert(): void {

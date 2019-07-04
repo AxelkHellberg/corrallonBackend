@@ -22,7 +22,7 @@ export class MsgSpanish {
     public static UNAHUTORIZED: string = "You are not authorized to use this site"
     public static MALFORMED_JSON_SELECT: string = "El formato del json array usado como select es invalido"
     public static MALFORMED_JSON_ORDER: string = "El formato del json array usado como order es invalido"
-
+    public static CAMPO_CARACTERES_MINIMOS: string = "El campo @0 necesita al menos @1 caracteres"
     public static CAMPO_OBLIGATORIO(campo: string) {
         return "El campo " + campo + " es obligatorio"
     }
