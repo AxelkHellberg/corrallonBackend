@@ -7,6 +7,7 @@ import { authorizationDecision } from "./middlewares/authorizationDecision";
 import { validatePermissionsUser } from "./middlewares/validatePermissionUser";
 import { checkPublicService } from "./middlewares/checkPublicService";
 import { corsHandler } from "./middlewares/corsHandler";
+var cors = require('cors')
 
 const createError = require('http-errors');
 const express = require('express');
@@ -19,6 +20,7 @@ const ENTITIES_BASE_URL = "entities"
 
 const appOnPremise = express();
 
+appOnPremise.use(cors());
 // view engine setup
 appOnPremise.use(logger('dev'));
 appOnPremise.use(express.json());
@@ -55,10 +57,12 @@ genericEntitiesServicePath.push({ "route": require('./routes/valoresCamposRondaR
 genericEntitiesServicePath.push({ "route": require('./routes/plantillasRonda'), "serviceName": "plantillas-ronda" })
 genericEntitiesServicePath.push({ "route": require('./routes/listasRondaRoutes'), "serviceName": "listas-rondas" })
 
-appOnPremise.use('/auth', corsHandler, auth);
-appOnPremise.use('/reports', corsHandler, [checkJwt, validatePermissionsReports, authorizationDecision], reports);
+
+
+appOnPremise.use('/auth', auth);
+appOnPremise.use('/reports', [checkJwt, validatePermissionsReports, authorizationDecision], reports);
 for (let service of genericEntitiesServicePath) {
-  appOnPremise.use('/' + ENTITIES_BASE_URL + '/' + service.serviceName, corsHandler, [checkPublicService, checkJwt, validatePermissionsEntity, validatePermissionsUser, authorizationDecision], service.route, [test]);
+  appOnPremise.use('/' + ENTITIES_BASE_URL + '/' + service.serviceName, [checkPublicService, checkJwt, validatePermissionsEntity, validatePermissionsUser, authorizationDecision], service.route, [test]);
 }
 
 // catch 404 and forward to error handler

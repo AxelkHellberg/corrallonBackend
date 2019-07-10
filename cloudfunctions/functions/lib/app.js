@@ -7,7 +7,7 @@ const test_1 = require("./middlewares/test");
 const authorizationDecision_1 = require("./middlewares/authorizationDecision");
 const validatePermissionUser_1 = require("./middlewares/validatePermissionUser");
 const checkPublicService_1 = require("./middlewares/checkPublicService");
-const corsHandler_1 = require("./middlewares/corsHandler");
+var cors = require('cors');
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -17,6 +17,7 @@ const functions = require('firebase-functions');
 const bodyParser = require('body-parser');
 const ENTITIES_BASE_URL = "entities";
 const appOnPremise = express();
+appOnPremise.use(cors());
 // view engine setup
 appOnPremise.use(logger('dev'));
 appOnPremise.use(express.json());
@@ -50,10 +51,10 @@ genericEntitiesServicePath.push({ "route": require('./routes/rondasRoutes'), "se
 genericEntitiesServicePath.push({ "route": require('./routes/valoresCamposRondaRoutes'), "serviceName": "valores-campos-ronda" });
 genericEntitiesServicePath.push({ "route": require('./routes/plantillasRonda'), "serviceName": "plantillas-ronda" });
 genericEntitiesServicePath.push({ "route": require('./routes/listasRondaRoutes'), "serviceName": "listas-rondas" });
-appOnPremise.use('/auth', corsHandler_1.corsHandler, auth);
-appOnPremise.use('/reports', corsHandler_1.corsHandler, [checkJwt_1.checkJwt, validatePermissionsReports_1.validatePermissionsReports, authorizationDecision_1.authorizationDecision], reports);
+appOnPremise.use('/auth', auth);
+appOnPremise.use('/reports', [checkJwt_1.checkJwt, validatePermissionsReports_1.validatePermissionsReports, authorizationDecision_1.authorizationDecision], reports);
 for (let service of genericEntitiesServicePath) {
-    appOnPremise.use('/' + ENTITIES_BASE_URL + '/' + service.serviceName, corsHandler_1.corsHandler, [checkPublicService_1.checkPublicService, checkJwt_1.checkJwt, validatePermissionsEntity_1.validatePermissionsEntity, validatePermissionUser_1.validatePermissionsUser, authorizationDecision_1.authorizationDecision], service.route, [test_1.test]);
+    appOnPremise.use('/' + ENTITIES_BASE_URL + '/' + service.serviceName, [checkPublicService_1.checkPublicService, checkJwt_1.checkJwt, validatePermissionsEntity_1.validatePermissionsEntity, validatePermissionUser_1.validatePermissionsUser, authorizationDecision_1.authorizationDecision], service.route, [test_1.test]);
 }
 // catch 404 and forward to error handler
 appOnPremise.use(function (req, res, next) {
