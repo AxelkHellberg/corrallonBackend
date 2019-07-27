@@ -27,7 +27,7 @@ class GenericRepository {
                 if ("order" in params)
                     builder = yield builder.orderBy(params.order);
                 let limit = 20000;
-                if ("limit" in params)
+                if ("limit" in params && params.limit < 20000)
                     limit = params.limit;
                 builder = yield builder.limit(limit);
                 if ("offset" in params)
@@ -74,6 +74,16 @@ class GenericRepository {
                 .delete()
                 .from(this.getClass())
                 .where("id = :id", { id })
+                .execute();
+        });
+    }
+    deleteWhere(where) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.getRepository()
+                .createQueryBuilder()
+                .delete()
+                .from(this.getClass())
+                .where(where)
                 .execute();
         });
     }

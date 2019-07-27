@@ -7,6 +7,7 @@ import { authorizationDecision } from "./middlewares/authorizationDecision";
 import { validatePermissionsUser } from "./middlewares/validatePermissionUser";
 import { checkPublicService } from "./middlewares/checkPublicService";
 import { corsHandler } from "./middlewares/corsHandler";
+import { createNewConnection } from "./middlewares/createNewConnection";
 var cors = require('cors')
 
 const createError = require('http-errors');
@@ -51,18 +52,25 @@ genericEntitiesServicePath.push({ "route": require('./routes/horarioRoutes'), "s
 genericEntitiesServicePath.push({ "route": require('./routes/camposRondaRoutes'), "serviceName": "campos-ronda" })
 genericEntitiesServicePath.push({ "route": require('./routes/rondasRoutes'), "serviceName": "rondas" })
 genericEntitiesServicePath.push({ "route": require('./routes/plantillasRonda'), "serviceName": "plantillas-ronda" })
-genericEntitiesServicePath.push({ "route": require('./routes/valoresCamposRondaRoutes'), "serviceName": "rondas" })
 genericEntitiesServicePath.push({ "route": require('./routes/rondasRoutes'), "serviceName": "rondas" })
 genericEntitiesServicePath.push({ "route": require('./routes/valoresCamposRondaRoutes'), "serviceName": "valores-campos-ronda" })
 genericEntitiesServicePath.push({ "route": require('./routes/plantillasRonda'), "serviceName": "plantillas-ronda" })
 genericEntitiesServicePath.push({ "route": require('./routes/listasRondaRoutes'), "serviceName": "listas-rondas" })
+genericEntitiesServicePath.push({ "route": require('./routes/TipoFallaRoutes'), "serviceName": "tipos-falla" })
+genericEntitiesServicePath.push({ "route": require('./routes/NotificacionFallaRoutes'), "serviceName": "notificaciones-falla" })
+genericEntitiesServicePath.push({ "route": require('./routes/HistorialEstadoFallaRoutes'), "serviceName": "historial-falla" })
+genericEntitiesServicePath.push({ "route": require('./routes/FallaSistemaRoutes'), "serviceName": "fallas-sistema" })
+genericEntitiesServicePath.push({ "route": require('./routes/FallaEquipamientoRoutes'), "serviceName": "fallas-equipamiento" })
+genericEntitiesServicePath.push({ "route": require('./routes/EstadoFallaRoutes'), "serviceName": "estados-falla" })
+genericEntitiesServicePath.push({ "route": require('./routes/ProfileRoutes'), "serviceName": "profiles" })
+genericEntitiesServicePath.push({ "route": require('./routes/TipoSistemaRoutes'), "serviceName": "tipos-sistema" })
 
 
 
-appOnPremise.use('/auth', auth);
-appOnPremise.use('/reports', [checkJwt, validatePermissionsReports, authorizationDecision], reports);
+appOnPremise.use('/auth', createNewConnection, auth);
+appOnPremise.use('/reports', createNewConnection, [checkJwt, validatePermissionsReports, authorizationDecision], reports);
 for (let service of genericEntitiesServicePath) {
-  appOnPremise.use('/' + ENTITIES_BASE_URL + '/' + service.serviceName, [checkPublicService, checkJwt, validatePermissionsEntity, validatePermissionsUser, authorizationDecision], service.route, [test]);
+  appOnPremise.use('/' + ENTITIES_BASE_URL + '/' + service.serviceName, createNewConnection, [checkPublicService, checkJwt, validatePermissionsEntity, validatePermissionsUser, authorizationDecision], service.route, [test]);
 }
 
 // catch 404 and forward to error handler
@@ -81,7 +89,6 @@ appOnPremise.use(function (err, req, res, next) {
   res.render('error');
 });
 
-createConnection().then((c) => console.log("OK CONNECTION")).catch((e) => console.log(e))
 let cloudFunction = null
 try {
   cloudFunction = functions.https.onRequest(appOnPremise)

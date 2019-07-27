@@ -14,6 +14,7 @@ const GenericEntity_1 = require("./GenericEntity");
 const ErrorVDF_1 = require("../components/ErrorVDF");
 const msg_1 = require("../msg/msg");
 const HistorialEstadoFalla_1 = require("./HistorialEstadoFalla");
+const NotificacionFalla_1 = require("./NotificacionFalla");
 let EstadoFalla = class EstadoFalla extends GenericEntity_1.GenericEntity {
     constructor() {
         super(...arguments);
@@ -40,6 +41,10 @@ __decorate([
     typeorm_1.OneToMany(type => HistorialEstadoFalla_1.HistorialEstadoFalla, historialEstadoFalla => historialEstadoFalla.estadoFalla),
     __metadata("design:type", Array)
 ], EstadoFalla.prototype, "historialEstadosFallas", void 0);
+__decorate([
+    typeorm_1.OneToMany(type => NotificacionFalla_1.NotificacionFalla, notificacionFalla => notificacionFalla.estadoFalla),
+    __metadata("design:type", Array)
+], EstadoFalla.prototype, "notificacionesFalla", void 0);
 __decorate([
     typeorm_1.BeforeInsert(),
     __metadata("design:type", Function),

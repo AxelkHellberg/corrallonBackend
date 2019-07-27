@@ -14,7 +14,7 @@ export class FallaEquipamiento extends GenericEntity {
     @Column()
     equipamientoId: number;
 
-    @ManyToOne(type => Equipamiento, equipamiento => equipamiento.fallasEquipamiento)
+    @ManyToOne(type => Equipamiento, equipamiento => equipamiento.fallasEquipamiento, { onDelete: 'CASCADE' })
     @JoinColumn({ name: "equipamientoId" })
     @Index()
     public equipamiento: Equipamiento;
@@ -22,7 +22,7 @@ export class FallaEquipamiento extends GenericEntity {
     @Column()
     notificacionFallaId: number;
 
-    @ManyToOne(type => NotificacionFalla, notificacionFalla => notificacionFalla.fallasEquipamiento)
+    @ManyToOne(type => NotificacionFalla, notificacionFalla => notificacionFalla.fallasEquipamiento, { onDelete: 'CASCADE' })
     @JoinColumn({ name: "notificacionFallaId" })
     @Index()
     public notificacionFalla: NotificacionFalla;

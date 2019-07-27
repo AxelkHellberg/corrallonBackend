@@ -16,7 +16,7 @@ export class ReportService/**config */ extends GenericeService<Report/**config *
     }
 
     public findById = async function (id: number): Promise<Report> {
-        return this.genericRepository.getRepository().createQueryBuilder(DBConection.ENTITY_REF_NAME).innerJoinAndSelect("e.joinsReport", "joinReport").where(DBConection.ENTITY_REF_NAME + ".id=" + id).getOne()
+        return await this.genericRepository.getRepository().createQueryBuilder(DBConection.ENTITY_REF_NAME).innerJoinAndSelect("e.joinsReport", "joinReport").where(DBConection.ENTITY_REF_NAME + ".id=" + id).getOne()
     }
 
     execute = async function (report: Report, params = {}): Promise<any> {
@@ -26,9 +26,9 @@ export class ReportService/**config */ extends GenericeService<Report/**config *
         let joinsReport: JoinReport[] = report.joinsReport
         for (let i: number = 0; i < joinsReport.length; i++) {
             if (joinsReport[i].joinTypeId == JoinType.LEFT_JOIN_ID)
-                builder = await builder.leftJoinAndSelect(joinsReport[i]["joinColumn"], joinsReport[i]["joinAlias"])
+                builder = await builder.leftJoinAndSelect(joinsReport[i]["joinColumn"], joinsReport[i]["joinAlias"], joinsReport[i]["joinWhere"], params)
             else if (joinsReport[i].joinTypeId == JoinType.INNER_JOIN_ID)
-                builder = await builder.innerJoin(joinsReport[i]["joinColumn"], joinsReport[i]["joinAlias"])
+                builder = await builder.innerJoin(joinsReport[i]["joinColumn"], joinsReport[i]["joinAlias"], joinsReport[i]["joinWhere"], params)
         }
         let objs = await builder.getMany()
         return objs

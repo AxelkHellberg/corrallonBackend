@@ -13,7 +13,7 @@ export class HistorialEstadoFalla extends GenericEntity {
     @Column()
     estadoFallaId: number;
 
-    @ManyToOne(type => EstadoFalla, estadoFalla => estadoFalla.historialEstadosFallas)
+    @ManyToOne(type => EstadoFalla, estadoFalla => estadoFalla.historialEstadosFallas, { onDelete: 'CASCADE' })
     @JoinColumn({ name: "estadoFallaId" })
     @Index()
     public estadoFalla: EstadoFalla;
@@ -21,7 +21,7 @@ export class HistorialEstadoFalla extends GenericEntity {
     @Column()
     notificacionFallaId: number;
 
-    @ManyToOne(type => NotificacionFalla, notificacionFalla => notificacionFalla.historialEstadosFallas)
+    @ManyToOne(type => NotificacionFalla, notificacionFalla => notificacionFalla.historialEstadosFallas, { onDelete: 'CASCADE' })
     @JoinColumn({ name: "notificacionFallaId" })
     @Index()
     public notificacionFalla: NotificacionFalla;

@@ -27,12 +27,12 @@ __decorate([
     __metadata("design:type", String)
 ], Profile.prototype, "name", void 0);
 __decorate([
-    typeorm_1.ManyToMany(type => PermissionWS_1.PermissionWS, permissionsws => permissionsws.profiles),
+    typeorm_1.ManyToMany(type => PermissionWS_1.PermissionWS, permissionsws => permissionsws.profiles, { onDelete: 'CASCADE' }),
     typeorm_1.JoinTable(),
     __metadata("design:type", Array)
 ], Profile.prototype, "permissionsWS", void 0);
 __decorate([
-    typeorm_1.ManyToMany(type => Report_1.Report, report => report.allowedProfiles),
+    typeorm_1.ManyToMany(type => Report_1.Report, report => report.allowedProfiles, { onDelete: 'CASCADE' }),
     typeorm_1.JoinTable({ name: "permissionReport" }),
     __metadata("design:type", Array)
 ], Profile.prototype, "reportAvailable", void 0);

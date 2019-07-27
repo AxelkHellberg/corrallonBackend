@@ -8,6 +8,9 @@ import { Report } from "./entity/Report";
 import { DBConection } from "./config/DBConection";
 import { JoinReport } from "./entity/JoinReport";
 import { JoinType } from "./entity/JoinType";
+import { JoinReportRepository } from "./repository/JoinReportRepository";
+import { TipoFallaRepository } from "./repository/TipoFallaRepository";
+import { TipoFalla } from "./entity/TipoFalla";
 
 createConnection().then(async connection => {
 
@@ -18,34 +21,29 @@ createConnection().then(async connection => {
   jt.id = 2
   jt.description = "inner"
   await connection.manager.save(jt)
-  let r = new Report()
-  r.id = 1
-  r.from = "User"
-  r.entityAlias = "user"
-  r.select = "username"
-  r.where = "user.id=:myUserId"
-  r.description = "Test report"
-  await connection.manager.save(r)
-  r.id = 2
-  await connection.manager.save(r)
-
+  let r2 = new Report()
+  r2.id = 1
+  r2.from = "CampoManiobra"
+  r2.entityAlias = "CampoManiobra"
+  r2.description = "Recuperar campos maniobra con nombre de planta"
+  r2.where = "CampoManiobra.plantillaGuiaManiobraId = :plantillaGuiaManiobraId"
+  await connection.manager.save(r2)
+  let jr = new JoinReportRepository()
+  let jr2 = new JoinReportRepository()
   let j: JoinReport = new JoinReport()
+  j.joinColumn = "CampoManiobra.sistema"
+  j.joinAlias = "sistema"
+  j.report = r2
+  j.joinTypeId = 1
   j.id = 1
-  j.joinColumn = "user.profile"
-  j.joinAlias = "profile"
-  j.report = r
-  j.joinTypeId = 1
-  await connection.manager.save(j)
-  j.id = 2
-  j.joinColumn = "profile.permissionsWS"
-  j.joinAlias = "permissionsWS"
-  j.joinTypeId = 1
-  await connection.manager.save(j)
-  j.id = 3
-  j.joinColumn = "permissionsWS.httpMethod"
-  j.joinAlias = "httpMethod"
-  j.joinTypeId = 1
-  await connection.manager.save(j)
+  await jr.save(j)
+  let j2: JoinReport = new JoinReport()
+  j2.joinColumn = "sistema.planta"
+  j2.joinAlias = "planta"
+  j2.report = r2
+  j2.joinTypeId = 1
+  j2.id = 2
+  await jr2.save(j2)
   const get = new HTTPMethod()
   const post = new HTTPMethod()
   const patch = new HTTPMethod()
@@ -100,7 +98,7 @@ createConnection().then(async connection => {
   userProfile.id = 2
   userProfile.name = "userProfile"
   userProfile.permissionsWS = [permisoToProfile1, permisoToProfile2]
-  userProfile.reportAvailable = [r]
+  userProfile.reportAvailable = [r2]
   await connection.manager.save(userProfile);
   const adminUser = new User();
   adminUser.id = 1
@@ -124,6 +122,22 @@ createConnection().then(async connection => {
 
   await connection.manager.save(standardUser);
 
+  let tr = new TipoFallaRepository()
+  let tipoFalla1 = new TipoFalla()
+  tipoFalla1.id = 1
+  tipoFalla1.nombre = "Detectado"
+  tipoFalla1.posicion = 1
+  let tipoFalla2 = new TipoFalla()
+  tipoFalla2.id = 2
+  tipoFalla2.nombre = "En reparación"
+  tipoFalla2.posicion = 2
+  let tipoFalla3 = new TipoFalla()
+  tipoFalla3.id = 3
+  tipoFalla3.nombre = "Solucionado"
+  tipoFalla3.posicion = 3
+  await tr.save(tipoFalla1)
+  await tr.save(tipoFalla2)
+  await tr.save(tipoFalla3)
   /*let perfil = new Profile()
   perfil.id = 1
   connection.manager

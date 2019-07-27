@@ -21,7 +21,7 @@ class ReportService /**config *//**config */  extends GenericService_1.GenericeS
         super(new myClass());
         this.findById = function (id) {
             return __awaiter(this, void 0, void 0, function* () {
-                return this.genericRepository.getRepository().createQueryBuilder(DBConection_1.DBConection.ENTITY_REF_NAME).innerJoinAndSelect("e.joinsReport", "joinReport").where(DBConection_1.DBConection.ENTITY_REF_NAME + ".id=" + id).getOne();
+                return yield this.genericRepository.getRepository().createQueryBuilder(DBConection_1.DBConection.ENTITY_REF_NAME).innerJoinAndSelect("e.joinsReport", "joinReport").where(DBConection_1.DBConection.ENTITY_REF_NAME + ".id=" + id).getOne();
             });
         };
         this.execute = function (report, params = {}) {
@@ -32,9 +32,9 @@ class ReportService /**config *//**config */  extends GenericService_1.GenericeS
                 let joinsReport = report.joinsReport;
                 for (let i = 0; i < joinsReport.length; i++) {
                     if (joinsReport[i].joinTypeId == JoinType_1.JoinType.LEFT_JOIN_ID)
-                        builder = yield builder.leftJoinAndSelect(joinsReport[i]["joinColumn"], joinsReport[i]["joinAlias"]);
+                        builder = yield builder.leftJoinAndSelect(joinsReport[i]["joinColumn"], joinsReport[i]["joinAlias"], joinsReport[i]["joinWhere"], params);
                     else if (joinsReport[i].joinTypeId == JoinType_1.JoinType.INNER_JOIN_ID)
-                        builder = yield builder.innerJoin(joinsReport[i]["joinColumn"], joinsReport[i]["joinAlias"]);
+                        builder = yield builder.innerJoin(joinsReport[i]["joinColumn"], joinsReport[i]["joinAlias"], joinsReport[i]["joinWhere"], params);
                 }
                 let objs = yield builder.getMany();
                 return objs;

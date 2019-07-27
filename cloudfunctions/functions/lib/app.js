@@ -1,5 +1,4 @@
 "use strict";
-const typeorm_1 = require("typeorm");
 const checkJwt_1 = require("./middlewares/checkJwt");
 const validatePermissionsEntity_1 = require("./middlewares/validatePermissionsEntity");
 const validatePermissionsReports_1 = require("./middlewares/validatePermissionsReports");
@@ -7,6 +6,7 @@ const test_1 = require("./middlewares/test");
 const authorizationDecision_1 = require("./middlewares/authorizationDecision");
 const validatePermissionUser_1 = require("./middlewares/validatePermissionUser");
 const checkPublicService_1 = require("./middlewares/checkPublicService");
+const createNewConnection_1 = require("./middlewares/createNewConnection");
 var cors = require('cors');
 const createError = require('http-errors');
 const express = require('express');
@@ -46,15 +46,22 @@ genericEntitiesServicePath.push({ "route": require('./routes/horarioRoutes'), "s
 genericEntitiesServicePath.push({ "route": require('./routes/camposRondaRoutes'), "serviceName": "campos-ronda" });
 genericEntitiesServicePath.push({ "route": require('./routes/rondasRoutes'), "serviceName": "rondas" });
 genericEntitiesServicePath.push({ "route": require('./routes/plantillasRonda'), "serviceName": "plantillas-ronda" });
-genericEntitiesServicePath.push({ "route": require('./routes/valoresCamposRondaRoutes'), "serviceName": "rondas" });
 genericEntitiesServicePath.push({ "route": require('./routes/rondasRoutes'), "serviceName": "rondas" });
 genericEntitiesServicePath.push({ "route": require('./routes/valoresCamposRondaRoutes'), "serviceName": "valores-campos-ronda" });
 genericEntitiesServicePath.push({ "route": require('./routes/plantillasRonda'), "serviceName": "plantillas-ronda" });
 genericEntitiesServicePath.push({ "route": require('./routes/listasRondaRoutes'), "serviceName": "listas-rondas" });
-appOnPremise.use('/auth', auth);
-appOnPremise.use('/reports', [checkJwt_1.checkJwt, validatePermissionsReports_1.validatePermissionsReports, authorizationDecision_1.authorizationDecision], reports);
+genericEntitiesServicePath.push({ "route": require('./routes/TipoFallaRoutes'), "serviceName": "tipos-falla" });
+genericEntitiesServicePath.push({ "route": require('./routes/NotificacionFallaRoutes'), "serviceName": "notificaciones-falla" });
+genericEntitiesServicePath.push({ "route": require('./routes/HistorialEstadoFallaRoutes'), "serviceName": "historial-falla" });
+genericEntitiesServicePath.push({ "route": require('./routes/FallaSistemaRoutes'), "serviceName": "fallas-sistema" });
+genericEntitiesServicePath.push({ "route": require('./routes/FallaEquipamientoRoutes'), "serviceName": "fallas-equipamiento" });
+genericEntitiesServicePath.push({ "route": require('./routes/EstadoFallaRoutes'), "serviceName": "estados-falla" });
+genericEntitiesServicePath.push({ "route": require('./routes/ProfileRoutes'), "serviceName": "profiles" });
+genericEntitiesServicePath.push({ "route": require('./routes/TipoSistemaRoutes'), "serviceName": "tipos-sistema" });
+appOnPremise.use('/auth', createNewConnection_1.createNewConnection, auth);
+appOnPremise.use('/reports', createNewConnection_1.createNewConnection, [checkJwt_1.checkJwt, validatePermissionsReports_1.validatePermissionsReports, authorizationDecision_1.authorizationDecision], reports);
 for (let service of genericEntitiesServicePath) {
-    appOnPremise.use('/' + ENTITIES_BASE_URL + '/' + service.serviceName, [checkPublicService_1.checkPublicService, checkJwt_1.checkJwt, validatePermissionsEntity_1.validatePermissionsEntity, validatePermissionUser_1.validatePermissionsUser, authorizationDecision_1.authorizationDecision], service.route, [test_1.test]);
+    appOnPremise.use('/' + ENTITIES_BASE_URL + '/' + service.serviceName, createNewConnection_1.createNewConnection, [checkPublicService_1.checkPublicService, checkJwt_1.checkJwt, validatePermissionsEntity_1.validatePermissionsEntity, validatePermissionUser_1.validatePermissionsUser, authorizationDecision_1.authorizationDecision], service.route, [test_1.test]);
 }
 // catch 404 and forward to error handler
 appOnPremise.use(function (req, res, next) {
@@ -69,7 +76,6 @@ appOnPremise.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
-typeorm_1.createConnection().then((c) => console.log("OK CONNECTION")).catch((e) => console.log(e));
 let cloudFunction = null;
 try {
     cloudFunction = functions.https.onRequest(appOnPremise);

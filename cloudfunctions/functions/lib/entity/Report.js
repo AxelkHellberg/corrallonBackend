@@ -29,7 +29,7 @@ __decorate([
     __metadata("design:type", String)
 ], Report.prototype, "from", void 0);
 __decorate([
-    typeorm_1.Column(),
+    typeorm_1.Column({ nullable: true }),
     __metadata("design:type", String)
 ], Report.prototype, "where", void 0);
 __decorate([
@@ -37,7 +37,7 @@ __decorate([
     __metadata("design:type", String)
 ], Report.prototype, "entityAlias", void 0);
 __decorate([
-    typeorm_1.Column(),
+    typeorm_1.Column({ nullable: true }),
     __metadata("design:type", String)
 ], Report.prototype, "select", void 0);
 __decorate([
@@ -45,7 +45,7 @@ __decorate([
     __metadata("design:type", Array)
 ], Report.prototype, "joinsReport", void 0);
 __decorate([
-    typeorm_1.ManyToMany(type => Profile_1.Profile, profile => profile.reportAvailable),
+    typeorm_1.ManyToMany(type => Profile_1.Profile, profile => profile.reportAvailable, { onDelete: 'CASCADE' }),
     __metadata("design:type", Array)
 ], Report.prototype, "allowedProfiles", void 0);
 Report = __decorate([

@@ -18,6 +18,9 @@ export class CampoRonda extends GenericEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
+    @Column({ type: "text" })
+    public descripcion
+
     @Column()
     nombre: string;
 
@@ -33,21 +36,21 @@ export class CampoRonda extends GenericEntity {
     @Column()
     equipamientoId: number;
 
-    @ManyToOne(type => Equipamiento, equipamiento => equipamiento.camposRonda)
+    @ManyToOne(type => Equipamiento, equipamiento => equipamiento.camposRonda, { onDelete: 'CASCADE' })
     @JoinColumn({ name: "equipamientoId" })
     public equipamiento: Equipamiento;
 
     @Column()
     tipoCampoRondaId: number;
 
-    @ManyToOne(type => TipoCampoRonda, tipoCampoRondaService => tipoCampoRondaService.camposRonda)
+    @ManyToOne(type => TipoCampoRonda, tipoCampoRondaService => tipoCampoRondaService.camposRonda, { onDelete: 'CASCADE' })
     @JoinColumn({ name: "tipoCampoRondaId" })
     public tipoCampoRonda: TipoCampoRonda;
 
     @Column()
     unidadMedidaId: number;
 
-    @ManyToOne(type => UnidadMedida, unidadMedida => unidadMedida.camposRonda)
+    @ManyToOne(type => UnidadMedida, unidadMedida => unidadMedida.camposRonda, { onDelete: 'CASCADE' })
     @JoinColumn({ name: "unidadMedidaId" })
     public unidadMedida: UnidadMedida;
 
@@ -57,7 +60,7 @@ export class CampoRonda extends GenericEntity {
     @Column()
     plantillaRondaId: number;
 
-    @ManyToOne(type => PlantillaRonda, plantillaRonda => plantillaRonda.camposRonda)
+    @ManyToOne(type => PlantillaRonda, plantillaRonda => plantillaRonda.camposRonda, { onDelete: 'CASCADE' })
     @JoinColumn({ name: "plantillaRondaId" })
     public plantillaRonda: PlantillaRonda;
 

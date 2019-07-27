@@ -36,7 +36,7 @@ __decorate([
     __metadata("design:type", Number)
 ], Ronda.prototype, "userId", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => User_1.User, user => user.rondas),
+    typeorm_1.ManyToOne(type => User_1.User, user => user.rondas, { onDelete: 'CASCADE' }),
     typeorm_1.JoinColumn({ name: "userId" }),
     __metadata("design:type", User_1.User)
 ], Ronda.prototype, "user", void 0);
@@ -45,7 +45,7 @@ __decorate([
     __metadata("design:type", Number)
 ], Ronda.prototype, "estadoRondaId", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => EstadoRonda_1.EstadoRonda, estadoRonda => estadoRonda.rondas),
+    typeorm_1.ManyToOne(type => EstadoRonda_1.EstadoRonda, estadoRonda => estadoRonda.rondas, { onDelete: 'CASCADE' }),
     typeorm_1.JoinColumn({ name: "estadoRondaId" }),
     __metadata("design:type", EstadoRonda_1.EstadoRonda)
 ], Ronda.prototype, "estadoRonda", void 0);
@@ -62,7 +62,7 @@ __decorate([
     __metadata("design:type", Number)
 ], Ronda.prototype, "plantillaRondaId", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => PlantillaRonda_1.PlantillaRonda, plantillaRonda => plantillaRonda.rondas),
+    typeorm_1.ManyToOne(type => PlantillaRonda_1.PlantillaRonda, plantillaRonda => plantillaRonda.rondas, { onDelete: 'CASCADE' }),
     typeorm_1.JoinColumn({ name: "plantillaRondaId" }),
     __metadata("design:type", PlantillaRonda_1.PlantillaRonda)
 ], Ronda.prototype, "plantillaRonda", void 0);

@@ -15,6 +15,7 @@ const ErrorVDF_1 = require("../components/ErrorVDF");
 const msg_1 = require("../msg/msg");
 const CampoManiobra_1 = require("./CampoManiobra");
 const GuiaManiobra_1 = require("./GuiaManiobra");
+const NotificacionFalla_1 = require("./NotificacionFalla");
 let ValorCampoManiobra = class ValorCampoManiobra extends GenericEntity_1.GenericEntity {
     validateInsert() {
         if (this.valor == null)
@@ -42,17 +43,27 @@ __decorate([
     __metadata("design:type", Number)
 ], ValorCampoManiobra.prototype, "guiaManiobraId", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => GuiaManiobra_1.GuiaManiobra, guiaManiobra => guiaManiobra.valoresCamposManiobras),
+    typeorm_1.ManyToOne(type => GuiaManiobra_1.GuiaManiobra, guiaManiobra => guiaManiobra.valoresCamposManiobras, { onDelete: 'CASCADE' }),
     typeorm_1.JoinColumn({ name: "guiaManiobraId" }),
     typeorm_1.Index(),
     __metadata("design:type", GuiaManiobra_1.GuiaManiobra)
 ], ValorCampoManiobra.prototype, "guiaManiobra", void 0);
 __decorate([
+    typeorm_1.Column({ nullable: true }),
+    __metadata("design:type", Number)
+], ValorCampoManiobra.prototype, "notificacionFallaId", void 0);
+__decorate([
+    typeorm_1.ManyToOne(type => NotificacionFalla_1.NotificacionFalla, notificacionFalla => notificacionFalla.valoresCamposManiobras, { onDelete: 'CASCADE' }),
+    typeorm_1.JoinColumn({ name: "notificacionFallaId" }),
+    typeorm_1.Index(),
+    __metadata("design:type", NotificacionFalla_1.NotificacionFalla)
+], ValorCampoManiobra.prototype, "notificacionFalla", void 0);
+__decorate([
     typeorm_1.Column(),
     __metadata("design:type", Number)
 ], ValorCampoManiobra.prototype, "campoManiobraId", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => CampoManiobra_1.CampoManiobra, campoManiobra => campoManiobra.valoresCamposManiobras),
+    typeorm_1.ManyToOne(type => CampoManiobra_1.CampoManiobra, campoManiobra => campoManiobra.valoresCamposManiobras, { onDelete: 'CASCADE' }),
     typeorm_1.JoinColumn({ name: "campoManiobraId" }),
     typeorm_1.Index(),
     __metadata("design:type", CampoManiobra_1.CampoManiobra)

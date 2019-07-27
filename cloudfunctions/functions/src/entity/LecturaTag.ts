@@ -18,14 +18,14 @@ export class LecturaTag extends GenericEntity {
     @Column()
     tagId: number; //GET
 
-    @ManyToOne(type => Tag, tag => tag.lecturasTags)
+    @ManyToOne(type => Tag, tag => tag.lecturasTags, { onDelete: 'CASCADE' })
     @JoinColumn({ name: "tagId" })
     public tag: Tag;
 
     @Column()
     rondaId: number; //GET
 
-    @ManyToOne(type => Ronda, ronda => ronda.lecturasTags)
+    @ManyToOne(type => Ronda, ronda => ronda.lecturasTags, { onDelete: 'CASCADE' })
     @JoinColumn({ name: "rondaId" })
     public ronda: Ronda;
 

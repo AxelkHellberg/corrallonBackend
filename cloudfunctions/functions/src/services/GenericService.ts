@@ -26,6 +26,11 @@ export abstract class GenericeService<E> {
         return await this.genericRepository.delete(id)
     }
 
+
+    public async deleteWhere(where: string): Promise<E> {
+        return await this.genericRepository.deleteWhere(where)
+    }
+
     public async updateById(data, id) {
         return await this.genericRepository.updateById(data, id)
     }

@@ -26,14 +26,14 @@ export class Ronda extends GenericEntity {
     @Column()
     public userId: number;
 
-    @ManyToOne(type => User, user => user.rondas)
+    @ManyToOne(type => User, user => user.rondas, { onDelete: 'CASCADE' })
     @JoinColumn({ name: "userId" })
     public user: User;
 
     @Column()
     public estadoRondaId: number;
 
-    @ManyToOne(type => EstadoRonda, estadoRonda => estadoRonda.rondas)
+    @ManyToOne(type => EstadoRonda, estadoRonda => estadoRonda.rondas, { onDelete: 'CASCADE' })
     @JoinColumn({ name: "estadoRondaId" })
     public estadoRonda: EstadoRonda;
 
@@ -46,7 +46,7 @@ export class Ronda extends GenericEntity {
     @Column()
     public plantillaRondaId: number;
 
-    @ManyToOne(type => PlantillaRonda, plantillaRonda => plantillaRonda.rondas)
+    @ManyToOne(type => PlantillaRonda, plantillaRonda => plantillaRonda.rondas, { onDelete: 'CASCADE' })
     @JoinColumn({ name: "plantillaRondaId" })
     public plantillaRonda: PlantillaRonda;
 

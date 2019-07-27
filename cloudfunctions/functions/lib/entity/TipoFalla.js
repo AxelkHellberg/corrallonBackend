@@ -13,6 +13,7 @@ const typeorm_1 = require("typeorm");
 const GenericEntity_1 = require("./GenericEntity");
 const ErrorVDF_1 = require("../components/ErrorVDF");
 const msg_1 = require("../msg/msg");
+const NotificacionFalla_1 = require("./NotificacionFalla");
 let TipoFalla = class TipoFalla extends GenericEntity_1.GenericEntity {
     validateInsert() {
         if (this.nombre == null)
@@ -31,6 +32,10 @@ __decorate([
     typeorm_1.Column(),
     __metadata("design:type", Number)
 ], TipoFalla.prototype, "posicion", void 0);
+__decorate([
+    typeorm_1.OneToMany(type => NotificacionFalla_1.NotificacionFalla, notificacionFalla => notificacionFalla.tipoFalla),
+    __metadata("design:type", Array)
+], TipoFalla.prototype, "notificacionesFalla", void 0);
 __decorate([
     typeorm_1.BeforeInsert(),
     __metadata("design:type", Function),

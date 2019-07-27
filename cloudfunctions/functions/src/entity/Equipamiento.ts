@@ -20,14 +20,14 @@ export class Equipamiento extends GenericEntity {
     @Column()
     sistemaId: number; //GET
 
-    @ManyToOne(type => Sistema, sistema => sistema.equipamientos)
+    @ManyToOne(type => Sistema, sistema => sistema.equipamientos, { onDelete: 'CASCADE' })
     @JoinColumn({ name: "sistemaId" })
     public sistema: Sistema;
 
     @Column({ nullable: true })
     tagId: number; //GET
 
-    @ManyToOne(type => Tag, tag => tag.equipamientos)
+    @ManyToOne(type => Tag, tag => tag.equipamientos, { onDelete: 'CASCADE' })
     @JoinColumn({ name: "tagId" })
     public tag: Tag;
 

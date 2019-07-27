@@ -21,6 +21,8 @@ router.post('/execute', async (req, res, next) => {
         let report: Report = await service.findById(req.body.id)
         if (!("filters" in req.body))
             req.body.filters = {}
+        console.log("REPORTTTTT::")
+        console.log(report)
         req.body.filters["myUserId"] = res.locals.jwtPayload.u
         let responseData = await service.execute(report, req.body.filters)
         res.locals.responseData = responseData

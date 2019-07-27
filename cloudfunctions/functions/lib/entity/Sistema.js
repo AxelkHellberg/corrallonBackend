@@ -18,6 +18,7 @@ const Equipamiento_1 = require("./Equipamiento");
 const Tag_1 = require("./Tag");
 const CampoManiobra_1 = require("./CampoManiobra");
 const FallaSistema_1 = require("./FallaSistema");
+const TipoSistema_1 = require("./TipoSistema");
 let Sistema = class Sistema extends GenericEntity_1.GenericEntity {
     validateInsert() {
         if (this.nombre == null)
@@ -43,16 +44,25 @@ __decorate([
     __metadata("design:type", Number)
 ], Sistema.prototype, "plantaId", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => Planta_1.Planta, planta => planta.sistemas),
+    typeorm_1.ManyToOne(type => Planta_1.Planta, planta => planta.sistemas, { onDelete: 'CASCADE' }),
     typeorm_1.JoinColumn({ name: "plantaId" }),
     __metadata("design:type", Planta_1.Planta)
 ], Sistema.prototype, "planta", void 0);
+__decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", Number)
+], Sistema.prototype, "tipoSistemaId", void 0);
+__decorate([
+    typeorm_1.ManyToOne(type => TipoSistema_1.TipoSistema, tipoSistema => tipoSistema.sistemas, { onDelete: 'CASCADE' }),
+    typeorm_1.JoinColumn({ name: "tipoSistemaId" }),
+    __metadata("design:type", TipoSistema_1.TipoSistema)
+], Sistema.prototype, "tipoSistema", void 0);
 __decorate([
     typeorm_1.Column({ nullable: true }),
     __metadata("design:type", Number)
 ], Sistema.prototype, "tagId", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => Tag_1.Tag, tag => tag.sistemas),
+    typeorm_1.ManyToOne(type => Tag_1.Tag, tag => tag.sistemas, { onDelete: 'CASCADE' }),
     typeorm_1.JoinColumn({ name: "tagId" }),
     __metadata("design:type", Tag_1.Tag)
 ], Sistema.prototype, "tag", void 0);

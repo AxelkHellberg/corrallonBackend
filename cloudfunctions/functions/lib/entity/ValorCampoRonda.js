@@ -42,7 +42,7 @@ __decorate([
     __metadata("design:type", Number)
 ], ValorCampoRonda.prototype, "rondaId", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => Ronda_1.Ronda, ronda => ronda.valoresCamposRonda),
+    typeorm_1.ManyToOne(type => Ronda_1.Ronda, ronda => ronda.valoresCamposRonda, { onDelete: 'CASCADE' }),
     typeorm_1.JoinColumn({ name: "rondaId" }),
     typeorm_1.Index(),
     __metadata("design:type", Ronda_1.Ronda)
@@ -52,7 +52,7 @@ __decorate([
     __metadata("design:type", Number)
 ], ValorCampoRonda.prototype, "campoRondaId", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => CampoRonda_1.CampoRonda, campoRonda => campoRonda.valoresCamposRonda),
+    typeorm_1.ManyToOne(type => CampoRonda_1.CampoRonda, campoRonda => campoRonda.valoresCamposRonda, { onDelete: 'CASCADE' }),
     typeorm_1.JoinColumn({ name: "campoRondaId" }),
     typeorm_1.Index(),
     __metadata("design:type", CampoRonda_1.CampoRonda)

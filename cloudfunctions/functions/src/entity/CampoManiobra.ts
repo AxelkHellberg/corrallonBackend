@@ -15,20 +15,23 @@ export class CampoManiobra extends GenericEntity {
     @Column()
     nombre: string;
 
+    @Column({ type: "text" })
+    public descripcion
+
     @Column()
     valorNormal: boolean = true;
 
     @Column()
     sistemaId: number;
 
-    @ManyToOne(type => Sistema, sistema => sistema.camposManiobras)
+    @ManyToOne(type => Sistema, sistema => sistema.camposManiobras, { onDelete: 'CASCADE' })
     @JoinColumn({ name: "sistemaId" })
     public sistema: Sistema;
 
     @Column()
     plantillaGuiaManiobraId: number; //GET
 
-    @ManyToOne(type => PlantillaGuiaManiobra, plantillaGuiaManiobra => plantillaGuiaManiobra.camposManiobras)
+    @ManyToOne(type => PlantillaGuiaManiobra, plantillaGuiaManiobra => plantillaGuiaManiobra.camposManiobras, { onDelete: 'CASCADE' })
     @JoinColumn({ name: "plantillaGuiaManiobraId" })
     public plantillaGuiaManiobra: PlantillaGuiaManiobra;
 

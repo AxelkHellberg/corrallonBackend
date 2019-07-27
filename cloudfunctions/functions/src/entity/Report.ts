@@ -18,18 +18,18 @@ export class Report extends GenericEntity {
     @Column()
     public from: string;
 
-    @Column()
+    @Column({ nullable: true })
     public where: string;
 
     @Column()
     public entityAlias: string;
 
-    @Column()
+    @Column({ nullable: true })
     public select: string;
 
     @OneToMany(type => JoinReport, joinReport => joinReport.report)
     public joinsReport: JoinReport[];
 
-    @ManyToMany(type => Profile, profile => profile.reportAvailable)
+    @ManyToMany(type => Profile, profile => profile.reportAvailable, { onDelete: 'CASCADE' })
     allowedProfiles: Profile[];
 }

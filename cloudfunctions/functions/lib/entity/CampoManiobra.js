@@ -39,6 +39,10 @@ __decorate([
     __metadata("design:type", String)
 ], CampoManiobra.prototype, "nombre", void 0);
 __decorate([
+    typeorm_1.Column({ type: "text" }),
+    __metadata("design:type", Object)
+], CampoManiobra.prototype, "descripcion", void 0);
+__decorate([
     typeorm_1.Column(),
     __metadata("design:type", Boolean)
 ], CampoManiobra.prototype, "valorNormal", void 0);
@@ -47,7 +51,7 @@ __decorate([
     __metadata("design:type", Number)
 ], CampoManiobra.prototype, "sistemaId", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => Sistema_1.Sistema, sistema => sistema.camposManiobras),
+    typeorm_1.ManyToOne(type => Sistema_1.Sistema, sistema => sistema.camposManiobras, { onDelete: 'CASCADE' }),
     typeorm_1.JoinColumn({ name: "sistemaId" }),
     __metadata("design:type", Sistema_1.Sistema)
 ], CampoManiobra.prototype, "sistema", void 0);
@@ -56,7 +60,7 @@ __decorate([
     __metadata("design:type", Number)
 ], CampoManiobra.prototype, "plantillaGuiaManiobraId", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => PlantillaGuiaManiobra_1.PlantillaGuiaManiobra, plantillaGuiaManiobra => plantillaGuiaManiobra.camposManiobras),
+    typeorm_1.ManyToOne(type => PlantillaGuiaManiobra_1.PlantillaGuiaManiobra, plantillaGuiaManiobra => plantillaGuiaManiobra.camposManiobras, { onDelete: 'CASCADE' }),
     typeorm_1.JoinColumn({ name: "plantillaGuiaManiobraId" }),
     __metadata("design:type", PlantillaGuiaManiobra_1.PlantillaGuiaManiobra)
 ], CampoManiobra.prototype, "plantillaGuiaManiobra", void 0);

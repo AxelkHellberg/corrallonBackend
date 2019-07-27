@@ -42,7 +42,7 @@ __decorate([
     __metadata("design:type", Number)
 ], Equipamiento.prototype, "sistemaId", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => Sistema_1.Sistema, sistema => sistema.equipamientos),
+    typeorm_1.ManyToOne(type => Sistema_1.Sistema, sistema => sistema.equipamientos, { onDelete: 'CASCADE' }),
     typeorm_1.JoinColumn({ name: "sistemaId" }),
     __metadata("design:type", Sistema_1.Sistema)
 ], Equipamiento.prototype, "sistema", void 0);
@@ -51,7 +51,7 @@ __decorate([
     __metadata("design:type", Number)
 ], Equipamiento.prototype, "tagId", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => Tag_1.Tag, tag => tag.equipamientos),
+    typeorm_1.ManyToOne(type => Tag_1.Tag, tag => tag.equipamientos, { onDelete: 'CASCADE' }),
     typeorm_1.JoinColumn({ name: "tagId" }),
     __metadata("design:type", Tag_1.Tag)
 ], Equipamiento.prototype, "tag", void 0);

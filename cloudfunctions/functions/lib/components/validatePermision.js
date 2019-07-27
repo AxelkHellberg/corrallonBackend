@@ -13,11 +13,24 @@ const Profile_1 = require("../entity/Profile");
 const mapHTTPMethodDB = require("../config/mapHTTPMethodDB");
 exports.hasPermissionEntity = function (userId, perfilId, url, method) {
     return __awaiter(this, void 0, void 0, function* () {
+        if (perfilId == Profile_1.Profile.ID_ADMIN)
+            return true;
         const userService = new UserService_1.UserService();
         console.log(userId, perfilId, url, mapHTTPMethodDB[method]);
         let hasPermission = yield userService.hasPermissionsEntity(userId, url, mapHTTPMethodDB[method]);
         console.log(hasPermission);
-        return perfilId == Profile_1.Profile.ID_ADMIN || hasPermission;
+        return hasPermission;
+    });
+};
+exports.hasPermissionReport = function (userId, perfilId, reportId) {
+    return __awaiter(this, void 0, void 0, function* () {
+        if (perfilId == Profile_1.Profile.ID_ADMIN)
+            return true;
+        const userService = new UserService_1.UserService();
+        console.log(userId, perfilId);
+        let hasPermission = yield userService.hasPermissionsReport(userId, reportId);
+        console.log(hasPermission);
+        return hasPermission;
     });
 };
 //# sourceMappingURL=validatePermision.js.map

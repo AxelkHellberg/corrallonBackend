@@ -32,6 +32,10 @@ __decorate([
     __metadata("design:type", Number)
 ], CampoRonda.prototype, "id", void 0);
 __decorate([
+    typeorm_1.Column({ type: "text" }),
+    __metadata("design:type", Object)
+], CampoRonda.prototype, "descripcion", void 0);
+__decorate([
     typeorm_1.Column(),
     __metadata("design:type", String)
 ], CampoRonda.prototype, "nombre", void 0);
@@ -52,7 +56,7 @@ __decorate([
     __metadata("design:type", Number)
 ], CampoRonda.prototype, "equipamientoId", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => Equipamiento_1.Equipamiento, equipamiento => equipamiento.camposRonda),
+    typeorm_1.ManyToOne(type => Equipamiento_1.Equipamiento, equipamiento => equipamiento.camposRonda, { onDelete: 'CASCADE' }),
     typeorm_1.JoinColumn({ name: "equipamientoId" }),
     __metadata("design:type", Equipamiento_1.Equipamiento)
 ], CampoRonda.prototype, "equipamiento", void 0);
@@ -61,7 +65,7 @@ __decorate([
     __metadata("design:type", Number)
 ], CampoRonda.prototype, "tipoCampoRondaId", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => TipoCampoRonda_1.TipoCampoRonda, tipoCampoRondaService => tipoCampoRondaService.camposRonda),
+    typeorm_1.ManyToOne(type => TipoCampoRonda_1.TipoCampoRonda, tipoCampoRondaService => tipoCampoRondaService.camposRonda, { onDelete: 'CASCADE' }),
     typeorm_1.JoinColumn({ name: "tipoCampoRondaId" }),
     __metadata("design:type", TipoCampoRonda_1.TipoCampoRonda)
 ], CampoRonda.prototype, "tipoCampoRonda", void 0);
@@ -70,7 +74,7 @@ __decorate([
     __metadata("design:type", Number)
 ], CampoRonda.prototype, "unidadMedidaId", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => UnidadMedida_1.UnidadMedida, unidadMedida => unidadMedida.camposRonda),
+    typeorm_1.ManyToOne(type => UnidadMedida_1.UnidadMedida, unidadMedida => unidadMedida.camposRonda, { onDelete: 'CASCADE' }),
     typeorm_1.JoinColumn({ name: "unidadMedidaId" }),
     __metadata("design:type", UnidadMedida_1.UnidadMedida)
 ], CampoRonda.prototype, "unidadMedida", void 0);
@@ -83,7 +87,7 @@ __decorate([
     __metadata("design:type", Number)
 ], CampoRonda.prototype, "plantillaRondaId", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => PlantillaRonda_1.PlantillaRonda, plantillaRonda => plantillaRonda.camposRonda),
+    typeorm_1.ManyToOne(type => PlantillaRonda_1.PlantillaRonda, plantillaRonda => plantillaRonda.camposRonda, { onDelete: 'CASCADE' }),
     typeorm_1.JoinColumn({ name: "plantillaRondaId" }),
     __metadata("design:type", PlantillaRonda_1.PlantillaRonda)
 ], CampoRonda.prototype, "plantillaRonda", void 0);

@@ -14,6 +14,10 @@ const GenericEntity_1 = require("./GenericEntity");
 const Report_1 = require("./Report");
 const JoinType_1 = require("./JoinType");
 let JoinReport = class JoinReport extends GenericEntity_1.GenericEntity {
+    constructor() {
+        super(...arguments);
+        this.joinWhere = null;
+    }
 };
 __decorate([
     typeorm_1.PrimaryGeneratedColumn(),
@@ -28,11 +32,15 @@ __decorate([
     __metadata("design:type", String)
 ], JoinReport.prototype, "joinAlias", void 0);
 __decorate([
+    typeorm_1.Column({ nullable: true }),
+    __metadata("design:type", String)
+], JoinReport.prototype, "joinWhere", void 0);
+__decorate([
     typeorm_1.Column(),
     __metadata("design:type", Number)
 ], JoinReport.prototype, "reportId", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => Report_1.Report, report => report.joinsReport),
+    typeorm_1.ManyToOne(type => Report_1.Report, report => report.joinsReport, { onDelete: 'CASCADE' }),
     typeorm_1.JoinColumn({ name: "reportId" }),
     typeorm_1.Index(),
     __metadata("design:type", Report_1.Report)
@@ -42,7 +50,7 @@ __decorate([
     __metadata("design:type", Number)
 ], JoinReport.prototype, "joinTypeId", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => JoinType_1.JoinType, joinType => joinType.joinReports),
+    typeorm_1.ManyToOne(type => JoinType_1.JoinType, joinType => joinType.joinReports, { onDelete: 'CASCADE' }),
     typeorm_1.JoinColumn({ name: "joinTypeId" }),
     typeorm_1.Index(),
     __metadata("design:type", JoinType_1.JoinType)

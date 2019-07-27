@@ -32,7 +32,7 @@ __decorate([
     __metadata("design:type", Number)
 ], LecturaTag.prototype, "tagId", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => Tag_1.Tag, tag => tag.lecturasTags),
+    typeorm_1.ManyToOne(type => Tag_1.Tag, tag => tag.lecturasTags, { onDelete: 'CASCADE' }),
     typeorm_1.JoinColumn({ name: "tagId" }),
     __metadata("design:type", Tag_1.Tag)
 ], LecturaTag.prototype, "tag", void 0);
@@ -41,7 +41,7 @@ __decorate([
     __metadata("design:type", Number)
 ], LecturaTag.prototype, "rondaId", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => Ronda_1.Ronda, ronda => ronda.lecturasTags),
+    typeorm_1.ManyToOne(type => Ronda_1.Ronda, ronda => ronda.lecturasTags, { onDelete: 'CASCADE' }),
     typeorm_1.JoinColumn({ name: "rondaId" }),
     __metadata("design:type", Ronda_1.Ronda)
 ], LecturaTag.prototype, "ronda", void 0);

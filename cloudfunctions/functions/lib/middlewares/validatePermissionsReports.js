@@ -11,6 +11,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const ErrorVDF_1 = require("../components/ErrorVDF");
 const msg_1 = require("../msg/msg");
 const UserService_1 = require("../services/UserService");
+const validatePermision_1 = require("../components/validatePermision");
 const apiHandler = require("../components/apiHandler");
 exports.validatePermissionsReports = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
     if (!("id" in req.body)) {
@@ -18,7 +19,7 @@ exports.validatePermissionsReports = (req, res, next) => __awaiter(this, void 0,
         return;
     }
     const us = new UserService_1.UserService();
-    res.locals.hasPermission = yield us.hasPermissionsReport(res.locals.jwtPayload.u, req.body.id);
+    res.locals.hasPermission = yield validatePermision_1.hasPermissionReport(res.locals.jwtPayload.u, res.locals.jwtPayload.p, req.body.id);
     console.log(res.locals.hasPermission);
     next();
 });

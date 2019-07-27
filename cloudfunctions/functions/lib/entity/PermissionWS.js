@@ -33,7 +33,7 @@ __decorate([
     __metadata("design:type", Number)
 ], PermissionWS.prototype, "httpMethodId", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => HTTPMethod_1.HTTPMethod, httpMethod => httpMethod.permmissionsWS),
+    typeorm_1.ManyToOne(type => HTTPMethod_1.HTTPMethod, httpMethod => httpMethod.permmissionsWS, { onDelete: 'CASCADE' }),
     typeorm_1.JoinColumn({ name: "httpMethodId" }),
     __metadata("design:type", HTTPMethod_1.HTTPMethod)
 ], PermissionWS.prototype, "httpMethod", void 0);

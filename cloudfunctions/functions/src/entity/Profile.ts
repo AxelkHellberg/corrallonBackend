@@ -13,11 +13,11 @@ export class Profile extends GenericEntity {
     @Column()
     name: string;
 
-    @ManyToMany(type => PermissionWS, permissionsws => permissionsws.profiles)
+    @ManyToMany(type => PermissionWS, permissionsws => permissionsws.profiles, { onDelete: 'CASCADE' })
     @JoinTable()
     permissionsWS: PermissionWS[];
 
-    @ManyToMany(type => Report, report => report.allowedProfiles)
+    @ManyToMany(type => Report, report => report.allowedProfiles, { onDelete: 'CASCADE' })
     @JoinTable({ name: "permissionReport" })
     reportAvailable: Report[];
 

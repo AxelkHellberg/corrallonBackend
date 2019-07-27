@@ -18,7 +18,7 @@ export class PermissionWS extends GenericEntity {
     @Column()
     httpMethodId: number; //GET
 
-    @ManyToOne(type => HTTPMethod, httpMethod => httpMethod.permmissionsWS)
+    @ManyToOne(type => HTTPMethod, httpMethod => httpMethod.permmissionsWS, { onDelete: 'CASCADE' })
     @JoinColumn({ name: "httpMethodId" })
     public httpMethod: HTTPMethod;
 

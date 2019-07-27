@@ -17,7 +17,7 @@ export class GuiaManiobra extends GenericEntity {
     @Column()
     userId: number;
 
-    @ManyToOne(type => User, user => user.guiasManiobras)
+    @ManyToOne(type => User, user => user.guiasManiobras, { onDelete: 'CASCADE' })
     @JoinColumn({ name: "userId" })
     @Index()
     public user: User;
@@ -25,7 +25,7 @@ export class GuiaManiobra extends GenericEntity {
     @Column()
     plantillaGuiaManiobraId: number; //GET
 
-    @ManyToOne(type => PlantillaGuiaManiobra, plantillaGuiaManiobra => plantillaGuiaManiobra.guiasManiobras)
+    @ManyToOne(type => PlantillaGuiaManiobra, plantillaGuiaManiobra => plantillaGuiaManiobra.guiasManiobras, { onDelete: 'CASCADE' })
     @JoinColumn({ name: "plantillaGuiaManiobraId" })
     @Index()
     public plantillaGuiaManiobra: PlantillaGuiaManiobra;

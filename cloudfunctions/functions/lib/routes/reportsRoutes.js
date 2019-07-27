@@ -27,6 +27,8 @@ router.post('/execute', (req, res, next) => __awaiter(this, void 0, void 0, func
         let report = yield service.findById(req.body.id);
         if (!("filters" in req.body))
             req.body.filters = {};
+        console.log("REPORTTTTT::");
+        console.log(report);
         req.body.filters["myUserId"] = res.locals.jwtPayload.u;
         let responseData = yield service.execute(report, req.body.filters);
         res.locals.responseData = responseData;

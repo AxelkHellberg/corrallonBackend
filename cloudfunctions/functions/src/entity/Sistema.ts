@@ -10,6 +10,7 @@ import { Equipamiento } from "./Equipamiento";
 import { Tag } from "./Tag";
 import { CampoManiobra } from "./CampoManiobra";
 import { FallaSistema } from "./FallaSistema";
+import { TipoSistema } from "./TipoSistema";
 @Entity()
 export class Sistema extends GenericEntity {
     @PrimaryGeneratedColumn()
@@ -25,15 +26,21 @@ export class Sistema extends GenericEntity {
     @Column()
     plantaId: number; //GET
 
-    @ManyToOne(type => Planta, planta => planta.sistemas)
+    @ManyToOne(type => Planta, planta => planta.sistemas, { onDelete: 'CASCADE' })
     @JoinColumn({ name: "plantaId" })
     public planta: Planta;
 
+    @Column()
+    tipoSistemaId: number; //GET
+
+    @ManyToOne(type => TipoSistema, tipoSistema => tipoSistema.sistemas, { onDelete: 'CASCADE' })
+    @JoinColumn({ name: "tipoSistemaId" })
+    public tipoSistema: TipoSistema;
 
     @Column({ nullable: true })
     tagId: number; //GET
 
-    @ManyToOne(type => Tag, tag => tag.sistemas)
+    @ManyToOne(type => Tag, tag => tag.sistemas, { onDelete: 'CASCADE' })
     @JoinColumn({ name: "tagId" })
     public tag: Tag;
 

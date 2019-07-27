@@ -20,7 +20,7 @@ export abstract class GenericRepository<E>{
         if ("order" in params)
             builder = await builder.orderBy(params.order)
         let limit = 20000
-        if ("limit" in params)
+        if ("limit" in params && params.limit < 20000)
             limit = params.limit
         builder = await builder.limit(limit)
         if ("offset" in params)
@@ -61,6 +61,15 @@ export abstract class GenericRepository<E>{
             .delete()
             .from(this.getClass())
             .where("id = :id", { id })
+            .execute();
+    }
+
+    public async deleteWhere(where: string): Promise<any> {
+        return await this.getRepository()
+            .createQueryBuilder()
+            .delete()
+            .from(this.getClass())
+            .where(where)
             .execute();
     }
     public abstract getRepository(): Repository<E>

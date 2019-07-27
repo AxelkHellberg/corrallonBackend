@@ -37,7 +37,7 @@ __decorate([
     __metadata("design:type", Number)
 ], GuiaManiobra.prototype, "userId", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => User_1.User, user => user.guiasManiobras),
+    typeorm_1.ManyToOne(type => User_1.User, user => user.guiasManiobras, { onDelete: 'CASCADE' }),
     typeorm_1.JoinColumn({ name: "userId" }),
     typeorm_1.Index(),
     __metadata("design:type", User_1.User)
@@ -47,7 +47,7 @@ __decorate([
     __metadata("design:type", Number)
 ], GuiaManiobra.prototype, "plantillaGuiaManiobraId", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => PlantillaGuiaManiobra_1.PlantillaGuiaManiobra, plantillaGuiaManiobra => plantillaGuiaManiobra.guiasManiobras),
+    typeorm_1.ManyToOne(type => PlantillaGuiaManiobra_1.PlantillaGuiaManiobra, plantillaGuiaManiobra => plantillaGuiaManiobra.guiasManiobras, { onDelete: 'CASCADE' }),
     typeorm_1.JoinColumn({ name: "plantillaGuiaManiobraId" }),
     typeorm_1.Index(),
     __metadata("design:type", PlantillaGuiaManiobra_1.PlantillaGuiaManiobra)

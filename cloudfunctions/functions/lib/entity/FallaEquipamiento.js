@@ -24,7 +24,7 @@ __decorate([
     __metadata("design:type", Number)
 ], FallaEquipamiento.prototype, "equipamientoId", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => Equipamiento_1.Equipamiento, equipamiento => equipamiento.fallasEquipamiento),
+    typeorm_1.ManyToOne(type => Equipamiento_1.Equipamiento, equipamiento => equipamiento.fallasEquipamiento, { onDelete: 'CASCADE' }),
     typeorm_1.JoinColumn({ name: "equipamientoId" }),
     typeorm_1.Index(),
     __metadata("design:type", Equipamiento_1.Equipamiento)
@@ -34,7 +34,7 @@ __decorate([
     __metadata("design:type", Number)
 ], FallaEquipamiento.prototype, "notificacionFallaId", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => NotificacionFalla_1.NotificacionFalla, notificacionFalla => notificacionFalla.fallasEquipamiento),
+    typeorm_1.ManyToOne(type => NotificacionFalla_1.NotificacionFalla, notificacionFalla => notificacionFalla.fallasEquipamiento, { onDelete: 'CASCADE' }),
     typeorm_1.JoinColumn({ name: "notificacionFallaId" }),
     typeorm_1.Index(),
     __metadata("design:type", NotificacionFalla_1.NotificacionFalla)

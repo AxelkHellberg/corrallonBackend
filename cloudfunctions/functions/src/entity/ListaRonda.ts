@@ -22,7 +22,7 @@ export class ListaRonda extends GenericEntity {
     @Column()
     campoRondaId: number;
 
-    @ManyToOne(type => CampoRonda, campoRonda => campoRonda.listasRonda)
+    @ManyToOne(type => CampoRonda, campoRonda => campoRonda.listasRonda, { onDelete: 'CASCADE' })
     @JoinColumn({ name: "campoRondaId" })
     public campoRonda: CampoRonda;
 

@@ -16,6 +16,9 @@ const msg_1 = require("../msg/msg");
 const HistorialEstadoFalla_1 = require("./HistorialEstadoFalla");
 const FallaEquipamiento_1 = require("./FallaEquipamiento");
 const FallaSistema_1 = require("./FallaSistema");
+const EstadoFalla_1 = require("./EstadoFalla");
+const TipoFalla_1 = require("./TipoFalla");
+const ValorCampoManiobra_1 = require("./ValorCampoManiobra");
 let NotificacionFalla = class NotificacionFalla extends GenericEntity_1.GenericEntity {
     validateInsert() {
         if (this.descripcion == null)
@@ -44,6 +47,30 @@ __decorate([
     typeorm_1.OneToMany(type => FallaSistema_1.FallaSistema, fallaSistema => fallaSistema.sistema),
     __metadata("design:type", Array)
 ], NotificacionFalla.prototype, "fallasSistema", void 0);
+__decorate([
+    typeorm_1.OneToMany(type => ValorCampoManiobra_1.ValorCampoManiobra, valorCampoManiobra => valorCampoManiobra.notificacionFalla),
+    __metadata("design:type", Array)
+], NotificacionFalla.prototype, "valoresCamposManiobras", void 0);
+__decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", Number)
+], NotificacionFalla.prototype, "estadoFallaId", void 0);
+__decorate([
+    typeorm_1.ManyToOne(type => EstadoFalla_1.EstadoFalla, estadoFalla => estadoFalla.notificacionesFalla, { onDelete: 'CASCADE' }),
+    typeorm_1.JoinColumn({ name: "estadoFallaId" }),
+    typeorm_1.Index(),
+    __metadata("design:type", EstadoFalla_1.EstadoFalla)
+], NotificacionFalla.prototype, "estadoFalla", void 0);
+__decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", Number)
+], NotificacionFalla.prototype, "tipoFallaId", void 0);
+__decorate([
+    typeorm_1.ManyToOne(type => TipoFalla_1.TipoFalla, tipoFalla => tipoFalla.notificacionesFalla, { onDelete: 'CASCADE' }),
+    typeorm_1.JoinColumn({ name: "tipoFallaId" }),
+    typeorm_1.Index(),
+    __metadata("design:type", TipoFalla_1.TipoFalla)
+], NotificacionFalla.prototype, "tipoFalla", void 0);
 __decorate([
     typeorm_1.BeforeInsert(),
     __metadata("design:type", Function),

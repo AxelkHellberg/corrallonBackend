@@ -14,10 +14,13 @@ export class JoinReport extends GenericEntity {
     @Column()
     joinAlias: string;
 
+    @Column({ nullable: true })
+    joinWhere: string = null;
+
     @Column()
     reportId: number;
 
-    @ManyToOne(type => Report, report => report.joinsReport)
+    @ManyToOne(type => Report, report => report.joinsReport, { onDelete: 'CASCADE' })
     @JoinColumn({ name: "reportId" })
     @Index()
     public report: Report;
@@ -25,7 +28,7 @@ export class JoinReport extends GenericEntity {
     @Column()
     joinTypeId: number;
 
-    @ManyToOne(type => JoinType, joinType => joinType.joinReports)
+    @ManyToOne(type => JoinType, joinType => joinType.joinReports, { onDelete: 'CASCADE' })
     @JoinColumn({ name: "joinTypeId" })
     @Index()
     public joinType: JoinType;

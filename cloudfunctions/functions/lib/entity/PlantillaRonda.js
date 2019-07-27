@@ -62,7 +62,7 @@ __decorate([
     __metadata("design:type", Number)
 ], PlantillaRonda.prototype, "horarioId", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => Horario_1.Horario, horario => horario.plantillasRonda),
+    typeorm_1.ManyToOne(type => Horario_1.Horario, horario => horario.plantillasRonda, { onDelete: 'CASCADE' }),
     typeorm_1.JoinColumn({ name: "horarioId" }),
     __metadata("design:type", Horario_1.Horario)
 ], PlantillaRonda.prototype, "horario", void 0);

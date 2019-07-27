@@ -35,7 +35,7 @@ export class PlantillaRonda extends GenericEntity {
     @Column()
     horarioId: number; //GET
 
-    @ManyToOne(type => Horario, horario => horario.plantillasRonda)
+    @ManyToOne(type => Horario, horario => horario.plantillasRonda, { onDelete: 'CASCADE' })
     @JoinColumn({ name: "horarioId" })
     public horario: Horario;
 

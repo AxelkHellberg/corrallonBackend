@@ -5,6 +5,7 @@ import { ErrorVDF } from "../components/ErrorVDF";
 import { Msg } from "../msg/msg";
 import { CampoManiobra } from "./CampoManiobra";
 import { GuiaManiobra } from "./GuiaManiobra";
+import { NotificacionFalla } from "./NotificacionFalla";
 @Entity()
 export class ValorCampoManiobra extends GenericEntity {
 
@@ -20,16 +21,24 @@ export class ValorCampoManiobra extends GenericEntity {
     @Column()
     guiaManiobraId: number;
 
-    @ManyToOne(type => GuiaManiobra, guiaManiobra => guiaManiobra.valoresCamposManiobras)
+    @ManyToOne(type => GuiaManiobra, guiaManiobra => guiaManiobra.valoresCamposManiobras, { onDelete: 'CASCADE' })
     @JoinColumn({ name: "guiaManiobraId" })
     @Index()
     public guiaManiobra: GuiaManiobra
+
+    @Column({ nullable: true })
+    notificacionFallaId: number;
+
+    @ManyToOne(type => NotificacionFalla, notificacionFalla => notificacionFalla.valoresCamposManiobras, { onDelete: 'CASCADE' })
+    @JoinColumn({ name: "notificacionFallaId" })
+    @Index()
+    public notificacionFalla: NotificacionFalla
 
 
     @Column()
     campoManiobraId: number;
 
-    @ManyToOne(type => CampoManiobra, campoManiobra => campoManiobra.valoresCamposManiobras)
+    @ManyToOne(type => CampoManiobra, campoManiobra => campoManiobra.valoresCamposManiobras, { onDelete: 'CASCADE' })
     @JoinColumn({ name: "campoManiobraId" })
     @Index()
     public campoManiobra: CampoManiobra

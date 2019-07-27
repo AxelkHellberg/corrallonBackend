@@ -22,7 +22,7 @@ export class ValorCampoRonda extends GenericEntity {
     @Column()
     rondaId: number;
 
-    @ManyToOne(type => Ronda, ronda => ronda.valoresCamposRonda)
+    @ManyToOne(type => Ronda, ronda => ronda.valoresCamposRonda, { onDelete: 'CASCADE' })
     @JoinColumn({ name: "rondaId" })
     @Index()
     public ronda: Ronda
@@ -30,7 +30,7 @@ export class ValorCampoRonda extends GenericEntity {
     @Column()
     campoRondaId: number;
 
-    @ManyToOne(type => CampoRonda, campoRonda => campoRonda.valoresCamposRonda)
+    @ManyToOne(type => CampoRonda, campoRonda => campoRonda.valoresCamposRonda, { onDelete: 'CASCADE' })
     @JoinColumn({ name: "campoRondaId" })
     @Index()
     public campoRonda: CampoRonda
