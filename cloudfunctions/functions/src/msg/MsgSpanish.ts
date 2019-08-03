@@ -18,6 +18,7 @@ export class MsgSpanish {
     public static PLANTILLA_GUIAS_DISTINTAS: string = "El campo y la guia de maniobra pertenecen a plantillas distintas"
     public static PLANTILLA_RONDA_DISTINTAS: string = "El campo y la ronda pertenecen a plantillas distintas"
     public static VALOR_YA_ASIGNADO: string = "La plantilla con id @0 ya tiene el campo con id @1 asignado. Modifique el que se encuentra en el valorCampo con id @2"
+    public static ESTADOS_FALLA_NO_BORRABLES: string = "Los estados de falla con id 1 y 2 no pueden ser eliminados"
 
     public static UNAHUTORIZED: string = "You are not authorized to use this site"
     public static MALFORMED_JSON_SELECT: string = "El formato del json array usado como select es invalido"

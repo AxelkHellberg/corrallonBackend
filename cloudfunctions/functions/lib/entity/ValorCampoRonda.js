@@ -15,6 +15,7 @@ const ErrorVDF_1 = require("../components/ErrorVDF");
 const msg_1 = require("../msg/msg");
 const Ronda_1 = require("./Ronda");
 const CampoRonda_1 = require("./CampoRonda");
+const NotificacionFalla_1 = require("./NotificacionFalla");
 let ValorCampoRonda = class ValorCampoRonda extends GenericEntity_1.GenericEntity {
     validateInsert() {
         if (this.valor == null)
@@ -57,6 +58,16 @@ __decorate([
     typeorm_1.Index(),
     __metadata("design:type", CampoRonda_1.CampoRonda)
 ], ValorCampoRonda.prototype, "campoRonda", void 0);
+__decorate([
+    typeorm_1.Column({ nullable: true }),
+    __metadata("design:type", Number)
+], ValorCampoRonda.prototype, "notificacionFallaId", void 0);
+__decorate([
+    typeorm_1.ManyToOne(type => NotificacionFalla_1.NotificacionFalla, notificacionFalla => notificacionFalla.valoresCamposRonda, { onDelete: 'CASCADE' }),
+    typeorm_1.JoinColumn({ name: "notificacionFallaId" }),
+    typeorm_1.Index(),
+    __metadata("design:type", NotificacionFalla_1.NotificacionFalla)
+], ValorCampoRonda.prototype, "notificacionFalla", void 0);
 __decorate([
     typeorm_1.BeforeInsert(),
     __metadata("design:type", Function),

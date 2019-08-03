@@ -1,4 +1,4 @@
-import { GenericeService } from './GenericService'; 
+import { GenericeService } from './GenericService';
 import { NotificacionFallaRepository } from '../repository/NotificacionFallaRepository';
 import { NotificacionFalla } from '../entity/NotificacionFalla';
 let encriptutils = require('../components/encryputils')

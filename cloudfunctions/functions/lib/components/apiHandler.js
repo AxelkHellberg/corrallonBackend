@@ -71,7 +71,9 @@ exports.deleteHandlerGenericEntity = function (req, res, classEntity, service) {
         try {
             if (!("id" in req.params))
                 throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.ID_MANDATORY, msg_1.Msg.ID_MANDATORY, 400);
-            const obj = yield service.delete(req.params.id);
+            let newObj = new classEntity();
+            Object.assign(newObj, { id: req.params.id });
+            const obj = yield service.delete(newObj);
             if (obj == null)
                 throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.REGISTER_NOT_FOUND, msg_1.Msg.REGISTER_NOT_FOUND, 400);
             res.locals.responseData = obj;

@@ -22,8 +22,8 @@ export abstract class GenericeService<E> {
         return await this.genericRepository.findById(id)
     }
 
-    public async delete(id: number): Promise<E> {
-        return await this.genericRepository.delete(id)
+    public async delete(obj: E): Promise<E> {
+        return await this.genericRepository.delete(obj)
     }
 
 

@@ -67,14 +67,9 @@ class GenericRepository {
             return yield dbHandler_1.getConnectionDatabase().manager.save(newObj);
         });
     }
-    delete(id) {
+    delete(obj) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.getRepository()
-                .createQueryBuilder()
-                .delete()
-                .from(this.getClass())
-                .where("id = :id", { id })
-                .execute();
+            return yield dbHandler_1.getConnectionDatabase().manager.remove(obj);
         });
     }
     deleteWhere(where) {

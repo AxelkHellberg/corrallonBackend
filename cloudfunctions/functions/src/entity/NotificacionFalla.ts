@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, AfterLoad, BeforeUpdate, BeforeInsert, ManyToMany, Index, ManyToOne, JoinColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, AfterLoad, BeforeUpdate, BeforeInsert, ManyToMany, Index, ManyToOne, JoinColumn, BeforeRemove } from "typeorm";
 import { GenericEntity } from "./GenericEntity";
 import { ErrorVDF } from "../components/ErrorVDF";
 import { Msg } from "../msg/msg";
@@ -9,6 +9,7 @@ import { FallaSistema } from "./FallaSistema";
 import { EstadoFalla } from "./EstadoFalla";
 import { TipoFalla } from "./TipoFalla";
 import { ValorCampoManiobra } from "./ValorCampoManiobra";
+import { ValorCampoRonda } from "./ValorCampoRonda";
 @Entity()
 export class NotificacionFalla extends GenericEntity {
 
@@ -21,17 +22,17 @@ export class NotificacionFalla extends GenericEntity {
     @OneToMany(type => HistorialEstadoFalla, historialEstadoFalla => historialEstadoFalla.notificacionFalla)
     public historialEstadosFallas: HistorialEstadoFalla[];
 
-    @OneToMany(type => FallaEquipamiento, fallaEquipamiento => fallaEquipamiento.equipamiento)
+    @OneToMany(type => FallaEquipamiento, fallaEquipamiento => fallaEquipamiento.notificacionFalla)
     public fallasEquipamiento: FallaEquipamiento[]
 
-    @OneToMany(type => FallaSistema, fallaSistema => fallaSistema.sistema)
+    @OneToMany(type => FallaSistema, fallaSistema => fallaSistema.notificacionFalla)
     public fallasSistema: FallaSistema[]
-
 
     @OneToMany(type => ValorCampoManiobra, valorCampoManiobra => valorCampoManiobra.notificacionFalla)
     public valoresCamposManiobras: ValorCampoManiobra[]
 
-
+    @OneToMany(type => ValorCampoRonda, valoresCamposRonda => valoresCamposRonda.notificacionFalla)
+    public valoresCamposRonda: ValorCampoRonda[]
 
     @Column()
     estadoFallaId: number;

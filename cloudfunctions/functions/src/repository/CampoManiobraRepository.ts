@@ -16,4 +16,5 @@ export class CampoManiobraRepository/**config */ extends GenericRepository<Campo
     public getClass() {
         return myClass
     }
+
 }

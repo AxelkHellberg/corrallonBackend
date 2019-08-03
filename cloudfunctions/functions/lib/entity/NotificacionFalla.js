@@ -19,6 +19,7 @@ const FallaSistema_1 = require("./FallaSistema");
 const EstadoFalla_1 = require("./EstadoFalla");
 const TipoFalla_1 = require("./TipoFalla");
 const ValorCampoManiobra_1 = require("./ValorCampoManiobra");
+const ValorCampoRonda_1 = require("./ValorCampoRonda");
 let NotificacionFalla = class NotificacionFalla extends GenericEntity_1.GenericEntity {
     validateInsert() {
         if (this.descripcion == null)
@@ -40,17 +41,21 @@ __decorate([
     __metadata("design:type", Array)
 ], NotificacionFalla.prototype, "historialEstadosFallas", void 0);
 __decorate([
-    typeorm_1.OneToMany(type => FallaEquipamiento_1.FallaEquipamiento, fallaEquipamiento => fallaEquipamiento.equipamiento),
+    typeorm_1.OneToMany(type => FallaEquipamiento_1.FallaEquipamiento, fallaEquipamiento => fallaEquipamiento.notificacionFalla),
     __metadata("design:type", Array)
 ], NotificacionFalla.prototype, "fallasEquipamiento", void 0);
 __decorate([
-    typeorm_1.OneToMany(type => FallaSistema_1.FallaSistema, fallaSistema => fallaSistema.sistema),
+    typeorm_1.OneToMany(type => FallaSistema_1.FallaSistema, fallaSistema => fallaSistema.notificacionFalla),
     __metadata("design:type", Array)
 ], NotificacionFalla.prototype, "fallasSistema", void 0);
 __decorate([
     typeorm_1.OneToMany(type => ValorCampoManiobra_1.ValorCampoManiobra, valorCampoManiobra => valorCampoManiobra.notificacionFalla),
     __metadata("design:type", Array)
 ], NotificacionFalla.prototype, "valoresCamposManiobras", void 0);
+__decorate([
+    typeorm_1.OneToMany(type => ValorCampoRonda_1.ValorCampoRonda, valoresCamposRonda => valoresCamposRonda.notificacionFalla),
+    __metadata("design:type", Array)
+], NotificacionFalla.prototype, "valoresCamposRonda", void 0);
 __decorate([
     typeorm_1.Column(),
     __metadata("design:type", Number)

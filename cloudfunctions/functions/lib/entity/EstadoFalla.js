@@ -19,10 +19,15 @@ let EstadoFalla = class EstadoFalla extends GenericEntity_1.GenericEntity {
     constructor() {
         super(...arguments);
         this.posicion = null;
+        this.color = null;
     }
     validateInsert() {
         if (this.nombre == null)
             throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.NAME_MANDATORY, msg_1.Msg.NAME_MANDATORY, 400);
+    }
+    validateRemove() {
+        if (this.id == 1 || this.id == 2)
+            throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.ESTADOS_FALLA_NO_BORRABLES, msg_1.Msg.ESTADOS_FALLA_NO_BORRABLES, 400);
     }
 };
 __decorate([
@@ -38,6 +43,10 @@ __decorate([
     __metadata("design:type", Number)
 ], EstadoFalla.prototype, "posicion", void 0);
 __decorate([
+    typeorm_1.Column({ nullable: true }),
+    __metadata("design:type", String)
+], EstadoFalla.prototype, "color", void 0);
+__decorate([
     typeorm_1.OneToMany(type => HistorialEstadoFalla_1.HistorialEstadoFalla, historialEstadoFalla => historialEstadoFalla.estadoFalla),
     __metadata("design:type", Array)
 ], EstadoFalla.prototype, "historialEstadosFallas", void 0);
@@ -51,6 +60,12 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], EstadoFalla.prototype, "validateInsert", null);
+__decorate([
+    typeorm_1.BeforeRemove(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], EstadoFalla.prototype, "validateRemove", null);
 EstadoFalla = __decorate([
     typeorm_1.Entity()
 ], EstadoFalla);

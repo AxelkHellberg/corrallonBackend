@@ -23,9 +23,9 @@ class GenericeService {
             return yield this.genericRepository.findById(id);
         });
     }
-    delete(id) {
+    delete(obj) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.genericRepository.delete(id);
+            return yield this.genericRepository.delete(obj);
         });
     }
     deleteWhere(where) {

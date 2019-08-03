@@ -47,7 +47,9 @@ export const deleteHandlerGenericEntity = async function (req, res, classEntity,
   try {
     if (!("id" in req.params))
       throw new ErrorVDF(Msg.ID_MANDATORY, Msg.ID_MANDATORY, 400)
-    const obj = await service.delete(req.params.id)
+    let newObj = new classEntity()
+    Object.assign(newObj, { id: req.params.id })
+    const obj = await service.delete(newObj)
     if (obj == null)
       throw new ErrorVDF(Msg.REGISTER_NOT_FOUND, Msg.REGISTER_NOT_FOUND, 400)
     res.locals.responseData = obj

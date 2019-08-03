@@ -7,6 +7,7 @@ import { CampoManiobra } from "./CampoManiobra";
 import { GuiaManiobra } from "./GuiaManiobra";
 import { Ronda } from "./Ronda";
 import { CampoRonda } from "./CampoRonda";
+import { NotificacionFalla } from "./NotificacionFalla";
 @Entity()
 export class ValorCampoRonda extends GenericEntity {
 
@@ -35,6 +36,13 @@ export class ValorCampoRonda extends GenericEntity {
     @Index()
     public campoRonda: CampoRonda
 
+    @Column({ nullable: true })
+    notificacionFallaId: number;
+
+    @ManyToOne(type => NotificacionFalla, notificacionFalla => notificacionFalla.valoresCamposRonda, { onDelete: 'CASCADE' })
+    @JoinColumn({ name: "notificacionFallaId" })
+    @Index()
+    public notificacionFalla: NotificacionFalla
 
     @BeforeInsert()
     private validateInsert(): void {

@@ -1,6 +1,7 @@
 import { getConnectionDatabase } from "../components/dbHandler";
 import { Repository } from "typeorm";
 import { DBConection } from "../config/DBConection";
+import { EstadoFalla } from "../entity/EstadoFalla";
 
 
 export abstract class GenericRepository<E>{
@@ -55,13 +56,8 @@ export abstract class GenericRepository<E>{
         return await getConnectionDatabase().manager.save(newObj)
     }
 
-    public async delete(id: number): Promise<any> {
-        return await this.getRepository()
-            .createQueryBuilder()
-            .delete()
-            .from(this.getClass())
-            .where("id = :id", { id })
-            .execute();
+    public async delete(obj: E): Promise<any> {
+        return await getConnectionDatabase().manager.remove(obj)
     }
 
     public async deleteWhere(where: string): Promise<any> {

@@ -27,6 +27,7 @@ MsgSpanish.USERNAME_DUPLICATED = "nombre de usuario duplicado";
 MsgSpanish.PLANTILLA_GUIAS_DISTINTAS = "El campo y la guia de maniobra pertenecen a plantillas distintas";
 MsgSpanish.PLANTILLA_RONDA_DISTINTAS = "El campo y la ronda pertenecen a plantillas distintas";
 MsgSpanish.VALOR_YA_ASIGNADO = "La plantilla con id @0 ya tiene el campo con id @1 asignado. Modifique el que se encuentra en el valorCampo con id @2";
+MsgSpanish.ESTADOS_FALLA_NO_BORRABLES = "Los estados de falla con id 1 y 2 no pueden ser eliminados";
 MsgSpanish.UNAHUTORIZED = "You are not authorized to use this site";
 MsgSpanish.MALFORMED_JSON_SELECT = "El formato del json array usado como select es invalido";
 MsgSpanish.MALFORMED_JSON_ORDER = "El formato del json array usado como order es invalido";
