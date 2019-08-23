@@ -17,6 +17,8 @@ import { EstadoFallaService } from "./services/EstadoFallaService";
 
 createConnection().then(async connection => {
   console.log("Init")
+  await createReporteFalla()
+  console.log("Fin")
   /*
     let estadoFallaService: EstadoFallaService = new EstadoFallaService()
     let estadoFalla = new EstadoFalla()
@@ -203,6 +205,38 @@ async function createReporteGuiaManiobra() {
   return r
 }
 
+async function createReportRonda() {
+  let rService: ReportService = new ReportService()
+  let r = new Report()
+  r.from = "planta"
+  r.entityAlias = "planta"
+  r.description = "Recuperar campos de guia de maniobra por guiaManiobraId"
+  r.where = "camposRonda.plantillaRondaId=:plantillaRondaId"
+  r.id = 2
+  await rService.save(r)
+  let jr = new JoinReportRepository()
+  let j: JoinReport = new JoinReport()
+  j.joinColumn = "planta.sistemas"
+  j.joinAlias = "sistemas"
+  j.report = r
+  j.joinTypeId = 1
+  await jr.save(j)
+  let j2: JoinReport = new JoinReport()
+  j2.joinColumn = "sistemas.camposRonda"
+  j2.joinAlias = "camposRonda"
+  j2.report = r
+  j2.joinTypeId = 1
+  await jr.save(j2)
+  let j3: JoinReport = new JoinReport()
+  j3.joinColumn = "camposRonda.valoresCamposManiobras"
+  j3.joinAlias = "valoresCamposManiobras"
+  j3.joinWhere = "valoresCamposManiobras.campoManiobraId=camposManiobras.id and valoresCamposManiobras.guiaManiobraId=:guiaManiobraId"
+  j3.report = r
+  j3.joinTypeId = 1
+  await jr.save(j3)
+  return r
+}
+
 async function createReporteFalla() {
   let rService: ReportService = new ReportService()
   let r = new Report()
@@ -248,6 +282,30 @@ async function createReporteFalla() {
   j6.report = r
   j6.joinTypeId = 1
   await jr.save(j6)
+  let j7: JoinReport = new JoinReport()
+  j7.joinColumn = "valoresCamposManiobras.guiaManiobra"
+  j7.joinAlias = "guiaManiobra"
+  j7.report = r
+  j7.joinTypeId = 1
+  await jr.save(j7)
+  let j8: JoinReport = new JoinReport()
+  j8.joinColumn = "valoresCamposManiobras.campoManiobra"
+  j8.joinAlias = "campoManiobra"
+  j8.report = r
+  j8.joinTypeId = 1
+  await jr.save(j8)
+  let j9: JoinReport = new JoinReport()
+  j9.joinColumn = "campoManiobra.sistema"
+  j9.joinAlias = "sistema"
+  j9.report = r
+  j9.joinTypeId = 1
+  await jr.save(j9)
+  let j10: JoinReport = new JoinReport()
+  j10.joinColumn = "guiaManiobra.user"
+  j10.joinAlias = "user"
+  j10.report = r
+  j10.joinTypeId = 1
+  await jr.save(j10)
   return r
 }
 

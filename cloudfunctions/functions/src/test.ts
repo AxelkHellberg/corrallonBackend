@@ -6,13 +6,21 @@ import { JoinReportRepository } from "./repository/JoinReportRepository";
 import { JoinReport } from "./entity/JoinReport";
 import { Planta } from "./entity/Planta";
 import { Sistema } from "./entity/Sistema";
-import { User } from "./entity/User";
 
 createConnection().then(async connection => {
 
-  let r = await connection.getRepository(User).createQueryBuilder("user")
-    .leftJoinAndSelect("user.profile", "profile")
-    .where("user.id=:myUserId", { myUserId: 1 })
+  let r = await connection.getRepository(NotificacionFalla).createQueryBuilder("notificacionFalla")
+    .leftJoinAndSelect("notificacionFalla.valoresCamposManiobras", "valoresCamposManiobras")
+    .leftJoinAndSelect("notificacionFalla.fallasSistema", "fallasSistema")
+    .leftJoinAndSelect("notificacionFalla.fallasEquipamiento", "fallasEquipamiento")
+    .leftJoinAndSelect("notificacionFalla.valoresCamposRonda", "valoresCamposRonda")
+    .leftJoinAndSelect("notificacionFalla.estadoFalla", "estadoFalla")
+    .leftJoinAndSelect("notificacionFalla.tipoFalla", "tipoFalla")
+    .leftJoinAndSelect("valoresCamposManiobras.guiaManiobra", "guiaManiobra")
+    .leftJoinAndSelect("valoresCamposManiobras.campoManiobra", "campoManiobra")
+    .leftJoinAndSelect("campoManiobra.sistema", "sistema")
+    .leftJoinAndSelect("guiaManiobra.user", "user")
+
     .getMany()
   console.log("%j", r)
 

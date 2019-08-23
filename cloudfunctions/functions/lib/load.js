@@ -16,6 +16,8 @@ const JoinReportRepository_1 = require("./repository/JoinReportRepository");
 const ReportService_1 = require("./services/ReportService");
 typeorm_1.createConnection().then((connection) => __awaiter(this, void 0, void 0, function* () {
     console.log("Init");
+    yield createReporteFalla();
+    console.log("Fin");
     /*
       let estadoFallaService: EstadoFallaService = new EstadoFallaService()
       let estadoFalla = new EstadoFalla()
@@ -247,6 +249,30 @@ function createReporteFalla() {
         j6.report = r;
         j6.joinTypeId = 1;
         yield jr.save(j6);
+        let j7 = new JoinReport_1.JoinReport();
+        j7.joinColumn = "valoresCamposManiobras.guiaManiobra";
+        j7.joinAlias = "guiaManiobra";
+        j7.report = r;
+        j7.joinTypeId = 1;
+        yield jr.save(j7);
+        let j8 = new JoinReport_1.JoinReport();
+        j8.joinColumn = "valoresCamposManiobras.campoManiobra";
+        j8.joinAlias = "campoManiobra";
+        j8.report = r;
+        j8.joinTypeId = 1;
+        yield jr.save(j8);
+        let j9 = new JoinReport_1.JoinReport();
+        j9.joinColumn = "campoManiobra.sistema";
+        j9.joinAlias = "sistema";
+        j9.report = r;
+        j9.joinTypeId = 1;
+        yield jr.save(j9);
+        let j10 = new JoinReport_1.JoinReport();
+        j10.joinColumn = "guiaManiobra.user";
+        j10.joinAlias = "user";
+        j10.report = r;
+        j10.joinTypeId = 1;
+        yield jr.save(j10);
         return r;
     });
 }
