@@ -22,6 +22,9 @@ export class Sistema extends GenericEntity {
     @Column()
     descripcion: string;
 
+    @Column()
+    KKS: string;
+
 
     @Column()
     plantaId: number; //GET

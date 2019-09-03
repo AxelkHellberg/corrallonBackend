@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, AfterLoad, BeforeUpdate, BeforeInsert, ManyToMany, Index, ManyToOne, JoinColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, AfterLoad, BeforeUpdate, BeforeInsert, ManyToMany, Index, ManyToOne, JoinColumn, Timestamp } from "typeorm";
 import { GenericEntity } from "./GenericEntity";
 import { PermissionWS } from "./PermissionWS";
 import { ErrorVDF } from "../components/ErrorVDF";
@@ -6,7 +6,6 @@ import { Msg } from "../msg/msg";
 import { CampoManiobra } from "./CampoManiobra";
 import { GuiaManiobra } from "./GuiaManiobra";
 import { CampoRonda } from "./CampoRonda";
-import { Horario } from "./Horario";
 import { Ronda } from "./Ronda";
 @Entity()
 export class PlantillaRonda extends GenericEntity {
@@ -32,12 +31,8 @@ export class PlantillaRonda extends GenericEntity {
     @OneToMany(type => CampoRonda, campoRonda => campoRonda.plantillaRonda)
     public camposRonda: CampoRonda[]
 
-    @Column()
-    horarioId: number; //GET
-
-    @ManyToOne(type => Horario, horario => horario.plantillasRonda, { onDelete: 'CASCADE' })
-    @JoinColumn({ name: "horarioId" })
-    public horario: Horario;
+    @Column({ type: "simple-json" })
+    public horarios: JSON
 
     @OneToMany(type => Ronda, ronda => ronda.plantillaRonda)
     public rondas: Ronda[]

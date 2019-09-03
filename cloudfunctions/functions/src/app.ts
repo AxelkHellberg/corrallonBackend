@@ -64,6 +64,7 @@ genericEntitiesServicePath.push({ "route": require('./routes/FallaEquipamientoRo
 genericEntitiesServicePath.push({ "route": require('./routes/EstadoFallaRoutes'), "serviceName": "estados-falla" })
 genericEntitiesServicePath.push({ "route": require('./routes/ProfileRoutes'), "serviceName": "profiles" })
 genericEntitiesServicePath.push({ "route": require('./routes/TipoSistemaRoutes'), "serviceName": "tipos-sistema" })
+genericEntitiesServicePath.push({ "route": require('./routes/TipoTagRoutes'), "serviceName": "tipos-tag" })
 
 
 

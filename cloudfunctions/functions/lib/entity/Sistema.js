@@ -41,6 +41,10 @@ __decorate([
 ], Sistema.prototype, "descripcion", void 0);
 __decorate([
     typeorm_1.Column(),
+    __metadata("design:type", String)
+], Sistema.prototype, "KKS", void 0);
+__decorate([
+    typeorm_1.Column(),
     __metadata("design:type", Number)
 ], Sistema.prototype, "plantaId", void 0);
 __decorate([

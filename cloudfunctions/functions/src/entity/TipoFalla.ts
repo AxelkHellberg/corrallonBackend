@@ -11,16 +11,19 @@ import { NotificacionFalla } from "./NotificacionFalla";
 export class TipoFalla extends GenericEntity {
 
     @PrimaryGeneratedColumn()
-    id: number;
+    id: number
 
     @Column()
-    nombre: string;
+    nombre: string
 
     @Column()
-    posicion: number;
+    codificacionDeFalla: string
+
+    @Column()
+    posicion: number
 
     @OneToMany(type => NotificacionFalla, notificacionFalla => notificacionFalla.tipoFalla)
-    public notificacionesFalla: NotificacionFalla[];
+    public notificacionesFalla: NotificacionFalla[]
 
     @BeforeInsert()
     private validateInsert(): void {

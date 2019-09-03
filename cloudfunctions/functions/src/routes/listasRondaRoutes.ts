@@ -4,8 +4,6 @@ import { addToGenericRoute } from "./genericRoutes";
 /******************************************************************************* */
 import { GuiaManiobra } from "../entity/GuiaManiobra";
 import { GuiaManiobraService } from "../services/GuiaManiobraService";
-import { HorarioService } from "../services/HorarioService";
-import { Horario } from "../entity/Horario";
 import { ListaRonda } from "../entity/ListaRonda";
 import { ListaRondaService } from "../services/ListaRondaService";
 

@@ -16,10 +16,12 @@ const Equipamiento_1 = require("./Equipamiento");
 const ErrorVDF_1 = require("../components/ErrorVDF");
 const msg_1 = require("../msg/msg");
 const LecturaTag_1 = require("./LecturaTag");
+const TipoTag_1 = require("./TipoTag");
 let Tag = class Tag extends GenericEntity_1.GenericEntity {
     constructor() {
         super(...arguments);
         this.obligatorio = false;
+        this.habilitado = true;
     }
     validateInsert() {
         if (this.nombre == null)
@@ -38,6 +40,19 @@ __decorate([
     typeorm_1.Column(),
     __metadata("design:type", Boolean)
 ], Tag.prototype, "obligatorio", void 0);
+__decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", Boolean)
+], Tag.prototype, "habilitado", void 0);
+__decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", Number)
+], Tag.prototype, "tipoTagId", void 0);
+__decorate([
+    typeorm_1.ManyToOne(type => TipoTag_1.TipoTag, tipoTag => tipoTag.tags, { onDelete: 'CASCADE' }),
+    typeorm_1.JoinColumn({ name: "tipoTagId" }),
+    __metadata("design:type", Tag)
+], Tag.prototype, "tipoTag", void 0);
 __decorate([
     typeorm_1.OneToMany(type => Equipamiento_1.Equipamiento, equipamiento => equipamiento.tag),
     __metadata("design:type", Array)

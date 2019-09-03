@@ -13,8 +13,8 @@ const typeorm_1 = require("typeorm");
 const GenericEntity_1 = require("./GenericEntity");
 const ErrorVDF_1 = require("../components/ErrorVDF");
 const msg_1 = require("../msg/msg");
-const NotificacionFalla_1 = require("./NotificacionFalla");
-let TipoFalla = class TipoFalla extends GenericEntity_1.GenericEntity {
+const Tag_1 = require("./Tag");
+let TipoTag = class TipoTag extends GenericEntity_1.GenericEntity {
     validateInsert() {
         if (this.nombre == null)
             throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.NAME_MANDATORY, msg_1.Msg.NAME_MANDATORY, 400);
@@ -23,31 +23,23 @@ let TipoFalla = class TipoFalla extends GenericEntity_1.GenericEntity {
 __decorate([
     typeorm_1.PrimaryGeneratedColumn(),
     __metadata("design:type", Number)
-], TipoFalla.prototype, "id", void 0);
+], TipoTag.prototype, "id", void 0);
 __decorate([
     typeorm_1.Column(),
     __metadata("design:type", String)
-], TipoFalla.prototype, "nombre", void 0);
+], TipoTag.prototype, "nombre", void 0);
 __decorate([
-    typeorm_1.Column(),
-    __metadata("design:type", String)
-], TipoFalla.prototype, "codificacionDeFalla", void 0);
-__decorate([
-    typeorm_1.Column(),
-    __metadata("design:type", Number)
-], TipoFalla.prototype, "posicion", void 0);
-__decorate([
-    typeorm_1.OneToMany(type => NotificacionFalla_1.NotificacionFalla, notificacionFalla => notificacionFalla.tipoFalla),
+    typeorm_1.OneToMany(type => Tag_1.Tag, tag => tag.tipoTag),
     __metadata("design:type", Array)
-], TipoFalla.prototype, "notificacionesFalla", void 0);
+], TipoTag.prototype, "tags", void 0);
 __decorate([
     typeorm_1.BeforeInsert(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
-], TipoFalla.prototype, "validateInsert", null);
-TipoFalla = __decorate([
+], TipoTag.prototype, "validateInsert", null);
+TipoTag = __decorate([
     typeorm_1.Entity()
-], TipoFalla);
-exports.TipoFalla = TipoFalla;
-//# sourceMappingURL=TipoFalla.js.map
+], TipoTag);
+exports.TipoTag = TipoTag;
+//# sourceMappingURL=TipoTag.js.map

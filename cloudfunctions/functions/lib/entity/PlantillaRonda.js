@@ -14,7 +14,6 @@ const GenericEntity_1 = require("./GenericEntity");
 const ErrorVDF_1 = require("../components/ErrorVDF");
 const msg_1 = require("../msg/msg");
 const CampoRonda_1 = require("./CampoRonda");
-const Horario_1 = require("./Horario");
 const Ronda_1 = require("./Ronda");
 let PlantillaRonda = class PlantillaRonda extends GenericEntity_1.GenericEntity {
     constructor() {
@@ -58,14 +57,9 @@ __decorate([
     __metadata("design:type", Array)
 ], PlantillaRonda.prototype, "camposRonda", void 0);
 __decorate([
-    typeorm_1.Column(),
-    __metadata("design:type", Number)
-], PlantillaRonda.prototype, "horarioId", void 0);
-__decorate([
-    typeorm_1.ManyToOne(type => Horario_1.Horario, horario => horario.plantillasRonda, { onDelete: 'CASCADE' }),
-    typeorm_1.JoinColumn({ name: "horarioId" }),
-    __metadata("design:type", Horario_1.Horario)
-], PlantillaRonda.prototype, "horario", void 0);
+    typeorm_1.Column({ type: "simple-json" }),
+    __metadata("design:type", Object)
+], PlantillaRonda.prototype, "horarios", void 0);
 __decorate([
     typeorm_1.OneToMany(type => Ronda_1.Ronda, ronda => ronda.plantillaRonda),
     __metadata("design:type", Array)

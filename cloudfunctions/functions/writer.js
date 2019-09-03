@@ -8,7 +8,7 @@ function main(entidadName, repository = "GenericRepository") {
     writeService(entidadName)
     writeRoutes(entidadName)
 }
-main("TipoSistema")
+main("TipoTag")
 
 
 function writeRepository(entidadName, repository = "GenericRepository") {

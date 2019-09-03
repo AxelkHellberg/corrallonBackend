@@ -1,8 +1,6 @@
 import { PlantaRepository } from "../repository/PlantaRepository";
 import { GenericeService } from "./GenericService";
 import { Planta } from "../entity/Planta";
-import { HorarioRepository } from "../repository/HorarioRepository";
-import { Horario } from "../entity/Horario";
 import { LecturaTagRepository } from "../repository/LecturaTagRepository";
 import { LecturaTag } from "../entity/LecturaTag";
 import { ListaRonda } from "../entity/ListaRonda";

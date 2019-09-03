@@ -203,6 +203,39 @@ function createReporteGuiaManiobra() {
         return r;
     });
 }
+function createReportRonda() {
+    return __awaiter(this, void 0, void 0, function* () {
+        let rService = new ReportService_1.ReportService();
+        let r = new Report_1.Report();
+        r.from = "planta";
+        r.entityAlias = "planta";
+        r.description = "Recuperar campos de guia de maniobra por guiaManiobraId";
+        r.where = "camposRonda.plantillaRondaId=:plantillaRondaId";
+        r.id = 2;
+        yield rService.save(r);
+        let jr = new JoinReportRepository_1.JoinReportRepository();
+        let j = new JoinReport_1.JoinReport();
+        j.joinColumn = "planta.sistemas";
+        j.joinAlias = "sistemas";
+        j.report = r;
+        j.joinTypeId = 1;
+        yield jr.save(j);
+        let j2 = new JoinReport_1.JoinReport();
+        j2.joinColumn = "sistemas.camposRonda";
+        j2.joinAlias = "camposRonda";
+        j2.report = r;
+        j2.joinTypeId = 1;
+        yield jr.save(j2);
+        let j3 = new JoinReport_1.JoinReport();
+        j3.joinColumn = "camposRonda.valoresCamposManiobras";
+        j3.joinAlias = "valoresCamposManiobras";
+        j3.joinWhere = "valoresCamposManiobras.campoManiobraId=camposManiobras.id and valoresCamposManiobras.guiaManiobraId=:guiaManiobraId";
+        j3.report = r;
+        j3.joinTypeId = 1;
+        yield jr.save(j3);
+        return r;
+    });
+}
 function createReporteFalla() {
     return __awaiter(this, void 0, void 0, function* () {
         let rService = new ReportService_1.ReportService();

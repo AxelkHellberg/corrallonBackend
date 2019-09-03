@@ -58,6 +58,7 @@ genericEntitiesServicePath.push({ "route": require('./routes/FallaEquipamientoRo
 genericEntitiesServicePath.push({ "route": require('./routes/EstadoFallaRoutes'), "serviceName": "estados-falla" });
 genericEntitiesServicePath.push({ "route": require('./routes/ProfileRoutes'), "serviceName": "profiles" });
 genericEntitiesServicePath.push({ "route": require('./routes/TipoSistemaRoutes'), "serviceName": "tipos-sistema" });
+genericEntitiesServicePath.push({ "route": require('./routes/TipoTagRoutes'), "serviceName": "tipos-tag" });
 appOnPremise.use('/auth', createNewConnection_1.createNewConnection, auth);
 appOnPremise.use('/reports', createNewConnection_1.createNewConnection, [checkJwt_1.checkJwt, validatePermissionsReports_1.validatePermissionsReports, authorizationDecision_1.authorizationDecision], reports);
 for (let service of genericEntitiesServicePath) {
