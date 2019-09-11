@@ -24,6 +24,8 @@ router.post('/execute', (req, res, next) => __awaiter(this, void 0, void 0, func
     try {
         if (!("id" in req.body))
             throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.ID_MANDATORY, msg_1.Msg.ID_MANDATORY, 500);
+        let reportes = yield service.findById(5);
+        console.log(reportes);
         let report = yield service.findById(req.body.id);
         if (!("filters" in req.body))
             req.body.filters = {};

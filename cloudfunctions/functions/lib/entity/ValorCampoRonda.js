@@ -19,7 +19,7 @@ const NotificacionFalla_1 = require("./NotificacionFalla");
 let ValorCampoRonda = class ValorCampoRonda extends GenericEntity_1.GenericEntity {
     validateInsert() {
         if (this.valor == null)
-            throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.NAME_MANDATORY, msg_1.Msg.NAME_MANDATORY, 400);
+            throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.CAMPO_OBLIGATORIO("valor"), msg_1.Msg.CAMPO_OBLIGATORIO("valor"), 400);
         if (this.campoRondaId == null)
             throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.CAMPO_OBLIGATORIO("campoRondaId"), msg_1.Msg.CAMPO_OBLIGATORIO("campoRondaId"), 400);
         if (this.rondaId == null)

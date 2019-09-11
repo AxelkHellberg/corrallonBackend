@@ -33,6 +33,10 @@ __decorate([
 ], Ronda.prototype, "tiempoRondaMinutos", void 0);
 __decorate([
     typeorm_1.Column(),
+    __metadata("design:type", String)
+], Ronda.prototype, "nombre", void 0);
+__decorate([
+    typeorm_1.Column(),
     __metadata("design:type", Number)
 ], Ronda.prototype, "userId", void 0);
 __decorate([

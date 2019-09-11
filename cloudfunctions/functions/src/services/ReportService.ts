@@ -30,6 +30,7 @@ export class ReportService/**config */ extends GenericeService<Report/**config *
             else if (joinsReport[i].joinTypeId == JoinType.INNER_JOIN_ID)
                 builder = await builder.innerJoin(joinsReport[i]["joinColumn"], joinsReport[i]["joinAlias"], joinsReport[i]["joinWhere"], params)
         }
+        console.log(builder.getSql())
         let objs = await builder.getMany()
         return objs
     }

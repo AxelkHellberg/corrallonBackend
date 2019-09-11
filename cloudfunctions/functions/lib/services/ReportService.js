@@ -36,6 +36,7 @@ class ReportService /**config *//**config */  extends GenericService_1.GenericeS
                     else if (joinsReport[i].joinTypeId == JoinType_1.JoinType.INNER_JOIN_ID)
                         builder = yield builder.innerJoin(joinsReport[i]["joinColumn"], joinsReport[i]["joinAlias"], joinsReport[i]["joinWhere"], params);
                 }
+                console.log(builder.getSql());
                 let objs = yield builder.getMany();
                 return objs;
             });

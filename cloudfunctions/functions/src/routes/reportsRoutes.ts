@@ -18,6 +18,8 @@ router.post('/execute', async (req, res, next) => {
     try {
         if (!("id" in req.body))
             throw new ErrorVDF(Msg.ID_MANDATORY, Msg.ID_MANDATORY, 500)
+        let reportes = await service.findById(5)
+        console.log(reportes)
         let report: Report = await service.findById(req.body.id)
         if (!("filters" in req.body))
             req.body.filters = {}

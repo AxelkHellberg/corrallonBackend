@@ -16,10 +16,9 @@ const JoinReportRepository_1 = require("./repository/JoinReportRepository");
 const ReportService_1 = require("./services/ReportService");
 typeorm_1.createConnection().then((connection) => __awaiter(this, void 0, void 0, function* () {
     console.log("Init");
-    yield createReporteFalla();
+    yield creataeReportCamposRonda();
     console.log("Fin");
-    /*
-      let estadoFallaService: EstadoFallaService = new EstadoFallaService()
+    /*  let estadoFallaService: EstadoFallaService = new EstadoFallaService()
       let estadoFalla = new EstadoFalla()
       estadoFalla.id = 1
       estadoFalla.nombre = "Detectado"
@@ -139,37 +138,68 @@ typeorm_1.createConnection().then((connection) => __awaiter(this, void 0, void 0
       await tr.save(tipoFalla2)
       await tr.save(tipoFalla3)
     
-    
-    }).catch(error => console.log(error));
-    
-    
-    
-    async function creataeReportCamposGuiaManiobra() {
-      let rService: ReportService = new ReportService()
-      let r2 = new Report()
-      r2.id = 1
-      r2.from = "CampoManiobra"
-      r2.entityAlias = "CampoManiobra"
-      r2.description = "Recuperar campos maniobra con nombre de planta"
-      r2.where = "CampoManiobra.plantillaGuiaManiobraId = :plantillaGuiaManiobraId"
-      await rService.save(r2)
-      let jr = new JoinReportRepository()
-      let jr2 = new JoinReportRepository()
-      let j: JoinReport = new JoinReport()
-      j.joinColumn = "CampoManiobra.sistema"
-      j.joinAlias = "sistema"
-      j.report = r2
-      j.joinTypeId = 1
-      await jr.save(j)
-    
-      let j2: JoinReport = new JoinReport()
-      j2.joinColumn = "sistema.planta"
-      j2.joinAlias = "planta"
-      j2.report = r2
-      j2.joinTypeId = 1
-      await jr2.save(j2)
-      return r2*/
-})).catch((e) => { console.log(e); });
+    */
+})).catch(error => console.log(error));
+function creataeReportCamposGuiaManiobra() {
+    return __awaiter(this, void 0, void 0, function* () {
+        let rService = new ReportService_1.ReportService();
+        let r2 = new Report_1.Report();
+        r2.id = 1;
+        r2.from = "CampoManiobra";
+        r2.entityAlias = "CampoManiobra";
+        r2.description = "Recuperar campos maniobra con nombre de planta";
+        r2.where = "CampoManiobra.plantillaGuiaManiobraId = :plantillaGuiaManiobraId";
+        yield rService.save(r2);
+        let jr = new JoinReportRepository_1.JoinReportRepository();
+        let jr2 = new JoinReportRepository_1.JoinReportRepository();
+        let j = new JoinReport_1.JoinReport();
+        j.joinColumn = "CampoManiobra.sistema";
+        j.joinAlias = "sistema";
+        j.report = r2;
+        j.joinTypeId = 1;
+        yield jr.save(j);
+        let j2 = new JoinReport_1.JoinReport();
+        j2.joinColumn = "sistema.planta";
+        j2.joinAlias = "planta";
+        j2.report = r2;
+        j2.joinTypeId = 1;
+        yield jr2.save(j2);
+        return r2;
+    });
+}
+function creataeReportCamposRonda() {
+    return __awaiter(this, void 0, void 0, function* () {
+        let rService = new ReportService_1.ReportService();
+        let r2 = new Report_1.Report();
+        r2.id = 6;
+        r2.from = "CampoRonda";
+        r2.entityAlias = "CampoRonda";
+        r2.description = "Recuperar campos ronda con nombre de planta";
+        r2.where = "CampoRonda.plantillaRondaId = :plantillaRondaId";
+        yield rService.save(r2);
+        let jr = new JoinReportRepository_1.JoinReportRepository();
+        let jr2 = new JoinReportRepository_1.JoinReportRepository();
+        let j3 = new JoinReport_1.JoinReport();
+        j3.joinColumn = "CampoRonda.equipamiento";
+        j3.joinAlias = "equipamiento";
+        j3.report = r2;
+        j3.joinTypeId = 1;
+        yield jr.save(j3);
+        let j = new JoinReport_1.JoinReport();
+        j.joinColumn = "equipamiento.sistema";
+        j.joinAlias = "sistema";
+        j.report = r2;
+        j.joinTypeId = 1;
+        yield jr.save(j);
+        let j2 = new JoinReport_1.JoinReport();
+        j2.joinColumn = "sistema.planta";
+        j2.joinAlias = "planta";
+        j2.report = r2;
+        j2.joinTypeId = 1;
+        yield jr2.save(j2);
+        return r2;
+    });
+}
 function createReporteGuiaManiobra() {
     return __awaiter(this, void 0, void 0, function* () {
         let rService = new ReportService_1.ReportService();
@@ -196,7 +226,48 @@ function createReporteGuiaManiobra() {
         let j3 = new JoinReport_1.JoinReport();
         j3.joinColumn = "camposManiobras.valoresCamposManiobras";
         j3.joinAlias = "valoresCamposManiobras";
-        j3.joinWhere = "valoresCamposManiobras.campoManiobraId=camposManiobras.id and valoresCamposManiobras.guiaManiobraId=:guiaManiobraId";
+        j3.joinWhere = "valoresCamposManiobras.campoManiobraId=camposManiobras.id and valoresCamposManiobras.rondaId=:rondaId";
+        j3.report = r;
+        j3.joinTypeId = 1;
+        yield jr.save(j3);
+        return r;
+    });
+}
+function createReportePlantillaRonda() {
+    return __awaiter(this, void 0, void 0, function* () {
+        let rService = new ReportService_1.ReportService();
+        let r = new Report_1.Report();
+        r.from = "planta";
+        r.entityAlias = "planta";
+        r.description = "Recuperar campos de ronda por rondaId y plantillaRondaId";
+        r.where = "camposRonda.plantillaRondaId=:plantillaRondaId";
+        r.id = 5;
+        yield rService.save(r);
+        console.log(r);
+        let jr = new JoinReportRepository_1.JoinReportRepository();
+        let j = new JoinReport_1.JoinReport();
+        j.joinColumn = "planta.sistemas";
+        j.joinAlias = "sistemas";
+        j.report = r;
+        j.joinTypeId = 1;
+        yield jr.save(j);
+        let jr4 = new JoinReportRepository_1.JoinReportRepository();
+        let j4 = new JoinReport_1.JoinReport();
+        j4.joinColumn = "sistemas.equipamientos";
+        j4.joinAlias = "equipamientos";
+        j4.report = r;
+        j4.joinTypeId = 1;
+        yield jr.save(j4);
+        let j2 = new JoinReport_1.JoinReport();
+        j2.joinColumn = "equipamientos.camposRonda";
+        j2.joinAlias = "camposRonda";
+        j2.report = r;
+        j2.joinTypeId = 1;
+        yield jr.save(j2);
+        let j3 = new JoinReport_1.JoinReport();
+        j3.joinColumn = "camposRonda.valoresCamposRonda";
+        j3.joinAlias = "valoresCamposRonda";
+        j3.joinWhere = "valoresCamposRonda.campoRondaId=camposRonda.id and valoresCamposRonda.rondaId=:rondaId";
         j3.report = r;
         j3.joinTypeId = 1;
         yield jr.save(j3);

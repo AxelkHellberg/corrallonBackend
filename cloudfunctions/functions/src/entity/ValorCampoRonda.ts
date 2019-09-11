@@ -47,7 +47,7 @@ export class ValorCampoRonda extends GenericEntity {
     @BeforeInsert()
     private validateInsert(): void {
         if (this.valor == null)
-            throw new ErrorVDF(Msg.NAME_MANDATORY, Msg.NAME_MANDATORY, 400)
+            throw new ErrorVDF(Msg.CAMPO_OBLIGATORIO("valor"), Msg.CAMPO_OBLIGATORIO("valor"), 400)
         if (this.campoRondaId == null)
             throw new ErrorVDF(Msg.CAMPO_OBLIGATORIO("campoRondaId"), Msg.CAMPO_OBLIGATORIO("campoRondaId"), 400)
         if (this.rondaId == null)

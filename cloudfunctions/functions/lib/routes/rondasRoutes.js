@@ -22,9 +22,11 @@ const service = new RondaService_1.RondaService();
 const currentClass = Ronda_1.Ronda;
 /******************************************** */
 router.post('/:id/valores-fallas', (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+    console.log("CREANDO RONDAAAAAAAAAAAAAAAAAAAAA");
     let data = req.body;
     let valorCampoRondaService = new ValorCampoRondaService_1.ValorCampoRondaService();
     let notificacionFallaService = new NotificacionFallaService_1.NotificacionFallaService();
+    console.log("Creando ronda");
     for (let i = 0; i < data.length; i++) {
         try {
             if ("notificacionFalla" in data[i]) { //Si el valor del campo tiene una notificacion de falla asociada, la creamos 
@@ -35,6 +37,7 @@ router.post('/:id/valores-fallas', (req, res, next) => __awaiter(this, void 0, v
             }
             let valorCampoRonda = new ValorCampoRonda_1.ValorCampoRonda(); //creada la falla, obtenemos el valor del campo
             Object.assign(valorCampoRonda, data[i]);
+            console.log(valorCampoRonda);
             valorCampoRonda.rondaId = req.params.id; //obtenemos la guia de maniobra desde el url param
             valorCampoRonda = yield valorCampoRondaService.save(valorCampoRonda);
             data[i]["id"] = valorCampoRonda.id; //Asignamos el id del valor en la data a devolver
@@ -52,7 +55,6 @@ router.post('/:id/valores-fallas', (req, res, next) => __awaiter(this, void 0, v
     res.send(data);
     next();
 }));
-router = genericRoutes_1.addToGenericRoute(router, currentClass, service);
 router = genericRoutes_1.addToGenericRoute(router, currentClass, service);
 module.exports = router;
 //# sourceMappingURL=rondasRoutes.js.map

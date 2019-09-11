@@ -23,6 +23,10 @@ export class Ronda extends GenericEntity {
     @Column({ nullable: true })
     public tiempoRondaMinutos: number;
 
+
+    @Column()
+    public nombre: string;
+
     @Column()
     public userId: number;
 
