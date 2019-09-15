@@ -185,6 +185,12 @@ function creataeReportCamposRonda() {
         j3.report = r2;
         j3.joinTypeId = 1;
         yield jr.save(j3);
+        let j4 = new JoinReport_1.JoinReport();
+        j4.joinColumn = "CampoRonda.unidadMedida";
+        j4.joinAlias = "unidadMedida";
+        j4.report = r2;
+        j4.joinTypeId = 1;
+        yield jr.save(j4);
         let j = new JoinReport_1.JoinReport();
         j.joinColumn = "equipamiento.sistema";
         j.joinAlias = "sistema";

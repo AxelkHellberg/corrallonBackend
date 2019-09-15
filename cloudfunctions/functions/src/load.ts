@@ -190,6 +190,12 @@ async function creataeReportCamposRonda() {
   j3.report = r2
   j3.joinTypeId = 1
   await jr.save(j3)
+  let j4: JoinReport = new JoinReport()
+  j4.joinColumn = "CampoRonda.unidadMedida"
+  j4.joinAlias = "unidadMedida"
+  j4.report = r2
+  j4.joinTypeId = 1
+  await jr.save(j4)
   let j: JoinReport = new JoinReport()
   j.joinColumn = "equipamiento.sistema"
   j.joinAlias = "sistema"
