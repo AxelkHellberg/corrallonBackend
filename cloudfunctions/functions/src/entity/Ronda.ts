@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, AfterLoad, BeforeUpdate, BeforeInsert, ManyToOne, Index, JoinColumn, ManyToMany, Timestamp } from "typeorm";
 import { GenericEntity } from "./GenericEntity";
 import { ErrorVDF } from "../components/ErrorVDF";
-import { Msg } from "../msg/msg";
+import { Msg } from "../msg/Msg";
 import { Profile } from "./Profile";
 import { JoinReport } from "./JoinReport";
 import { User } from "./User";

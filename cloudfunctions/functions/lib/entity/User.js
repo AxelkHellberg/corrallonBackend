@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const GenericEntity_1 = require("./GenericEntity");
 const ErrorVDF_1 = require("../components/ErrorVDF");
-const msg_1 = require("../msg/msg");
+const Msg_1 = require("../msg/Msg");
 const Profile_1 = require("./Profile");
 const GuiaManiobra_1 = require("./GuiaManiobra");
 const Ronda_1 = require("./Ronda");
@@ -23,17 +23,17 @@ let User = class User extends GenericEntity_1.GenericEntity {
         this.fileNumber = null; //Legajo
         this.username = null;
         this.password = null;
-        this.profileId = null;
+        this.profileId = 1;
     }
     validateInsert() {
         if (this.password == null)
-            throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.PASSWORD_MANDATORY, msg_1.Msg.PASSWORD_MANDATORY, 400);
+            throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.PASSWORD_MANDATORY, Msg_1.Msg.PASSWORD_MANDATORY, 400);
         if (this.username == null)
-            throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.USERNAME_MANDATORY, msg_1.Msg.USERNAME_MANDATORY, 400);
+            throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.USERNAME_MANDATORY, Msg_1.Msg.USERNAME_MANDATORY, 400);
         if (this.name == null)
-            throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.NAME_MANDATORY, msg_1.Msg.NAME_MANDATORY, 400);
+            throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.NAME_MANDATORY, Msg_1.Msg.NAME_MANDATORY, 400);
         if (this.dni == null)
-            throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.DNI_MANDATORY, msg_1.Msg.DNI_MANDATORY, 400);
+            throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.DNI_MANDATORY, Msg_1.Msg.DNI_MANDATORY, 400);
     }
     encryptPassword() {
         this.password = encriptutils.encrypt(this.password);

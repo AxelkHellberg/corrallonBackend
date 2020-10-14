@@ -2,7 +2,7 @@ import { GenericeService } from "./GenericService";
 import { ValorCampoManiobraRepository } from "../repository/ValorCampoManiobraRepository";
 import { ValorCampoManiobra } from "../entity/ValorCampoManiobra";
 import { ErrorVDF } from "../components/ErrorVDF";
-import { Msg } from "../msg/msg";
+import { Msg } from "../msg/Msg";
 import { CampoManiobraService } from "./CamposManiobraService";
 import { CampoManiobra } from "../entity/CampoManiobra";
 import { GuiaManiobraService } from "./GuiaManiobraService";

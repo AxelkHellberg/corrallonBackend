@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const GenericEntity_1 = require("./GenericEntity");
 const ErrorVDF_1 = require("../components/ErrorVDF");
-const msg_1 = require("../msg/msg");
+const Msg_1 = require("../msg/Msg");
 const HistorialEstadoFalla_1 = require("./HistorialEstadoFalla");
 const FallaEquipamiento_1 = require("./FallaEquipamiento");
 const FallaSistema_1 = require("./FallaSistema");
@@ -23,9 +23,9 @@ const ValorCampoRonda_1 = require("./ValorCampoRonda");
 let NotificacionFalla = class NotificacionFalla extends GenericEntity_1.GenericEntity {
     validateInsert() {
         if (this.descripcion == null)
-            throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.CAMPO_OBLIGATORIO("descripcion"), msg_1.Msg.CAMPO_OBLIGATORIO("descripcion"), 400);
+            throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.CAMPO_OBLIGATORIO("descripcion"), Msg_1.Msg.CAMPO_OBLIGATORIO("descripcion"), 400);
         if (this.descripcion.length < 10)
-            throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.reemplazarCampos(msg_1.Msg.CAMPO_CARACTERES_MINIMOS, ["descripcion", 10]), msg_1.Msg.reemplazarCampos(msg_1.Msg.CAMPO_CARACTERES_MINIMOS, ["descripcion", 10]));
+            throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.reemplazarCampos(Msg_1.Msg.CAMPO_CARACTERES_MINIMOS, ["descripcion", 10]), Msg_1.Msg.reemplazarCampos(Msg_1.Msg.CAMPO_CARACTERES_MINIMOS, ["descripcion", 10]));
     }
 };
 __decorate([

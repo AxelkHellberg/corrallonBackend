@@ -32,5 +32,6 @@ MsgSpanish.UNAHUTORIZED = "You are not authorized to use this site";
 MsgSpanish.MALFORMED_JSON_SELECT = "El formato del json array usado como select es invalido";
 MsgSpanish.MALFORMED_JSON_ORDER = "El formato del json array usado como order es invalido";
 MsgSpanish.CAMPO_CARACTERES_MINIMOS = "El campo @0 necesita al menos @1 caracteres";
+MsgSpanish.USUARIO_ADMINISTRADOR_NO_ELIMINABLE = "El usuario administrador no puede ser eliminado";
 exports.MsgSpanish = MsgSpanish;
 //# sourceMappingURL=MsgSpanish.js.map

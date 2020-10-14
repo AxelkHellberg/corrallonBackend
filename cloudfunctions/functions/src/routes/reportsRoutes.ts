@@ -2,7 +2,7 @@ import { User } from "../entity/User";
 import { UserService } from "../services/UserService";
 import { ReportService } from "../services/ReportService";
 import { ErrorVDF } from "../components/ErrorVDF";
-import { Msg } from "../msg/msg";
+import { Msg } from "../msg/Msg";
 import { Report } from "../entity/Report";
 import { responseError } from "../components/apiHandler";
 var express = require('express');

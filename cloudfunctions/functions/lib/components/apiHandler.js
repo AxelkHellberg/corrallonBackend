@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const ErrorVDF_1 = require("./ErrorVDF");
-const msg_1 = require("../msg/msg");
+const Msg_1 = require("../msg/Msg");
 const FindResponse_1 = require("./FindResponse");
 exports.responseError = function (res, e) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -29,7 +29,7 @@ exports.getHandlerGenericEntity = function (req, res, classEntity, service) {
                     req.query.select = JSON.parse(req.query.select);
                 }
                 catch (e) {
-                    throw msg_1.Msg.MALFORMED_JSON_SELECT;
+                    throw Msg_1.Msg.MALFORMED_JSON_SELECT;
                 }
             ;
             if ("order" in req.query)
@@ -37,7 +37,7 @@ exports.getHandlerGenericEntity = function (req, res, classEntity, service) {
                     req.query.order = JSON.parse(req.query.order);
                 }
                 catch (e) {
-                    throw msg_1.Msg.MALFORMED_JSON_ORDER;
+                    throw Msg_1.Msg.MALFORMED_JSON_ORDER;
                 }
             ;
             const objs = yield service.find(req.query);
@@ -54,10 +54,10 @@ exports.getByIdHandlerGenericEntity = function (req, res, classEntity, service) 
     return __awaiter(this, void 0, void 0, function* () {
         try {
             if (!("id" in req.params))
-                throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.ID_MANDATORY, msg_1.Msg.ID_MANDATORY, 400);
+                throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.ID_MANDATORY, Msg_1.Msg.ID_MANDATORY, 400);
             const obj = yield service.findById(req.params.id);
             if (obj == null)
-                throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.REGISTER_NOT_FOUND, msg_1.Msg.REGISTER_NOT_FOUND, 400);
+                throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.REGISTER_NOT_FOUND, Msg_1.Msg.REGISTER_NOT_FOUND, 400);
             res.locals.responseData = obj;
             res.send(obj);
         }
@@ -70,12 +70,12 @@ exports.deleteHandlerGenericEntity = function (req, res, classEntity, service) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             if (!("id" in req.params))
-                throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.ID_MANDATORY, msg_1.Msg.ID_MANDATORY, 400);
+                throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.ID_MANDATORY, Msg_1.Msg.ID_MANDATORY, 400);
             let newObj = new classEntity();
             Object.assign(newObj, { id: req.params.id });
             const obj = yield service.delete(newObj);
             if (obj == null)
-                throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.REGISTER_NOT_FOUND, msg_1.Msg.REGISTER_NOT_FOUND, 400);
+                throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.REGISTER_NOT_FOUND, Msg_1.Msg.REGISTER_NOT_FOUND, 400);
             res.locals.responseData = obj;
             res.status(204).send(obj);
         }

@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const ErrorVDF_1 = require("../components/ErrorVDF");
-const msg_1 = require("../msg/msg");
+const Msg_1 = require("../msg/Msg");
 const jwt = require("../components/jwt");
 const apiHandler = require("../components/apiHandler");
 exports.checkJwt = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
@@ -20,12 +20,12 @@ exports.checkJwt = (req, res, next) => __awaiter(this, void 0, void 0, function*
     //Get the jwt token from the head
     const authHead = req.headers.authorization;
     if (!authHead) {
-        yield apiHandler.responseError(res, new ErrorVDF_1.ErrorVDF(msg_1.Msg.NOT_AUTHENTICATION_HEADER, msg_1.Msg.NOT_AUTHENTICATION_HEADER, 403));
+        yield apiHandler.responseError(res, new ErrorVDF_1.ErrorVDF(Msg_1.Msg.NOT_AUTHENTICATION_HEADER, Msg_1.Msg.NOT_AUTHENTICATION_HEADER, 403));
         return;
     }
     let splitAuthHead = authHead.split(" ");
     if (splitAuthHead[0] != "Bearer") {
-        yield apiHandler.responseError(res, new ErrorVDF_1.ErrorVDF(msg_1.Msg.AUTHENTICATION_METHOD_NOT_ALLOW, msg_1.Msg.AUTHENTICATION_METHOD_NOT_ALLOW, 403));
+        yield apiHandler.responseError(res, new ErrorVDF_1.ErrorVDF(Msg_1.Msg.AUTHENTICATION_METHOD_NOT_ALLOW, Msg_1.Msg.AUTHENTICATION_METHOD_NOT_ALLOW, 403));
         return;
     }
     try {

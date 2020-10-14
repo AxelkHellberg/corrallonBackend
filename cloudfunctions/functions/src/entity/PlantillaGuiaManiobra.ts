@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToMany, AfterLoad, BeforeUpd
 import { GenericEntity } from "./GenericEntity";
 import { PermissionWS } from "./PermissionWS";
 import { ErrorVDF } from "../components/ErrorVDF";
-import { Msg } from "../msg/msg";
+import { Msg } from "../msg/Msg";
 import { CampoManiobra } from "./CampoManiobra";
 import { GuiaManiobra } from "./GuiaManiobra";
 @Entity()

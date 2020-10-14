@@ -13,7 +13,7 @@ const typeorm_1 = require("typeorm");
 const GenericEntity_1 = require("./GenericEntity");
 const Planta_1 = require("./Planta");
 const ErrorVDF_1 = require("../components/ErrorVDF");
-const msg_1 = require("../msg/msg");
+const Msg_1 = require("../msg/Msg");
 const Equipamiento_1 = require("./Equipamiento");
 const Tag_1 = require("./Tag");
 const CampoManiobra_1 = require("./CampoManiobra");
@@ -22,9 +22,9 @@ const TipoSistema_1 = require("./TipoSistema");
 let Sistema = class Sistema extends GenericEntity_1.GenericEntity {
     validateInsert() {
         if (this.nombre == null)
-            throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.NAME_MANDATORY, msg_1.Msg.NAME_MANDATORY, 400);
+            throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.NAME_MANDATORY, Msg_1.Msg.NAME_MANDATORY, 400);
         if (this.plantaId == null)
-            throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.PLANTA_MANDATORY, msg_1.Msg.PLANTA_MANDATORY, 400);
+            throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.PLANTA_MANDATORY, Msg_1.Msg.PLANTA_MANDATORY, 400);
     }
 };
 __decorate([

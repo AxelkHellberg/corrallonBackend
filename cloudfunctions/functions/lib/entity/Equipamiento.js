@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const GenericEntity_1 = require("./GenericEntity");
 const Sistema_1 = require("./Sistema");
-const msg_1 = require("../msg/msg");
+const Msg_1 = require("../msg/Msg");
 const ErrorVDF_1 = require("../components/ErrorVDF");
 const Tag_1 = require("./Tag");
 const CampoRonda_1 = require("./CampoRonda");
@@ -20,9 +20,9 @@ const FallaEquipamiento_1 = require("./FallaEquipamiento");
 let Equipamiento = class Equipamiento extends GenericEntity_1.GenericEntity {
     validateInsert() {
         if (this.nombre == null)
-            throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.NAME_MANDATORY, msg_1.Msg.NAME_MANDATORY, 400);
+            throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.NAME_MANDATORY, Msg_1.Msg.NAME_MANDATORY, 400);
         if (this.sistemaId == null)
-            throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.SISTEMA_MANDATORY, msg_1.Msg.SISTEMA_MANDATORY, 400);
+            throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.SISTEMA_MANDATORY, Msg_1.Msg.SISTEMA_MANDATORY, 400);
     }
 };
 __decorate([

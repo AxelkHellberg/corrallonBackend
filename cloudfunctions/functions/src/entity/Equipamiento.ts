@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, AfterLoad, BeforeUpdate, BeforeInsert, ManyToMany, JoinTable, Index, ManyToOne, JoinColumn } from "typeorm";
 import { GenericEntity } from "./GenericEntity";
 import { Sistema } from "./Sistema";
-import { Msg } from "../msg/msg";
+import { Msg } from "../msg/Msg";
 import { ErrorVDF } from "../components/ErrorVDF";
 import { Tag } from "./Tag";
 import { CampoRonda } from "./CampoRonda";

@@ -66,12 +66,15 @@ genericEntitiesServicePath.push({ "route": require('./routes/ProfileRoutes'), "s
 genericEntitiesServicePath.push({ "route": require('./routes/TipoSistemaRoutes'), "serviceName": "tipos-sistema" })
 genericEntitiesServicePath.push({ "route": require('./routes/TipoTagRoutes'), "serviceName": "tipos-tag" })
 
-
-
 appOnPremise.use('/auth', createNewConnection, auth);
 appOnPremise.use('/reports', createNewConnection, [checkJwt, validatePermissionsReports, authorizationDecision], reports);
+
 for (let service of genericEntitiesServicePath) {
   appOnPremise.use('/' + ENTITIES_BASE_URL + '/' + service.serviceName, createNewConnection, [checkPublicService, checkJwt, validatePermissionsEntity, validatePermissionsUser, authorizationDecision], service.route, [test]);
+}
+
+for (let service of genericEntitiesServicePath) {
+  appOnPremise.use('/' + ENTITIES_BASE_URL + '/' + service.serviceName, createNewConnection, [checkPublicService], service.route, [test]);
 }
 
 // catch 404 and forward to error handler

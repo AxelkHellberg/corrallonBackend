@@ -13,7 +13,7 @@ const typeorm_1 = require("typeorm");
 const GenericEntity_1 = require("./GenericEntity");
 const Sistema_1 = require("./Sistema");
 const PlantillaGuiaManiobra_1 = require("./PlantillaGuiaManiobra");
-const msg_1 = require("../msg/msg");
+const Msg_1 = require("../msg/Msg");
 const ErrorVDF_1 = require("../components/ErrorVDF");
 const ValorCampoManiobra_1 = require("./ValorCampoManiobra");
 let CampoManiobra = class CampoManiobra extends GenericEntity_1.GenericEntity {
@@ -23,11 +23,11 @@ let CampoManiobra = class CampoManiobra extends GenericEntity_1.GenericEntity {
     }
     validateInsert() {
         if (this.sistemaId == null)
-            throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.CAMPO_OBLIGATORIO("sistemaId"), msg_1.Msg.CAMPO_OBLIGATORIO("sistemaId"), 400);
+            throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.CAMPO_OBLIGATORIO("sistemaId"), Msg_1.Msg.CAMPO_OBLIGATORIO("sistemaId"), 400);
         if (this.plantillaGuiaManiobraId == null)
-            throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.CAMPO_OBLIGATORIO("plantillaGuiaManiobraId"), msg_1.Msg.CAMPO_OBLIGATORIO("plantillaGuiaManiobraId"), 400);
+            throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.CAMPO_OBLIGATORIO("plantillaGuiaManiobraId"), Msg_1.Msg.CAMPO_OBLIGATORIO("plantillaGuiaManiobraId"), 400);
         if (this.nombre == null)
-            throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.CAMPO_OBLIGATORIO("name"), msg_1.Msg.CAMPO_OBLIGATORIO("name"), 400);
+            throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.CAMPO_OBLIGATORIO("name"), Msg_1.Msg.CAMPO_OBLIGATORIO("name"), 400);
     }
 };
 __decorate([

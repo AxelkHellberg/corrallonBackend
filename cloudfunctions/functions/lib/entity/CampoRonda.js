@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const GenericEntity_1 = require("./GenericEntity");
-const msg_1 = require("../msg/msg");
+const Msg_1 = require("../msg/Msg");
 const ErrorVDF_1 = require("../components/ErrorVDF");
 const Equipamiento_1 = require("./Equipamiento");
 const TipoCampoRonda_1 = require("./TipoCampoRonda");
@@ -22,9 +22,9 @@ const ValorCampoRonda_1 = require("./ValorCampoRonda");
 let CampoRonda = class CampoRonda extends GenericEntity_1.GenericEntity {
     validateInsert() {
         if (this.valorNormal == null)
-            throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.CAMPO_OBLIGATORIO("valorNormal"), msg_1.Msg.CAMPO_OBLIGATORIO("valorNormal"), 400);
+            throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.CAMPO_OBLIGATORIO("valorNormal"), Msg_1.Msg.CAMPO_OBLIGATORIO("valorNormal"), 400);
         if (this.nombre == null)
-            throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.CAMPO_OBLIGATORIO("nombre"), msg_1.Msg.CAMPO_OBLIGATORIO("nombre"), 400);
+            throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.CAMPO_OBLIGATORIO("nombre"), Msg_1.Msg.CAMPO_OBLIGATORIO("nombre"), 400);
     }
 };
 __decorate([

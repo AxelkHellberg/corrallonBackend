@@ -4,7 +4,7 @@ import { User } from "./User";
 import { PermissionWS } from "./PermissionWS";
 import { Report } from "./Report";
 import { Sistema } from "./Sistema";
-import { Msg } from "../msg/msg";
+import { Msg } from "../msg/Msg";
 import { ErrorVDF } from "../components/ErrorVDF";
 @Entity()
 export class Planta extends GenericEntity {

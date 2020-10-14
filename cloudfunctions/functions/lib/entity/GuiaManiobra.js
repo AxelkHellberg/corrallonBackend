@@ -13,15 +13,15 @@ const typeorm_1 = require("typeorm");
 const GenericEntity_1 = require("./GenericEntity");
 const User_1 = require("./User");
 const ErrorVDF_1 = require("../components/ErrorVDF");
-const msg_1 = require("../msg/msg");
+const Msg_1 = require("../msg/Msg");
 const ValorCampoManiobra_1 = require("./ValorCampoManiobra");
 const PlantillaGuiaManiobra_1 = require("./PlantillaGuiaManiobra");
 let GuiaManiobra = class GuiaManiobra extends GenericEntity_1.GenericEntity {
     validateInsert() {
         if (this.userId == null)
-            throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.CAMPO_OBLIGATORIO("userId"), msg_1.Msg.CAMPO_OBLIGATORIO("userId"), 400);
+            throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.CAMPO_OBLIGATORIO("userId"), Msg_1.Msg.CAMPO_OBLIGATORIO("userId"), 400);
         if (this.nombre == null)
-            throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.CAMPO_OBLIGATORIO("nombre"), msg_1.Msg.CAMPO_OBLIGATORIO("nombre"), 400);
+            throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.CAMPO_OBLIGATORIO("nombre"), Msg_1.Msg.CAMPO_OBLIGATORIO("nombre"), 400);
     }
 };
 __decorate([

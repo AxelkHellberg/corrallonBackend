@@ -12,7 +12,7 @@ const User_1 = require("../entity/User");
 const GenericRepository_1 = require("./GenericRepository");
 const typeorm_1 = require("typeorm");
 const ErrorVDF_1 = require("../components/ErrorVDF");
-const msg_1 = require("../msg/msg");
+const Msg_1 = require("../msg/Msg");
 let encriptutils = require('../components/encryputils');
 /************CONFIG CLASS**************** */
 const myClass = User_1.User;
@@ -51,8 +51,7 @@ class UserRepository /**config *//**config */  extends GenericRepository_1.Gener
         });
         return __awaiter(this, void 0, void 0, function* () {
             if (yield this.existeUsernameToInsert(newObj.username))
-                throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.USERNAME_DUPLICATED, msg_1.Msg.USERNAME_DUPLICATED, 400);
-            newObj.profileId = 2;
+                throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.USERNAME_DUPLICATED, Msg_1.Msg.USERNAME_DUPLICATED, 400);
             return _super.save.call(this, newObj);
         });
     }
@@ -62,8 +61,19 @@ class UserRepository /**config *//**config */  extends GenericRepository_1.Gener
         });
         return __awaiter(this, void 0, void 0, function* () {
             if (data.username != null && (yield this.existeUsernameToUpdate(data.username, id)))
-                throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.USERNAME_DUPLICATED, msg_1.Msg.USERNAME_DUPLICATED, 400);
+                throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.USERNAME_DUPLICATED, Msg_1.Msg.USERNAME_DUPLICATED, 400);
             return _super.updateById.call(this, data, id);
+        });
+    }
+    delete(delObj) {
+        const _super = Object.create(null, {
+            delete: { get: () => super.delete }
+        });
+        return __awaiter(this, void 0, void 0, function* () {
+            if (delObj.id == 1) {
+                throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.USUARIO_ADMINISTRADOR_NO_ELIMINABLE, Msg_1.Msg.USUARIO_ADMINISTRADOR_NO_ELIMINABLE, 400);
+            }
+            return _super.delete.call(this, delObj);
         });
     }
 }

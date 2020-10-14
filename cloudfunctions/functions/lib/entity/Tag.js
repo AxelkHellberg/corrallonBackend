@@ -14,7 +14,7 @@ const GenericEntity_1 = require("./GenericEntity");
 const Sistema_1 = require("./Sistema");
 const Equipamiento_1 = require("./Equipamiento");
 const ErrorVDF_1 = require("../components/ErrorVDF");
-const msg_1 = require("../msg/msg");
+const Msg_1 = require("../msg/Msg");
 const LecturaTag_1 = require("./LecturaTag");
 const TipoTag_1 = require("./TipoTag");
 let Tag = class Tag extends GenericEntity_1.GenericEntity {
@@ -25,7 +25,7 @@ let Tag = class Tag extends GenericEntity_1.GenericEntity {
     }
     validateInsert() {
         if (this.nombre == null)
-            throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.NAME_MANDATORY, msg_1.Msg.NAME_MANDATORY, 400);
+            throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.NAME_MANDATORY, Msg_1.Msg.NAME_MANDATORY, 400);
     }
 };
 __decorate([

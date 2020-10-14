@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { ErrorVDF } from "../components/ErrorVDF";
-import { Msg } from "../msg/msg";
+import { Msg } from "../msg/Msg";
 import { UserService } from "../services/UserService";
 const apiHandler = require("../components/apiHandler")
 

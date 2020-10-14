@@ -5,7 +5,7 @@ import { PermissionWS } from "./PermissionWS";
 import { Report } from "./Report";
 import { Planta } from "./Planta";
 import { ErrorVDF } from "../components/ErrorVDF";
-import { Msg } from "../msg/msg";
+import { Msg } from "../msg/Msg";
 import { Equipamiento } from "./Equipamiento";
 import { Tag } from "./Tag";
 import { CampoManiobra } from "./CampoManiobra";

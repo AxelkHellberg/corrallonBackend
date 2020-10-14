@@ -9,13 +9,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const ErrorVDF_1 = require("../components/ErrorVDF");
-const msg_1 = require("../msg/msg");
+const Msg_1 = require("../msg/Msg");
 const UserService_1 = require("../services/UserService");
 const validatePermision_1 = require("../components/validatePermision");
 const apiHandler = require("../components/apiHandler");
 exports.validatePermissionsReports = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
     if (!("id" in req.body)) {
-        apiHandler.responseError(res, new ErrorVDF_1.ErrorVDF(msg_1.Msg.ID_MANDATORY, msg_1.Msg.ID_MANDATORY, 500));
+        apiHandler.responseError(res, new ErrorVDF_1.ErrorVDF(Msg_1.Msg.ID_MANDATORY, Msg_1.Msg.ID_MANDATORY, 500));
         return;
     }
     const us = new UserService_1.UserService();

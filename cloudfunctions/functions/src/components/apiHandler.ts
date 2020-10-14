@@ -2,7 +2,7 @@ import { getConnectionDatabase } from './dbHandler';
 import { GenericRepository } from '../repository/GenericRepository';
 import { ErrorVDF } from './ErrorVDF';
 import { GenericeService } from '../services/GenericService';
-import { Msg } from '../msg/msg';
+import { Msg } from '../msg/Msg';
 import { FindResponse } from './FindResponse';
 
 export const responseError = async function (res, e: Error) {

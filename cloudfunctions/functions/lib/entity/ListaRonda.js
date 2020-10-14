@@ -11,17 +11,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const GenericEntity_1 = require("./GenericEntity");
-const msg_1 = require("../msg/msg");
+const Msg_1 = require("../msg/Msg");
 const ErrorVDF_1 = require("../components/ErrorVDF");
 const CampoRonda_1 = require("./CampoRonda");
 let ListaRonda = class ListaRonda extends GenericEntity_1.GenericEntity {
     validateInsert() {
         if (this.llave == null)
-            throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.CAMPO_OBLIGATORIO("llave"), msg_1.Msg.CAMPO_OBLIGATORIO("llave"), 400);
+            throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.CAMPO_OBLIGATORIO("llave"), Msg_1.Msg.CAMPO_OBLIGATORIO("llave"), 400);
         if (this.valor == null)
-            throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.CAMPO_OBLIGATORIO("valor"), msg_1.Msg.CAMPO_OBLIGATORIO("valor"), 400);
+            throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.CAMPO_OBLIGATORIO("valor"), Msg_1.Msg.CAMPO_OBLIGATORIO("valor"), 400);
         if (this.campoRondaId == null)
-            throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.CAMPO_OBLIGATORIO("campoRondaId"), msg_1.Msg.CAMPO_OBLIGATORIO("campoRondaId"), 400);
+            throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.CAMPO_OBLIGATORIO("campoRondaId"), Msg_1.Msg.CAMPO_OBLIGATORIO("campoRondaId"), 400);
     }
 };
 __decorate([

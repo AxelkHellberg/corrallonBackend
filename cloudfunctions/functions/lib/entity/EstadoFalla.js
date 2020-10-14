@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const GenericEntity_1 = require("./GenericEntity");
 const ErrorVDF_1 = require("../components/ErrorVDF");
-const msg_1 = require("../msg/msg");
+const Msg_1 = require("../msg/Msg");
 const HistorialEstadoFalla_1 = require("./HistorialEstadoFalla");
 const NotificacionFalla_1 = require("./NotificacionFalla");
 let EstadoFalla = class EstadoFalla extends GenericEntity_1.GenericEntity {
@@ -23,11 +23,11 @@ let EstadoFalla = class EstadoFalla extends GenericEntity_1.GenericEntity {
     }
     validateInsert() {
         if (this.nombre == null)
-            throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.NAME_MANDATORY, msg_1.Msg.NAME_MANDATORY, 400);
+            throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.NAME_MANDATORY, Msg_1.Msg.NAME_MANDATORY, 400);
     }
     validateRemove() {
         if (this.id == 1 || this.id == 2)
-            throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.ESTADOS_FALLA_NO_BORRABLES, msg_1.Msg.ESTADOS_FALLA_NO_BORRABLES, 400);
+            throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.ESTADOS_FALLA_NO_BORRABLES, Msg_1.Msg.ESTADOS_FALLA_NO_BORRABLES, 400);
     }
 };
 __decorate([

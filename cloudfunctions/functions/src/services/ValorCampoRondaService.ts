@@ -4,7 +4,7 @@ import { UnidadMedidaRepository } from "../repository/UnidadMedidaRepository";
 import { ValorCampoRonda } from "../entity/ValorCampoRonda";
 import { ValorCampoRondaRepository } from "../repository/ValorCampoRondaRepository";
 import { ErrorVDF } from "../components/ErrorVDF";
-import { Msg } from "../msg/msg";
+import { Msg } from "../msg/Msg";
 import { CampoRondaService } from "./CampoRondaService";
 import { CampoRonda } from "../entity/CampoRonda";
 import { RondaService } from "./RondaService";

@@ -64,6 +64,9 @@ appOnPremise.use('/reports', createNewConnection_1.createNewConnection, [checkJw
 for (let service of genericEntitiesServicePath) {
     appOnPremise.use('/' + ENTITIES_BASE_URL + '/' + service.serviceName, createNewConnection_1.createNewConnection, [checkPublicService_1.checkPublicService, checkJwt_1.checkJwt, validatePermissionsEntity_1.validatePermissionsEntity, validatePermissionUser_1.validatePermissionsUser, authorizationDecision_1.authorizationDecision], service.route, [test_1.test]);
 }
+for (let service of genericEntitiesServicePath) {
+    appOnPremise.use('/' + ENTITIES_BASE_URL + '/' + service.serviceName, createNewConnection_1.createNewConnection, [checkPublicService_1.checkPublicService], service.route, [test_1.test]);
+}
 // catch 404 and forward to error handler
 appOnPremise.use(function (req, res, next) {
     next(createError(404));

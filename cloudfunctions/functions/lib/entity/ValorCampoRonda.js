@@ -12,18 +12,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const GenericEntity_1 = require("./GenericEntity");
 const ErrorVDF_1 = require("../components/ErrorVDF");
-const msg_1 = require("../msg/msg");
+const Msg_1 = require("../msg/Msg");
 const Ronda_1 = require("./Ronda");
 const CampoRonda_1 = require("./CampoRonda");
 const NotificacionFalla_1 = require("./NotificacionFalla");
 let ValorCampoRonda = class ValorCampoRonda extends GenericEntity_1.GenericEntity {
     validateInsert() {
         if (this.valor == null)
-            throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.CAMPO_OBLIGATORIO("valor"), msg_1.Msg.CAMPO_OBLIGATORIO("valor"), 400);
+            throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.CAMPO_OBLIGATORIO("valor"), Msg_1.Msg.CAMPO_OBLIGATORIO("valor"), 400);
         if (this.campoRondaId == null)
-            throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.CAMPO_OBLIGATORIO("campoRondaId"), msg_1.Msg.CAMPO_OBLIGATORIO("campoRondaId"), 400);
+            throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.CAMPO_OBLIGATORIO("campoRondaId"), Msg_1.Msg.CAMPO_OBLIGATORIO("campoRondaId"), 400);
         if (this.rondaId == null)
-            throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.CAMPO_OBLIGATORIO("rondaId"), msg_1.Msg.CAMPO_OBLIGATORIO("rondaId"), 400);
+            throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.CAMPO_OBLIGATORIO("rondaId"), Msg_1.Msg.CAMPO_OBLIGATORIO("rondaId"), 400);
     }
 };
 __decorate([

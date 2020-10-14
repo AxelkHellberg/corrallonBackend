@@ -4,7 +4,7 @@ import { Planta } from "./Planta";
 import { Sistema } from "./Sistema";
 import { Equipamiento } from "./Equipamiento";
 import { ErrorVDF } from "../components/ErrorVDF";
-import { Msg } from "../msg/msg";
+import { Msg } from "../msg/Msg";
 import { LecturaTag } from "./LecturaTag";
 import { NotificacionFalla } from "./NotificacionFalla";
 @Entity()

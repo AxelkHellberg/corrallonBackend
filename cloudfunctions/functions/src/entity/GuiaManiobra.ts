@@ -3,7 +3,7 @@ import { GenericEntity } from "./GenericEntity";
 import { User } from "./User";
 import { Sistema } from "./Sistema";
 import { ErrorVDF } from "../components/ErrorVDF";
-import { Msg } from "../msg/msg";
+import { Msg } from "../msg/Msg";
 import { ValorCampoManiobra } from "./ValorCampoManiobra";
 import { PlantillaGuiaManiobra } from "./PlantillaGuiaManiobra";
 @Entity()

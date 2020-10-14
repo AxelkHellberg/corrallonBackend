@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const GenericEntity_1 = require("./GenericEntity");
 const ErrorVDF_1 = require("../components/ErrorVDF");
-const msg_1 = require("../msg/msg");
+const Msg_1 = require("../msg/Msg");
 const CampoRonda_1 = require("./CampoRonda");
 const Ronda_1 = require("./Ronda");
 let PlantillaRonda = class PlantillaRonda extends GenericEntity_1.GenericEntity {
@@ -25,7 +25,7 @@ let PlantillaRonda = class PlantillaRonda extends GenericEntity_1.GenericEntity 
     }
     validateInsert() {
         if (this.nombre == null)
-            throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.NAME_MANDATORY, msg_1.Msg.NAME_MANDATORY, 400);
+            throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.NAME_MANDATORY, Msg_1.Msg.NAME_MANDATORY, 400);
     }
 };
 __decorate([

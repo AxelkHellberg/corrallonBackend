@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const ErrorVDF_1 = require("../components/ErrorVDF");
-const msg_1 = require("../msg/msg");
+const Msg_1 = require("../msg/Msg");
 const apiHandler = require("../components/apiHandler");
 exports.authorizationDecision = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
     console.log(".............");
@@ -18,7 +18,7 @@ exports.authorizationDecision = (req, res, next) => __awaiter(this, void 0, void
     console.log(".............");
     if (res.locals.publicService != true && !res.locals.hasPermission) {
         if (!("errorVDF" in res.locals))
-            apiHandler.responseError(res, new ErrorVDF_1.ErrorVDF(msg_1.Msg.UNAHUTORIZED, msg_1.Msg.UNAHUTORIZED, 401));
+            apiHandler.responseError(res, new ErrorVDF_1.ErrorVDF(Msg_1.Msg.UNAHUTORIZED, Msg_1.Msg.UNAHUTORIZED, 401));
         else
             apiHandler.responseError(res, res.locals.errorVDF);
         return;

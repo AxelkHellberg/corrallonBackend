@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, AfterLoad, BeforeUpdate, BeforeInsert, ManyToOne, Index, JoinColumn } from "typeorm";
 import { GenericEntity } from "./GenericEntity";
 import { ErrorVDF } from "../components/ErrorVDF";
-import { Msg } from "../msg/msg";
+import { Msg } from "../msg/Msg";
 import { Profile } from "./Profile";
 import { GuiaManiobra } from "./GuiaManiobra";
 import { Ronda } from "./Ronda";
@@ -37,7 +37,7 @@ export class User extends GenericEntity {
 
 
     @Column()
-    public profileId: number = null
+    public profileId: number = 1
 
     @ManyToOne(type => Profile, profile => profile.users)
     @JoinColumn({ name: "profileId" })
@@ -64,7 +64,6 @@ export class User extends GenericEntity {
 
     @OneToMany(type => GuiaManiobra, guiaManiobra => guiaManiobra.user)
     public guiasManiobras: GuiaManiobra[]
-
 
     @OneToMany(type => Ronda, ronda => ronda.user)
     public rondas: Ronda[]
