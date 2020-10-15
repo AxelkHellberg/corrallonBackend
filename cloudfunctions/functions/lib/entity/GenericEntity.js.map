@@ -1,1 +1,1 @@
-{"version":3,"file":"GenericEntity.js","sourceRoot":"","sources":["../../src/entity/GenericEntity.ts"],"names":[],"mappings":";;;;;;;;;;;AAAA,qCAA8F;AAE9F,MAAsB,aAAa;CAMlC;AAJG;IADC,0BAAgB,EAAE;8BACF,IAAI;gDAAC;AAGtB;IADC,0BAAgB,EAAE;8BACH,IAAI;+CAAC;AALzB,sCAMC"}
+{"version":3,"file":"GenericEntity.js","sourceRoot":"","sources":["../../src/entity/GenericEntity.ts"],"names":[],"mappings":";;;;;;;;;;;;AAAA,qCAA8F;AAE9F,MAAsB,aAAa;CAMlC;AAJG;IADC,0BAAgB,EAAE;8BACF,IAAI;gDAAC;AAGtB;IADC,0BAAgB,EAAE;8BACH,IAAI;+CAAC;AALzB,sCAMC"}

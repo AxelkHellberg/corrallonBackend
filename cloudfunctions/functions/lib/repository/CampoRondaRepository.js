@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.CampoRondaRepository = void 0;
 const GenericRepository_1 = require("./GenericRepository");
 const typeorm_1 = require("typeorm");
 const CampoRonda_1 = require("../entity/CampoRonda");

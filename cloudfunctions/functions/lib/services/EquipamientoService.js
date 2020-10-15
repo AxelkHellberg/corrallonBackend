@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.EquipamientoService = void 0;
 const GenericService_1 = require("./GenericService");
 const EquipamientoRepository_1 = require("../repository/EquipamientoRepository");
 /****************Configuration******************** */

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.EstadoRondaService = void 0;
 const GenericService_1 = require("./GenericService");
 const EstadoRondaRepository_1 = require("../repository/EstadoRondaRepository");
 /****************Configuration******************** */

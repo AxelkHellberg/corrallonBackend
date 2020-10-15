@@ -1,1 +1,1 @@
-{"version":3,"file":"dbHandler.js","sourceRoot":"","sources":["../../src/components/dbHandler.ts"],"names":[],"mappings":";;AACA,qCAAwC;AAExC,MAAM,qBAAqB,GAAC;IACxB,OAAO,uBAAa,EAAE,CAAA;AAC1B,CAAC,CAAA;AAEO,sDAAqB"}
+{"version":3,"file":"dbHandler.js","sourceRoot":"","sources":["../../src/components/dbHandler.ts"],"names":[],"mappings":";;;AACA,qCAAwC;AAExC,MAAM,qBAAqB,GAAC;IACxB,OAAO,uBAAa,EAAE,CAAA;AAC1B,CAAC,CAAA;AAEO,sDAAqB"}

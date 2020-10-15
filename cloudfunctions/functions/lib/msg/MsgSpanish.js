@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.MsgSpanish = void 0;
 class MsgSpanish {
     static CAMPO_OBLIGATORIO(campo) {
         return "El campo " + campo + " es obligatorio";
@@ -11,6 +12,7 @@ class MsgSpanish {
         return salida;
     }
 }
+exports.MsgSpanish = MsgSpanish;
 MsgSpanish.NOT_AUTHENTICATION_HEADER = "No se envió token de autenticación";
 MsgSpanish.AUTHENTICATION_METHOD_NOT_ALLOW = "Sólo se permite método de autenticación Bearer";
 /**Entities error */
@@ -33,5 +35,4 @@ MsgSpanish.MALFORMED_JSON_SELECT = "El formato del json array usado como select 
 MsgSpanish.MALFORMED_JSON_ORDER = "El formato del json array usado como order es invalido";
 MsgSpanish.CAMPO_CARACTERES_MINIMOS = "El campo @0 necesita al menos @1 caracteres";
 MsgSpanish.USUARIO_ADMINISTRADOR_NO_ELIMINABLE = "El usuario administrador no puede ser eliminado";
-exports.MsgSpanish = MsgSpanish;
 //# sourceMappingURL=MsgSpanish.js.map

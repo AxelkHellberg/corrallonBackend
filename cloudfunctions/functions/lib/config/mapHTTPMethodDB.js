@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.METODOS_HTTP = void 0;
 module.exports = {
     "GET": 1,
     "POST": 2,

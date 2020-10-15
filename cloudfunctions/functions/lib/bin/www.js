@@ -1,4 +1,7 @@
 #!/usr/bin/env node
+/**
+ * Module dependencies.
+ */
 let app = require('../app').appOnPremise;
 let debug = require('debug')('myapp:server');
 let http = require('http');

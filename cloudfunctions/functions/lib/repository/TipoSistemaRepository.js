@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.TipoSistemaRepository = void 0;
 const GenericRepository_1 = require("./GenericRepository");
 const typeorm_1 = require("typeorm");
 const TipoSistema_1 = require("../entity/TipoSistema");

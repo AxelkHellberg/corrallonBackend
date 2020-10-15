@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ErrorVDF = void 0;
 class ErrorVDF extends Error {
     constructor(userMessage, internalMessage, responseCode = 500) {
         super(userMessage);

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.PlantillaGuiaManiobraService = void 0;
 const GenericService_1 = require("./GenericService");
 const PlantillaGuiaManiobraRepository_1 = require("../repository/PlantillaGuiaManiobraRepository");
 /****************Configuration******************** */

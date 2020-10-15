@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.CampoManiobraService = void 0;
 const GenericService_1 = require("./GenericService");
 const CampoManiobraRepository_1 = require("../repository/CampoManiobraRepository");
 /****************Configuration******************** */

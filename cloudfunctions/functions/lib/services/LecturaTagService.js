@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.LecturaTagService = void 0;
 const GenericService_1 = require("./GenericService");
 const LecturaTagRepository_1 = require("../repository/LecturaTagRepository");
 /****************Configuration******************** */

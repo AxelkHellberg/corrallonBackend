@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.EstadoFallaService = void 0;
 const GenericService_1 = require("./GenericService");
 const EstadoFallaRepository_1 = require("../repository/EstadoFallaRepository");
 let encriptutils = require('../components/encryputils');
