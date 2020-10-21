@@ -26,8 +26,8 @@ exports.createNewConnection = (req, res, next) => __awaiter(void 0, void 0, void
             "port": 3306,
             "username": "koa_user",
             "password": ")}!'w9!\\,Z-gR2y';R)S!F+\\ay;u,}RN`hcj8$aL",
-            "database": "koa_develop",
-            "synchronize": false,
+            "database": "koa_develop_remastered",
+            "synchronize": true,
             "migrationsRun": false,
             "logging": false,
             "entities": [

@@ -65,6 +65,7 @@ genericEntitiesServicePath.push({ "route": require('./routes/EstadoFallaRoutes')
 genericEntitiesServicePath.push({ "route": require('./routes/ProfileRoutes'), "serviceName": "profiles" })
 genericEntitiesServicePath.push({ "route": require('./routes/TipoSistemaRoutes'), "serviceName": "tipos-sistema" })
 genericEntitiesServicePath.push({ "route": require('./routes/TipoTagRoutes'), "serviceName": "tipos-tag" })
+genericEntitiesServicePath.push({ "route": require('./routes/campoRondaPlantillaRondaRoutes'), "serviceName": "enlace-tarea-plantilla" })
 
 appOnPremise.use('/auth', createNewConnection, auth);
 appOnPremise.use('/reports', createNewConnection, [checkJwt, validatePermissionsReports, authorizationDecision], reports);

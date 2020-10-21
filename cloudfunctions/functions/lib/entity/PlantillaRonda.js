@@ -14,7 +14,6 @@ const typeorm_1 = require("typeorm");
 const GenericEntity_1 = require("./GenericEntity");
 const ErrorVDF_1 = require("../components/ErrorVDF");
 const Msg_1 = require("../msg/Msg");
-const CampoRonda_1 = require("./CampoRonda");
 const Ronda_1 = require("./Ronda");
 let PlantillaRonda = class PlantillaRonda extends GenericEntity_1.GenericEntity {
     constructor() {
@@ -53,10 +52,6 @@ __decorate([
     typeorm_1.Column(),
     __metadata("design:type", Boolean)
 ], PlantillaRonda.prototype, "obligatorioEquipo", void 0);
-__decorate([
-    typeorm_1.OneToMany(type => CampoRonda_1.CampoRonda, campoRonda => campoRonda.plantillaRonda),
-    __metadata("design:type", Array)
-], PlantillaRonda.prototype, "camposRonda", void 0);
 __decorate([
     typeorm_1.Column({ type: "simple-json" }),
     __metadata("design:type", Object)

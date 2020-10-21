@@ -28,9 +28,6 @@ export class PlantillaRonda extends GenericEntity {
     @Column()
     obligatorioEquipo: boolean = false;
 
-    @OneToMany(type => CampoRonda, campoRonda => campoRonda.plantillaRonda)
-    public camposRonda: CampoRonda[]
-
     @Column({ type: "simple-json" })
     public horarios: JSON
 

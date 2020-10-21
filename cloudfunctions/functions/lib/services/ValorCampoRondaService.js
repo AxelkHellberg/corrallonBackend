@@ -36,8 +36,8 @@ class ValorCampoRondaService /**config *//**config */  extends GenericService_1.
             const campoRonda = yield campoRondaService.findById(newObj.campoRondaId);
             const rondaService = new RondaService_1.RondaService();
             const ronda = yield rondaService.findById(newObj.rondaId);
-            if (campoRonda.plantillaRondaId != ronda.plantillaRondaId)
-                throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.PLANTILLA_GUIAS_DISTINTAS, Msg_1.Msg.PLANTILLA_GUIAS_DISTINTAS, 400);
+            // if (campoRonda.plantillaRondaId != ronda.plantillaRondaId)
+            //     throw new ErrorVDF(Msg.PLANTILLA_GUIAS_DISTINTAS, Msg.PLANTILLA_GUIAS_DISTINTAS, 400)
             const valorCampoRonda = yield this.find({ "q": "rondaId=" + newObj.rondaId + " and campoRondaId=" + newObj.campoRondaId });
             if (valorCampoRonda.length > 0)
                 throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.reemplazarCampos(Msg_1.Msg.VALOR_YA_ASIGNADO, [newObj.rondaId, newObj.campoRondaId, valorCampoRonda[0].id]), Msg_1.Msg.reemplazarCampos(Msg_1.Msg.VALOR_YA_ASIGNADO, [newObj.rondaId, newObj.campoRondaId, valorCampoRonda[0].id]), 400);

@@ -1,0 +1,38 @@
+@startuml
+class PlantillasRonda {
+}
+class CamposRonda #lightgreen {
+}
+
+PlantillasRonda --> CamposRonda
+PlantillasRonda --> Horarios
+PlantillasRonda --> Rondas
+Rondas --> ValoresCamposRonda
+Rondas --> LecturasTag
+EstadosRonda --> Rondas
+CamposRonda --> ValoresCamposRonda
+CamposRonda --> ListaRonda
+TiposCamposRonda --> CamposRonda
+UnidadesDeMedida --> CamposRonda
+Equipamientos --> CamposRonda
+Equipamientos -- ValoresCamposManiobra
+Equipamientos --> FallaEquipamiento
+Sistemas --> Equipamientos
+Sistemas --> FallaSistema
+Plantas --> Sistemas
+CamposManiobra --> ValoresCamposManiobra
+PlantillasManiobra --> CamposManiobra
+PlantillasManiobra --> GuiasManiobra
+GuiasManiobra --> ValoresCamposManiobra
+Personas --> Rondas
+Usuarios --> Personas
+Perfiles --> Personas
+Perfiles --> Permisos
+Objetos --> Permisos
+Tags --> Sistemas
+Tags --> LecturasTag
+NotificacionesFalla --> ValoresCamposRonda
+NotificacionesFalla --> HistorialEstadosFalla
+TiposFalla --> NotificacionesFalla
+EstadosFalla --> NotificacionesFalla
+@enduml

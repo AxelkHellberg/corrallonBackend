@@ -18,7 +18,6 @@ const Equipamiento_1 = require("./Equipamiento");
 const TipoCampoRonda_1 = require("./TipoCampoRonda");
 const UnidadMedida_1 = require("./UnidadMedida");
 const ListaRonda_1 = require("./ListaRonda");
-const PlantillaRonda_1 = require("./PlantillaRonda");
 const ValorCampoRonda_1 = require("./ValorCampoRonda");
 let CampoRonda = class CampoRonda extends GenericEntity_1.GenericEntity {
     validateInsert() {
@@ -83,15 +82,6 @@ __decorate([
     typeorm_1.OneToMany(type => ListaRonda_1.ListaRonda, listaRonda => listaRonda.campoRonda),
     __metadata("design:type", Array)
 ], CampoRonda.prototype, "listasRonda", void 0);
-__decorate([
-    typeorm_1.Column(),
-    __metadata("design:type", Number)
-], CampoRonda.prototype, "plantillaRondaId", void 0);
-__decorate([
-    typeorm_1.ManyToOne(type => PlantillaRonda_1.PlantillaRonda, plantillaRonda => plantillaRonda.camposRonda, { onDelete: 'CASCADE' }),
-    typeorm_1.JoinColumn({ name: "plantillaRondaId" }),
-    __metadata("design:type", PlantillaRonda_1.PlantillaRonda)
-], CampoRonda.prototype, "plantillaRonda", void 0);
 __decorate([
     typeorm_1.OneToMany(type => ValorCampoRonda_1.ValorCampoRonda, valorCampoRonda => valorCampoRonda.campoRonda),
     __metadata("design:type", Array)
