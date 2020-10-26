@@ -11,19 +11,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 require("reflect-metadata");
 const typeorm_1 = require("typeorm");
-const NotificacionFalla_1 = require("./entity/NotificacionFalla");
+const PlantillaRonda_1 = require("./entity/PlantillaRonda");
 typeorm_1.createConnection().then((connection) => __awaiter(void 0, void 0, void 0, function* () {
-    let r = yield connection.getRepository(NotificacionFalla_1.NotificacionFalla).createQueryBuilder("notificacionFalla")
-        .leftJoinAndSelect("notificacionFalla.valoresCamposManiobras", "valoresCamposManiobras")
-        .leftJoinAndSelect("notificacionFalla.fallasSistema", "fallasSistema")
-        .leftJoinAndSelect("notificacionFalla.fallasEquipamiento", "fallasEquipamiento")
-        .leftJoinAndSelect("notificacionFalla.valoresCamposRonda", "valoresCamposRonda")
-        .leftJoinAndSelect("notificacionFalla.estadoFalla", "estadoFalla")
-        .leftJoinAndSelect("notificacionFalla.tipoFalla", "tipoFalla")
-        .leftJoinAndSelect("valoresCamposManiobras.guiaManiobra", "guiaManiobra")
-        .leftJoinAndSelect("valoresCamposManiobras.campoManiobra", "campoManiobra")
-        .leftJoinAndSelect("campoManiobra.sistema", "sistema")
-        .leftJoinAndSelect("guiaManiobra.user", "user")
+    let r = yield connection.getRepository(PlantillaRonda_1.PlantillaRonda).createQueryBuilder("plantillaRonda")
+        .leftJoinAndSelect("plantillaRonda.campoRondaPlantillaRonda", "enlaceRonda")
+        .leftJoinAndSelect("enlaceRonda.campoRonda", "camposRonda")
         .getMany();
     console.log("%j", r);
     //  createReporteFalla(connection)

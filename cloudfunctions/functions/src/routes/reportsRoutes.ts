@@ -5,6 +5,9 @@ import { ErrorVDF } from "../components/ErrorVDF";
 import { Msg } from "../msg/Msg";
 import { Report } from "../entity/Report";
 import { responseError } from "../components/apiHandler";
+import { CampoRondaPlantillaRonda } from "../entity/CampoRondaPlantillaRonda";
+import { getConnection } from "typeorm";
+import { PlantillaRonda } from "../entity/PlantillaRonda";
 var express = require('express');
 var router = express.Router();
 const jwt = require("../components/jwt")
@@ -33,6 +36,33 @@ router.post('/execute', async (req, res, next) => {
         await responseError(res, e)
     }
     next()
+});
+
+router.post('/execute/tareas', async (req, res, next) => {
+    try {
+        if (!("filters" in req.body)) {
+            let r = await getConnection().getRepository(PlantillaRonda).createQueryBuilder("plantillaRonda")
+            .leftJoinAndSelect("plantillaRonda.campoRondaPlantillaRonda", "enlaceRonda")
+            .leftJoinAndSelect("enlaceRonda.campoRonda", "camposRonda")
+            .getMany()
+            next()
+            res.send(r);
+        } else {
+            let r = await getConnection().getRepository(PlantillaRonda).createQueryBuilder("plantillaRonda")
+            .leftJoinAndSelect("plantillaRonda.campoRondaPlantillaRonda", "enlaceRonda")
+            .leftJoinAndSelect("enlaceRonda.campoRonda", "camposRonda")
+            .leftJoinAndSelect("camposRonda.equipamiento", "equipamiento")
+            .leftJoinAndSelect("equipamiento.sistema", "sistema")
+            .leftJoinAndSelect("sistema.planta", "planta")
+            .where('plantillaRonda.id='+req.body.filters["id"])
+            .getMany()
+            next()
+            res.send(r);
+        }
+    } catch (e) {
+        await responseError(res, e)
+    }
+    
 });
 
 module.exports = router;

@@ -9,18 +9,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Horario = void 0;
 const typeorm_1 = require("typeorm");
 const GenericEntity_1 = require("./GenericEntity");
-const ErrorVDF_1 = require("../components/ErrorVDF");
-const msg_1 = require("../msg/msg");
 const PlantillaRonda_1 = require("./PlantillaRonda");
 let Horario = class Horario extends GenericEntity_1.GenericEntity {
-    validateInsert() {
-        if (this.hora == null)
-            throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.CAMPO_OBLIGATORIO("hora"), msg_1.Msg.CAMPO_OBLIGATORIO("hora"), 400);
-        if (this.minuto == null)
-            throw new ErrorVDF_1.ErrorVDF(msg_1.Msg.CAMPO_OBLIGATORIO("minuto"), msg_1.Msg.CAMPO_OBLIGATORIO("minuto"), 400);
-    }
 };
 __decorate([
     typeorm_1.PrimaryGeneratedColumn(),
@@ -29,21 +22,32 @@ __decorate([
 __decorate([
     typeorm_1.Column(),
     __metadata("design:type", Number)
-], Horario.prototype, "hora", void 0);
+], Horario.prototype, "dia", void 0);
 __decorate([
     typeorm_1.Column(),
     __metadata("design:type", Number)
-], Horario.prototype, "minuto", void 0);
+], Horario.prototype, "tipoRecurrencia", void 0);
 __decorate([
-    typeorm_1.OneToMany(type => PlantillaRonda_1.PlantillaRonda, plantillaRonda => plantillaRonda.horario),
-    __metadata("design:type", Array)
-], Horario.prototype, "plantillasRonda", void 0);
+    typeorm_1.Column(),
+    __metadata("design:type", String)
+], Horario.prototype, "hora", void 0);
 __decorate([
-    typeorm_1.BeforeInsert(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], Horario.prototype, "validateInsert", null);
+    typeorm_1.Column(),
+    __metadata("design:type", Date)
+], Horario.prototype, "fechaInicio", void 0);
+__decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", Date)
+], Horario.prototype, "fechaFin", void 0);
+__decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", Number)
+], Horario.prototype, "plantillaId", void 0);
+__decorate([
+    typeorm_1.ManyToOne(type => PlantillaRonda_1.PlantillaRonda, plantillaRonda => plantillaRonda.horariosRecurrentes),
+    typeorm_1.JoinColumn({ name: "plantillaId" }),
+    __metadata("design:type", PlantillaRonda_1.PlantillaRonda)
+], Horario.prototype, "plantilla", void 0);
 Horario = __decorate([
     typeorm_1.Entity()
 ], Horario);

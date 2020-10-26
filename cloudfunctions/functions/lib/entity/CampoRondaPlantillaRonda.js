@@ -17,15 +17,11 @@ const PlantillaRonda_1 = require("./PlantillaRonda");
 let CampoRondaPlantillaRonda = class CampoRondaPlantillaRonda extends GenericEntity_1.GenericEntity {
 };
 __decorate([
-    typeorm_1.PrimaryGeneratedColumn(),
-    __metadata("design:type", Number)
-], CampoRondaPlantillaRonda.prototype, "id", void 0);
-__decorate([
-    typeorm_1.Column(),
+    typeorm_1.PrimaryColumn(),
     __metadata("design:type", Number)
 ], CampoRondaPlantillaRonda.prototype, "campoRondaId", void 0);
 __decorate([
-    typeorm_1.Column(),
+    typeorm_1.PrimaryColumn(),
     __metadata("design:type", Number)
 ], CampoRondaPlantillaRonda.prototype, "plantillaRondaId", void 0);
 __decorate([

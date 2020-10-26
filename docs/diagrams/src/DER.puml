@@ -1,10 +1,21 @@
 @startuml
-class PlantillasRonda {
+class PlantillasRonda #lightgreen {
 }
 class CamposRonda #lightgreen {
 }
-
-PlantillasRonda --> CamposRonda
+class Horarios #lightgreen {
+  id: int;
+  dia: int;
+  tipoRecurrencia: int;
+  hora: Date;
+  fechaInicio: Date;
+  fechaFin: Date;
+}
+class CamposRondaPlantillaRonda #lightgreen {
+  
+}
+PlantillasRonda --> CamposRondaPlantillaRonda
+CamposRonda --> CamposRondaPlantillaRonda
 PlantillasRonda --> Horarios
 PlantillasRonda --> Rondas
 Rondas --> ValoresCamposRonda

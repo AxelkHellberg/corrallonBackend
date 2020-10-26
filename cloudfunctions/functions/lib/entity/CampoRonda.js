@@ -19,7 +19,15 @@ const TipoCampoRonda_1 = require("./TipoCampoRonda");
 const UnidadMedida_1 = require("./UnidadMedida");
 const ListaRonda_1 = require("./ListaRonda");
 const ValorCampoRonda_1 = require("./ValorCampoRonda");
+const CampoRondaPlantillaRonda_1 = require("./CampoRondaPlantillaRonda");
 let CampoRonda = class CampoRonda extends GenericEntity_1.GenericEntity {
+    constructor() {
+        super(...arguments);
+        this.funcionamientoSistema = true;
+        this.obligatorioSistema = false;
+        this.funcionamientoEquipo = true;
+        this.obligatorioEquipo = false;
+    }
     validateInsert() {
         if (this.valorNormal == null)
             throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.CAMPO_OBLIGATORIO("valorNormal"), Msg_1.Msg.CAMPO_OBLIGATORIO("valorNormal"), 400);
@@ -56,6 +64,22 @@ __decorate([
     __metadata("design:type", Number)
 ], CampoRonda.prototype, "equipamientoId", void 0);
 __decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", Boolean)
+], CampoRonda.prototype, "funcionamientoSistema", void 0);
+__decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", Boolean)
+], CampoRonda.prototype, "obligatorioSistema", void 0);
+__decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", Boolean)
+], CampoRonda.prototype, "funcionamientoEquipo", void 0);
+__decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", Boolean)
+], CampoRonda.prototype, "obligatorioEquipo", void 0);
+__decorate([
     typeorm_1.ManyToOne(type => Equipamiento_1.Equipamiento, equipamiento => equipamiento.camposRonda, { onDelete: 'CASCADE' }),
     typeorm_1.JoinColumn({ name: "equipamientoId" }),
     __metadata("design:type", Equipamiento_1.Equipamiento)
@@ -86,6 +110,10 @@ __decorate([
     typeorm_1.OneToMany(type => ValorCampoRonda_1.ValorCampoRonda, valorCampoRonda => valorCampoRonda.campoRonda),
     __metadata("design:type", Array)
 ], CampoRonda.prototype, "valoresCamposRonda", void 0);
+__decorate([
+    typeorm_1.OneToMany(type => CampoRondaPlantillaRonda_1.CampoRondaPlantillaRonda, campoRondaplantillaRonda => campoRondaplantillaRonda.campoRonda),
+    __metadata("design:type", Array)
+], CampoRonda.prototype, "campoRondaPlantillaRonda", void 0);
 __decorate([
     typeorm_1.BeforeInsert(),
     __metadata("design:type", Function),

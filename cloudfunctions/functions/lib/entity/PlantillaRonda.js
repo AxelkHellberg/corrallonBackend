@@ -15,6 +15,8 @@ const GenericEntity_1 = require("./GenericEntity");
 const ErrorVDF_1 = require("../components/ErrorVDF");
 const Msg_1 = require("../msg/Msg");
 const Ronda_1 = require("./Ronda");
+const CampoRondaPlantillaRonda_1 = require("./CampoRondaPlantillaRonda");
+const Horario_1 = require("./Horario");
 let PlantillaRonda = class PlantillaRonda extends GenericEntity_1.GenericEntity {
     constructor() {
         super(...arguments);
@@ -57,9 +59,17 @@ __decorate([
     __metadata("design:type", Object)
 ], PlantillaRonda.prototype, "horarios", void 0);
 __decorate([
+    typeorm_1.OneToMany(type => Horario_1.Horario, horario => horario.plantilla),
+    __metadata("design:type", Array)
+], PlantillaRonda.prototype, "horariosRecurrentes", void 0);
+__decorate([
     typeorm_1.OneToMany(type => Ronda_1.Ronda, ronda => ronda.plantillaRonda),
     __metadata("design:type", Array)
 ], PlantillaRonda.prototype, "rondas", void 0);
+__decorate([
+    typeorm_1.OneToMany(type => CampoRondaPlantillaRonda_1.CampoRondaPlantillaRonda, campoRondaPlantillaRonda => campoRondaPlantillaRonda.plantillaRonda),
+    __metadata("design:type", Array)
+], PlantillaRonda.prototype, "campoRondaPlantillaRonda", void 0);
 __decorate([
     typeorm_1.BeforeInsert(),
     __metadata("design:type", Function),

@@ -12,6 +12,7 @@ import { UnidadMedida } from "./UnidadMedida";
 import { ListaRonda } from "./ListaRonda";
 import { PlantillaRonda } from "./PlantillaRonda";
 import { ValorCampoRonda } from "./ValorCampoRonda";
+import { CampoRondaPlantillaRonda } from "./CampoRondaPlantillaRonda";
 @Entity()
 export class CampoRonda extends GenericEntity {
 
@@ -36,6 +37,18 @@ export class CampoRonda extends GenericEntity {
     @Column()
     equipamientoId: number;
 
+    @Column()
+    funcionamientoSistema: boolean = true;
+
+    @Column()
+    obligatorioSistema: boolean = false;
+
+    @Column()
+    funcionamientoEquipo: boolean = true;
+
+    @Column()
+    obligatorioEquipo: boolean = false;
+
     @ManyToOne(type => Equipamiento, equipamiento => equipamiento.camposRonda, { onDelete: 'CASCADE' })
     @JoinColumn({ name: "equipamientoId" })
     public equipamiento: Equipamiento;
@@ -59,6 +72,9 @@ export class CampoRonda extends GenericEntity {
 
     @OneToMany(type => ValorCampoRonda, valorCampoRonda => valorCampoRonda.campoRonda)
     public valoresCamposRonda: ValorCampoRonda[]
+
+    @OneToMany(type => CampoRondaPlantillaRonda, campoRondaplantillaRonda => campoRondaplantillaRonda.campoRonda)
+    public campoRondaPlantillaRonda: CampoRondaPlantillaRonda[]
 
     @BeforeInsert()
     private validateInsert(): void {

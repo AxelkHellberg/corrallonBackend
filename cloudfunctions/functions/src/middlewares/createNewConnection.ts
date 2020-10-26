@@ -18,8 +18,8 @@ export const createNewConnection = async (req: Request, res: Response, next: Nex
             "port": 3306,
             "username": "koa_user",
             "password": ")}!'w9!\\,Z-gR2y';R)S!F+\\ay;u,}RN`hcj8$aL",
-            "database": "koa_develop_remastered",
-            "synchronize": true,
+            "database": "koa_develop",
+            "synchronize": false,
             "migrationsRun": false,
             "logging": false,
             "entities": [

@@ -1,4 +1,4 @@
-import { Entity, ManyToOne, PrimaryColumn, Column, JoinColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, ManyToOne, PrimaryColumn, JoinColumn } from "typeorm";
 import { GenericEntity } from "./GenericEntity";
 import { User } from "./User";
 import { CampoRonda } from "./CampoRonda";
@@ -7,13 +7,10 @@ import { PlantillaRonda } from "./PlantillaRonda";
 @Entity()
 export class CampoRondaPlantillaRonda extends GenericEntity {
 
-    @PrimaryGeneratedColumn()
-    id: number;
-
-    @Column()
+    @PrimaryColumn()
     campoRondaId: number;
 
-    @Column()
+    @PrimaryColumn()
     plantillaRondaId: number;
 
     @ManyToOne(type => CampoRonda, campoRonda => campoRonda.id)

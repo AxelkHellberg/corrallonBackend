@@ -6,25 +6,15 @@ import { JoinReportRepository } from "./repository/JoinReportRepository";
 import { JoinReport } from "./entity/JoinReport";
 import { Planta } from "./entity/Planta";
 import { Sistema } from "./entity/Sistema";
+import { PlantillaRonda } from "./entity/PlantillaRonda";
 
 createConnection().then(async connection => {
 
-  let r = await connection.getRepository(NotificacionFalla).createQueryBuilder("notificacionFalla")
-    .leftJoinAndSelect("notificacionFalla.valoresCamposManiobras", "valoresCamposManiobras")
-    .leftJoinAndSelect("notificacionFalla.fallasSistema", "fallasSistema")
-    .leftJoinAndSelect("notificacionFalla.fallasEquipamiento", "fallasEquipamiento")
-    .leftJoinAndSelect("notificacionFalla.valoresCamposRonda", "valoresCamposRonda")
-    .leftJoinAndSelect("notificacionFalla.estadoFalla", "estadoFalla")
-    .leftJoinAndSelect("notificacionFalla.tipoFalla", "tipoFalla")
-    .leftJoinAndSelect("valoresCamposManiobras.guiaManiobra", "guiaManiobra")
-    .leftJoinAndSelect("valoresCamposManiobras.campoManiobra", "campoManiobra")
-    .leftJoinAndSelect("campoManiobra.sistema", "sistema")
-    .leftJoinAndSelect("guiaManiobra.user", "user")
-
+  let r = await connection.getRepository(PlantillaRonda).createQueryBuilder("plantillaRonda")
+    .leftJoinAndSelect("plantillaRonda.campoRondaPlantillaRonda", "enlaceRonda")
+    .leftJoinAndSelect("enlaceRonda.campoRonda", "camposRonda")
     .getMany()
   console.log("%j", r)
 
   //  createReporteFalla(connection)
 }).catch(error => console.log(error));
-
-

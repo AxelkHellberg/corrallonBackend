@@ -14,6 +14,8 @@ const ErrorVDF_1 = require("../components/ErrorVDF");
 const Msg_1 = require("../msg/Msg");
 const Report_1 = require("../entity/Report");
 const apiHandler_1 = require("../components/apiHandler");
+const typeorm_1 = require("typeorm");
+const PlantillaRonda_1 = require("../entity/PlantillaRonda");
 var express = require('express');
 var router = express.Router();
 const jwt = require("../components/jwt");
@@ -41,6 +43,33 @@ router.post('/execute', (req, res, next) => __awaiter(void 0, void 0, void 0, fu
         yield apiHandler_1.responseError(res, e);
     }
     next();
+}));
+router.post('/execute/tareas', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        if (!("filters" in req.body)) {
+            let r = yield typeorm_1.getConnection().getRepository(PlantillaRonda_1.PlantillaRonda).createQueryBuilder("plantillaRonda")
+                .leftJoinAndSelect("plantillaRonda.campoRondaPlantillaRonda", "enlaceRonda")
+                .leftJoinAndSelect("enlaceRonda.campoRonda", "camposRonda")
+                .getMany();
+            next();
+            res.send(r);
+        }
+        else {
+            let r = yield typeorm_1.getConnection().getRepository(PlantillaRonda_1.PlantillaRonda).createQueryBuilder("plantillaRonda")
+                .leftJoinAndSelect("plantillaRonda.campoRondaPlantillaRonda", "enlaceRonda")
+                .leftJoinAndSelect("enlaceRonda.campoRonda", "camposRonda")
+                .leftJoinAndSelect("camposRonda.equipamiento", "equipamiento")
+                .leftJoinAndSelect("equipamiento.sistema", "sistema")
+                .leftJoinAndSelect("sistema.planta", "planta")
+                .where('plantillaRonda.id=' + req.body.filters["id"])
+                .getMany();
+            next();
+            res.send(r);
+        }
+    }
+    catch (e) {
+        yield apiHandler_1.responseError(res, e);
+    }
 }));
 module.exports = router;
 //# sourceMappingURL=reportsRoutes.js.map
