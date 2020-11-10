@@ -16,6 +16,10 @@ const Report_1 = require("../entity/Report");
 const apiHandler_1 = require("../components/apiHandler");
 const typeorm_1 = require("typeorm");
 const PlantillaRonda_1 = require("../entity/PlantillaRonda");
+const CampoRonda_1 = require("../entity/CampoRonda");
+const TimeCalculator_1 = require("../helpers/TimeCalculator");
+const PlantillaRondaDates_1 = require("../helpers/PlantillaRondaDates");
+var later = require("later");
 var express = require('express');
 var router = express.Router();
 const jwt = require("../components/jwt");
@@ -44,17 +48,9 @@ router.post('/execute', (req, res, next) => __awaiter(void 0, void 0, void 0, fu
     }
     next();
 }));
-router.post('/execute/tareas', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        if (!("filters" in req.body)) {
-            let r = yield typeorm_1.getConnection().getRepository(PlantillaRonda_1.PlantillaRonda).createQueryBuilder("plantillaRonda")
-                .leftJoinAndSelect("plantillaRonda.campoRondaPlantillaRonda", "enlaceRonda")
-                .leftJoinAndSelect("enlaceRonda.campoRonda", "camposRonda")
-                .getMany();
-            next();
-            res.send(r);
-        }
-        else {
+router.post('/execute/plantillas-con-camposronda', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    if (!("filters" in req.body)) {
+        try {
             let r = yield typeorm_1.getConnection().getRepository(PlantillaRonda_1.PlantillaRonda).createQueryBuilder("plantillaRonda")
                 .leftJoinAndSelect("plantillaRonda.campoRondaPlantillaRonda", "enlaceRonda")
                 .leftJoinAndSelect("enlaceRonda.campoRonda", "camposRonda")
@@ -64,11 +60,117 @@ router.post('/execute/tareas', (req, res, next) => __awaiter(void 0, void 0, voi
                 .where('plantillaRonda.id=' + req.body.filters["id"])
                 .getMany();
             next();
-            res.send(r);
+            res.status(200).send(r);
         }
+        catch (e) {
+            yield apiHandler_1.responseError(res, e);
+        }
+    }
+    else {
+        try {
+            let r = yield typeorm_1.getConnection().getRepository(PlantillaRonda_1.PlantillaRonda).createQueryBuilder("plantillaRonda")
+                .leftJoinAndSelect("plantillaRonda.campoRondaPlantillaRonda", "enlaceRonda")
+                .leftJoinAndSelect("enlaceRonda.campoRonda", "camposRonda")
+                .leftJoinAndSelect("camposRonda.equipamiento", "equipamiento")
+                .leftJoinAndSelect("equipamiento.sistema", "sistema")
+                .leftJoinAndSelect("sistema.planta", "planta")
+                .getMany();
+            next();
+            res.status(200).send(r);
+        }
+        catch (e) {
+            yield apiHandler_1.responseError(res, e);
+        }
+    }
+}));
+router.post('/execute/campos-ronda', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let r = yield typeorm_1.getConnection().getRepository(CampoRonda_1.CampoRonda).createQueryBuilder("campoRonda")
+            .leftJoinAndSelect("campoRonda.equipamiento", "equipamiento")
+            .leftJoinAndSelect("equipamiento.sistema", "sistema")
+            .leftJoinAndSelect("sistema.planta", "planta")
+            .getMany();
+        next();
+        res.send(r);
     }
     catch (e) {
         yield apiHandler_1.responseError(res, e);
+    }
+}));
+router.post('/execute/plantillas-habilitadas', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let r = yield typeorm_1.getConnection().getRepository(PlantillaRonda_1.PlantillaRonda).createQueryBuilder("plantillaRonda")
+            .leftJoinAndSelect("plantillaRonda.horariosRecurrentes", "horario")
+            .leftJoinAndSelect("horario.horarioPersona", "horarioUsuario")
+            .leftJoinAndSelect("horarioUsuario.user", "user")
+            .where('user.id=' + req.body.filters["idUsuario"])
+            .getMany();
+        let validPlantillaRonda = new Array();
+        for (let p of r) {
+            for (let h of p.horariosRecurrentes) {
+                if (TimeCalculator_1.TimeCalculator.availableNow(h)) { // TODO: Fijarse en el servicio que no se creen mal los dias
+                    validPlantillaRonda.push(p);
+                    break;
+                }
+            }
+        }
+        next();
+        res.send(validPlantillaRonda);
+    }
+    catch (e) {
+        yield apiHandler_1.responseError(res, e);
+    }
+}));
+router.post('/execute/plantillas-proximas-fechas', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let r = yield typeorm_1.getConnection().getRepository(PlantillaRonda_1.PlantillaRonda).createQueryBuilder("plantillaRonda")
+            .leftJoinAndSelect("plantillaRonda.horariosRecurrentes", "horario")
+            .leftJoinAndSelect("horario.horarioPersona", "horarioUsuario")
+            .leftJoinAndSelect("horarioUsuario.user", "user")
+            .where('user.id=' + req.body.filters["idUsuario"])
+            .getMany();
+        let nextDates = new Array();
+        for (let p of r) {
+            for (let h of p.horariosRecurrentes) {
+                nextDates.push(new PlantillaRondaDates_1.PlantillaRondaDates(h.plantillaId, TimeCalculator_1.TimeCalculator.nextOcurrences(h)));
+            }
+        }
+        next();
+        res.send(nextDates);
+    }
+    catch (e) {
+        yield apiHandler_1.responseError(res, e);
+    }
+}));
+router.post('/execute/plantillas-horarios', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    if (!("filters" in req.body)) {
+        try {
+            let r = yield typeorm_1.getConnection().getRepository(PlantillaRonda_1.PlantillaRonda).createQueryBuilder("plantillaRonda")
+                .leftJoinAndSelect("plantillaRonda.horariosRecurrentes", "horario")
+                .leftJoinAndSelect("horario.horarioPersona", "horarioUsuario")
+                .leftJoinAndSelect("horarioUsuario.user", "user")
+                .getMany();
+            next();
+            res.send(r);
+        }
+        catch (e) {
+            yield apiHandler_1.responseError(res, e);
+        }
+    }
+    else {
+        try {
+            let r = yield typeorm_1.getConnection().getRepository(PlantillaRonda_1.PlantillaRonda).createQueryBuilder("plantillaRonda")
+                .leftJoinAndSelect("plantillaRonda.horariosRecurrentes", "horario")
+                .leftJoinAndSelect("horario.horarioPersona", "horarioUsuario")
+                .leftJoinAndSelect("horarioUsuario.user", "user")
+                .where('user.id=' + req.body.filters["idUsuario"])
+                .getMany();
+            next();
+            res.send(r);
+        }
+        catch (e) {
+            yield apiHandler_1.responseError(res, e);
+        }
     }
 }));
 module.exports = router;

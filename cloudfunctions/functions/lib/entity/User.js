@@ -17,6 +17,7 @@ const Msg_1 = require("../msg/Msg");
 const Profile_1 = require("./Profile");
 const GuiaManiobra_1 = require("./GuiaManiobra");
 const Ronda_1 = require("./Ronda");
+const HorarioPersona_1 = require("./HorarioPersona");
 let encriptutils = require('../components/encryputils');
 let User = class User extends GenericEntity_1.GenericEntity {
     constructor() {
@@ -103,6 +104,10 @@ __decorate([
     typeorm_1.OneToMany(type => Ronda_1.Ronda, ronda => ronda.user),
     __metadata("design:type", Array)
 ], User.prototype, "rondas", void 0);
+__decorate([
+    typeorm_1.OneToMany(type => HorarioPersona_1.HorarioPersona, horarioPersona => horarioPersona.user),
+    __metadata("design:type", Array)
+], User.prototype, "horarioPersona", void 0);
 User = __decorate([
     typeorm_1.Entity()
 ], User);

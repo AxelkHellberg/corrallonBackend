@@ -13,6 +13,7 @@ exports.Horario = void 0;
 const typeorm_1 = require("typeorm");
 const GenericEntity_1 = require("./GenericEntity");
 const PlantillaRonda_1 = require("./PlantillaRonda");
+const HorarioPersona_1 = require("./HorarioPersona");
 let Horario = class Horario extends GenericEntity_1.GenericEntity {
 };
 __decorate([
@@ -21,8 +22,8 @@ __decorate([
 ], Horario.prototype, "id", void 0);
 __decorate([
     typeorm_1.Column(),
-    __metadata("design:type", Number)
-], Horario.prototype, "dia", void 0);
+    __metadata("design:type", String)
+], Horario.prototype, "dias", void 0);
 __decorate([
     typeorm_1.Column(),
     __metadata("design:type", Number)
@@ -30,7 +31,11 @@ __decorate([
 __decorate([
     typeorm_1.Column(),
     __metadata("design:type", String)
-], Horario.prototype, "hora", void 0);
+], Horario.prototype, "horaInicio", void 0);
+__decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", String)
+], Horario.prototype, "horaFin", void 0);
 __decorate([
     typeorm_1.Column(),
     __metadata("design:type", Date)
@@ -48,6 +53,10 @@ __decorate([
     typeorm_1.JoinColumn({ name: "plantillaId" }),
     __metadata("design:type", PlantillaRonda_1.PlantillaRonda)
 ], Horario.prototype, "plantilla", void 0);
+__decorate([
+    typeorm_1.OneToMany(type => HorarioPersona_1.HorarioPersona, horarioPersona => horarioPersona.horario),
+    __metadata("design:type", Array)
+], Horario.prototype, "horarioPersona", void 0);
 Horario = __decorate([
     typeorm_1.Entity()
 ], Horario);

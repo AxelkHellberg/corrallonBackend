@@ -5,6 +5,7 @@ import { Msg } from "../msg/Msg";
 import { Profile } from "./Profile";
 import { GuiaManiobra } from "./GuiaManiobra";
 import { Ronda } from "./Ronda";
+import { HorarioPersona } from "./HorarioPersona";
 let encriptutils = require('../components/encryputils')
 
 @Entity()
@@ -67,5 +68,8 @@ export class User extends GenericEntity {
 
     @OneToMany(type => Ronda, ronda => ronda.user)
     public rondas: Ronda[]
+
+    @OneToMany(type => HorarioPersona, horarioPersona => horarioPersona.user)
+    public horarioPersona: HorarioPersona[]
 
 }
