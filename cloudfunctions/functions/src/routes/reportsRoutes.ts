@@ -23,21 +23,26 @@ const currentClass = Report
 /******************************************** */
 
 router.post('/execute', async (req, res, next) => {
+    
     try {
-        if (!("id" in req.body))
-            throw new ErrorVDF(Msg.ID_MANDATORY, Msg.ID_MANDATORY, 500)
+        if (!("id" in req.body)){
+            console.log("No ID");
+            throw new ErrorVDF(Msg.ID_MANDATORY, Msg.ID_MANDATORY, 501)}
         let reportes = await service.findById(5)
         console.log(reportes)
         let report: Report = await service.findById(req.body.id)
+        console.log("id");
+        console.log(req.body.id);
         if (!("filters" in req.body))
             req.body.filters = {}
-        console.log("REPORTTTTT::")
+        console.log("REPORTTTTT1::")
         console.log(report)
         req.body.filters["myUserId"] = res.locals.jwtPayload.u
         let responseData = await service.execute(report, req.body.filters)
         res.locals.responseData = responseData
         res.send(responseData)
     } catch (e) {
+        console.log("catch Error");
         await responseError(res, e)
     }
     next()
@@ -78,6 +83,7 @@ router.post('/execute/plantillas-con-camposronda', async (req, res, next) => {
 });
 
 router.post('/execute/campos-ronda', async (req, res, next) => {
+    
     try {
         let r = await getConnection().getRepository(CampoRonda).createQueryBuilder("campoRonda")
         .leftJoinAndSelect("campoRonda.equipamiento", "equipamiento")
@@ -85,12 +91,14 @@ router.post('/execute/campos-ronda', async (req, res, next) => {
         .leftJoinAndSelect("sistema.planta", "planta")
         .getMany()
         next()
-        res.send(r);
+        res.status(200).send(r);
     } catch (e) {
         await responseError(res, e)
     }
     
 });
+
+
 
 router.post('/execute/plantillas-habilitadas', async (req, res, next) => { // TODO: Chequear llegada del filter
     try {
@@ -118,6 +126,7 @@ router.post('/execute/plantillas-habilitadas', async (req, res, next) => { // TO
 
 router.post('/execute/plantillas-proximas-fechas', async (req, res, next) => {
     try {
+        
         let r = await getConnection().getRepository(PlantillaRonda).createQueryBuilder("plantillaRonda")
         .leftJoinAndSelect("plantillaRonda.horariosRecurrentes", "horario")
         .leftJoinAndSelect("horario.horarioPersona", "horarioUsuario")
@@ -138,6 +147,7 @@ router.post('/execute/plantillas-proximas-fechas', async (req, res, next) => {
 });
 
 router.post('/execute/plantillas-horarios', async (req, res, next) => {
+    
     if (!("filters" in req.body)) {
         try {
             let r = await getConnection().getRepository(PlantillaRonda).createQueryBuilder("plantillaRonda")

@@ -29,14 +29,18 @@ const currentClass = Report_1.Report;
 /******************************************** */
 router.post('/execute', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        if (!("id" in req.body))
-            throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.ID_MANDATORY, Msg_1.Msg.ID_MANDATORY, 500);
+        if (!("id" in req.body)) {
+            console.log("No ID");
+            throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.ID_MANDATORY, Msg_1.Msg.ID_MANDATORY, 501);
+        }
         let reportes = yield service.findById(5);
         console.log(reportes);
         let report = yield service.findById(req.body.id);
+        console.log("id");
+        console.log(req.body.id);
         if (!("filters" in req.body))
             req.body.filters = {};
-        console.log("REPORTTTTT::");
+        console.log("REPORTTTTT1::");
         console.log(report);
         req.body.filters["myUserId"] = res.locals.jwtPayload.u;
         let responseData = yield service.execute(report, req.body.filters);
@@ -44,6 +48,7 @@ router.post('/execute', (req, res, next) => __awaiter(void 0, void 0, void 0, fu
         res.send(responseData);
     }
     catch (e) {
+        console.log("catch Error");
         yield apiHandler_1.responseError(res, e);
     }
     next();
@@ -91,7 +96,7 @@ router.post('/execute/campos-ronda', (req, res, next) => __awaiter(void 0, void 
             .leftJoinAndSelect("sistema.planta", "planta")
             .getMany();
         next();
-        res.send(r);
+        res.status(200).send(r);
     }
     catch (e) {
         yield apiHandler_1.responseError(res, e);
