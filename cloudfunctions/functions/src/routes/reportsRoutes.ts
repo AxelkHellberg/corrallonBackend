@@ -12,6 +12,9 @@ import { CampoRonda } from "../entity/CampoRonda";
 import { schedule } from "later";
 import { TimeCalculator } from "../helpers/TimeCalculator";
 import { PlantillaRondaDates } from "../helpers/PlantillaRondaDates";
+import { FallaSistema } from "../entity/FallaSistema";
+import { FallaEquipamiento } from "../entity/FallaEquipamiento";
+import { EstadoFalla } from "../entity/EstadoFalla";
 var later = require("later")
 var express = require('express');
 var router = express.Router();
@@ -23,16 +26,18 @@ const currentClass = Report
 /******************************************** */
 
 router.post('/execute', async (req, res, next) => {
-    
+    console.log(req.body.id);
     try {
         if (!("id" in req.body)){
             console.log("No ID");
             throw new ErrorVDF(Msg.ID_MANDATORY, Msg.ID_MANDATORY, 501)}
-        let reportes = await service.findById(5)
+        let reportes = await service.findById(req.body.id)
         console.log(reportes)
         let report: Report = await service.findById(req.body.id)
+        console.log("report.from");
+        console.log(report.from + "hola");
         console.log("id");
-        console.log(req.body.id);
+        
         if (!("filters" in req.body))
             req.body.filters = {}
         console.log("REPORTTTTT1::")
@@ -47,6 +52,81 @@ router.post('/execute', async (req, res, next) => {
     }
     next()
 });
+
+
+
+
+
+
+
+router.post('/execute/estado-falla',async(req,res,next)=>{  
+  
+    try {
+        let r = await getConnection().getRepository(EstadoFalla).createQueryBuilder("estado_falla")
+        .select("estado_falla").getMany();
+        console.log("res");
+        console.log(r);
+        next()
+        res.status(200).send(r);
+    } catch (e) {
+        await responseError(res, e)
+    
+}
+})
+
+router.post('/execute/notificaiones-fallas',async(req,res,next)=>{
+    
+        
+  
+    try {
+        let r = await getConnection().getRepository(FallaSistema).createQueryBuilder("notificacion-falla")
+        .select("notificacion-falla").getMany();
+        console.log("res");
+        console.log(r);
+        next()
+        res.status(200).send(r);
+    } catch (e) {
+        await responseError(res, e)
+    
+}
+})
+
+
+
+router.post('/execute/falla-sistema',async(req,res,next)=>{
+    
+        
+  
+        try {
+            let r = await getConnection().getRepository(FallaSistema).createQueryBuilder("falla_sistema")
+            .select("falla_sistema").getMany();
+            console.log("res");
+            console.log(r);
+            next()
+            res.status(200).send(r);
+        } catch (e) {
+            await responseError(res, e)
+        
+    }
+})
+
+
+router.post('/execute/falla-equipo',async(req,res,next)=>{
+    
+        
+  
+    try {
+        let r = await getConnection().getRepository(FallaEquipamiento).createQueryBuilder("falla_equipamiento")
+        .select("falla_equipamiento").getMany();
+        console.log("res");
+        console.log(r);
+        next()
+        res.status(200).send(r);
+    } catch (e) {
+        await responseError(res, e)
+    
+}
+})
 
 router.post('/execute/plantillas-con-camposronda', async (req, res, next) => {
         if (!("filters" in req.body)) {

@@ -16,7 +16,10 @@ export class ReportService/**config */ extends GenericeService<Report/**config *
     }
 
     public findById = async function (id: number): Promise<Report> {
-        return await this.genericRepository.getRepository().createQueryBuilder(DBConection.ENTITY_REF_NAME).innerJoinAndSelect("e.joinsReport", "joinReport").where(DBConection.ENTITY_REF_NAME + ".id=" + id).getOne()
+        console.log("llege");
+        //await this.genericRepository.getRepository().createQueryBuilder(DBConection.ENTITY_REF_NAME).innerJoinAndSelect("e.joinsReport", "joinReport").where(DBConection.ENTITY_REF_NAME + ".id=" + id).getOne()
+        const res = await this.genericRepository.getRepository().createQueryBuilder(DBConection.ENTITY_REF_NAME).innerJoinAndSelect("e.joinsReport", "joinReport").where(DBConection.ENTITY_REF_NAME + ".id=" + id).getOne()
+        return res
     }
 
     execute = async function (report: Report, params = {}): Promise<any> {

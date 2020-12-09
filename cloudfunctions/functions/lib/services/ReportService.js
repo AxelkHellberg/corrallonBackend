@@ -23,7 +23,10 @@ class ReportService /**config *//**config */  extends GenericService_1.GenericeS
         super(new myClass());
         this.findById = function (id) {
             return __awaiter(this, void 0, void 0, function* () {
-                return yield this.genericRepository.getRepository().createQueryBuilder(DBConection_1.DBConection.ENTITY_REF_NAME).innerJoinAndSelect("e.joinsReport", "joinReport").where(DBConection_1.DBConection.ENTITY_REF_NAME + ".id=" + id).getOne();
+                console.log("llege");
+                //await this.genericRepository.getRepository().createQueryBuilder(DBConection.ENTITY_REF_NAME).innerJoinAndSelect("e.joinsReport", "joinReport").where(DBConection.ENTITY_REF_NAME + ".id=" + id).getOne()
+                const res = yield this.genericRepository.getRepository().createQueryBuilder(DBConection_1.DBConection.ENTITY_REF_NAME).innerJoinAndSelect("e.joinsReport", "joinReport").where(DBConection_1.DBConection.ENTITY_REF_NAME + ".id=" + id).getOne();
+                return res;
             });
         };
         this.execute = function (report, params = {}) {

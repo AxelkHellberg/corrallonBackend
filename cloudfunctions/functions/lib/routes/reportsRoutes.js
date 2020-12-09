@@ -19,6 +19,9 @@ const PlantillaRonda_1 = require("../entity/PlantillaRonda");
 const CampoRonda_1 = require("../entity/CampoRonda");
 const TimeCalculator_1 = require("../helpers/TimeCalculator");
 const PlantillaRondaDates_1 = require("../helpers/PlantillaRondaDates");
+const FallaSistema_1 = require("../entity/FallaSistema");
+const FallaEquipamiento_1 = require("../entity/FallaEquipamiento");
+const EstadoFalla_1 = require("../entity/EstadoFalla");
 var later = require("later");
 var express = require('express');
 var router = express.Router();
@@ -28,16 +31,18 @@ const service = new ReportService_1.ReportService();
 const currentClass = Report_1.Report;
 /******************************************** */
 router.post('/execute', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(req.body.id);
     try {
         if (!("id" in req.body)) {
             console.log("No ID");
             throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.ID_MANDATORY, Msg_1.Msg.ID_MANDATORY, 501);
         }
-        let reportes = yield service.findById(5);
+        let reportes = yield service.findById(req.body.id);
         console.log(reportes);
         let report = yield service.findById(req.body.id);
+        console.log("report.from");
+        console.log(report.from + "hola");
         console.log("id");
-        console.log(req.body.id);
         if (!("filters" in req.body))
             req.body.filters = {};
         console.log("REPORTTTTT1::");
@@ -52,6 +57,58 @@ router.post('/execute', (req, res, next) => __awaiter(void 0, void 0, void 0, fu
         yield apiHandler_1.responseError(res, e);
     }
     next();
+}));
+router.post('/execute/estado-falla', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let r = yield typeorm_1.getConnection().getRepository(EstadoFalla_1.EstadoFalla).createQueryBuilder("estado_falla")
+            .select("estado_falla").getMany();
+        console.log("res");
+        console.log(r);
+        next();
+        res.status(200).send(r);
+    }
+    catch (e) {
+        yield apiHandler_1.responseError(res, e);
+    }
+}));
+router.post('/execute/notificaiones-fallas', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let r = yield typeorm_1.getConnection().getRepository(FallaSistema_1.FallaSistema).createQueryBuilder("notificacion-falla")
+            .select("notificacion-falla").getMany();
+        console.log("res");
+        console.log(r);
+        next();
+        res.status(200).send(r);
+    }
+    catch (e) {
+        yield apiHandler_1.responseError(res, e);
+    }
+}));
+router.post('/execute/falla-sistema', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let r = yield typeorm_1.getConnection().getRepository(FallaSistema_1.FallaSistema).createQueryBuilder("falla_sistema")
+            .select("falla_sistema").getMany();
+        console.log("res");
+        console.log(r);
+        next();
+        res.status(200).send(r);
+    }
+    catch (e) {
+        yield apiHandler_1.responseError(res, e);
+    }
+}));
+router.post('/execute/falla-equipo', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let r = yield typeorm_1.getConnection().getRepository(FallaEquipamiento_1.FallaEquipamiento).createQueryBuilder("falla_equipamiento")
+            .select("falla_equipamiento").getMany();
+        console.log("res");
+        console.log(r);
+        next();
+        res.status(200).send(r);
+    }
+    catch (e) {
+        yield apiHandler_1.responseError(res, e);
+    }
 }));
 router.post('/execute/plantillas-con-camposronda', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     if (!("filters" in req.body)) {
