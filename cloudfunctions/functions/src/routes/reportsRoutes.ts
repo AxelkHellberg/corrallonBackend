@@ -15,6 +15,7 @@ import { PlantillaRondaDates } from "../helpers/PlantillaRondaDates";
 import { FallaSistema } from "../entity/FallaSistema";
 import { FallaEquipamiento } from "../entity/FallaEquipamiento";
 import { EstadoFalla } from "../entity/EstadoFalla";
+import { Ronda } from "../entity/Ronda";
 var later = require("later")
 var express = require('express');
 var router = express.Router();
@@ -28,16 +29,17 @@ const currentClass = Report
 router.post('/execute', async (req, res, next) => {
     console.log(req.body.id);
     try {
-        if (!("id" in req.body)){
+        if (!("id" in req.body)) {
             console.log("No ID");
-            throw new ErrorVDF(Msg.ID_MANDATORY, Msg.ID_MANDATORY, 501)}
+            throw new ErrorVDF(Msg.ID_MANDATORY, Msg.ID_MANDATORY, 501)
+        }
         let reportes = await service.findById(req.body.id)
         console.log(reportes)
         let report: Report = await service.findById(req.body.id)
         console.log("report.from");
         console.log(report.from + "hola");
         console.log("id");
-        
+
         if (!("filters" in req.body))
             req.body.filters = {}
         console.log("REPORTTTTT1::")
@@ -57,125 +59,147 @@ router.post('/execute', async (req, res, next) => {
 
 
 
+router.post('/execute/reporte-ronda', async (req, res, next) => {
 
+    try {
+        let r
+        if (req.body.id === 0) {
+            r = await getConnection().getRepository(Ronda).createQueryBuilder("ronda")
+                .select("ronda").getMany()
+        }
+        else {
 
-router.post('/execute/estado-falla',async(req,res,next)=>{  
-  
+            r = await getConnection().getRepository(Ronda).createQueryBuilder("ronda")
+            .select("ronda").where('ronda.userId='+req.body.id).getMany()
+        }
+
+        console.log("res");
+        console.log(r);
+        next()
+        res.status(200).send(r);
+    } catch (e) {
+        await responseError(res, e)
+
+    }
+})
+
+router.post('/execute/estado-falla', async (req, res, next) => {
+
     try {
         let r = await getConnection().getRepository(EstadoFalla).createQueryBuilder("estado_falla")
-        .select("estado_falla").getMany();
+            .select("estado_falla").getMany();
         console.log("res");
         console.log(r);
         next()
         res.status(200).send(r);
     } catch (e) {
         await responseError(res, e)
-    
-}
+
+    }
 })
 
-router.post('/execute/notificaiones-fallas',async(req,res,next)=>{
-    
-        
-  
+router.post('/execute/notificaiones-fallas', async (req, res, next) => {
+
+
+
     try {
         let r = await getConnection().getRepository(FallaSistema).createQueryBuilder("notificacion-falla")
-        .select("notificacion-falla").getMany();
+            .select("notificacion-falla").getMany();
         console.log("res");
         console.log(r);
         next()
         res.status(200).send(r);
     } catch (e) {
         await responseError(res, e)
-    
-}
+
+    }
 })
 
 
 
-router.post('/execute/falla-sistema',async(req,res,next)=>{
-    
-        
-  
-        try {
-            let r = await getConnection().getRepository(FallaSistema).createQueryBuilder("falla_sistema")
+router.post('/execute/falla-sistema', async (req, res, next) => {
+
+
+
+    try {
+        let r = await getConnection().getRepository(FallaSistema).createQueryBuilder("falla_sistema")
             .select("falla_sistema").getMany();
-            console.log("res");
-            console.log(r);
+        console.log("res");
+        console.log(r);
+        next()
+        res.status(200).send(r);
+    } catch (e) {
+        await responseError(res, e)
+
+    }
+})
+
+
+router.post('/execute/falla-equipo', async (req, res, next) => {
+
+
+
+    try {
+        let r = await getConnection().getRepository(FallaEquipamiento).createQueryBuilder("falla_equipamiento")
+            .select("falla_equipamiento").getMany();
+        console.log("res");
+        console.log(r);
+        next()
+        res.status(200).send(r);
+    } catch (e) {
+        await responseError(res, e)
+
+    }
+})
+
+router.post('/execute/plantillas-con-camposronda', async (req, res, next) => {
+    if (!("filters" in req.body)) {
+        try {
+            let r = await getConnection().getRepository(PlantillaRonda).createQueryBuilder("plantillaRonda")
+                .leftJoinAndSelect("plantillaRonda.campoRondaPlantillaRonda", "enlaceRonda")
+                .leftJoinAndSelect("enlaceRonda.campoRonda", "camposRonda")
+                .leftJoinAndSelect("camposRonda.equipamiento", "equipamiento")
+                .leftJoinAndSelect("equipamiento.sistema", "sistema")
+                .leftJoinAndSelect("sistema.planta", "planta")
+                .where('plantillaRonda.id=' + req.body.filters["id"])
+                .getMany()
             next()
             res.status(200).send(r);
         } catch (e) {
             await responseError(res, e)
-        
-    }
-})
-
-
-router.post('/execute/falla-equipo',async(req,res,next)=>{
-    
-        
-  
-    try {
-        let r = await getConnection().getRepository(FallaEquipamiento).createQueryBuilder("falla_equipamiento")
-        .select("falla_equipamiento").getMany();
-        console.log("res");
-        console.log(r);
-        next()
-        res.status(200).send(r);
-    } catch (e) {
-        await responseError(res, e)
-    
-}
-})
-
-router.post('/execute/plantillas-con-camposronda', async (req, res, next) => {
-        if (!("filters" in req.body)) {
-            try {
-                let r = await getConnection().getRepository(PlantillaRonda).createQueryBuilder("plantillaRonda")
-                .leftJoinAndSelect("plantillaRonda.campoRondaPlantillaRonda", "enlaceRonda")
-                .leftJoinAndSelect("enlaceRonda.campoRonda", "camposRonda")
-                .leftJoinAndSelect("camposRonda.equipamiento", "equipamiento")
-                .leftJoinAndSelect("equipamiento.sistema", "sistema")
-                .leftJoinAndSelect("sistema.planta", "planta")
-                .where('plantillaRonda.id='+req.body.filters["id"])
-                .getMany()
-                next()
-                res.status(200).send(r);
-            } catch (e) {
-                await responseError(res, e)
-            }
-        } else {
-            try {
-                let r = await getConnection().getRepository(PlantillaRonda).createQueryBuilder("plantillaRonda")
-                .leftJoinAndSelect("plantillaRonda.campoRondaPlantillaRonda", "enlaceRonda")
-                .leftJoinAndSelect("enlaceRonda.campoRonda", "camposRonda")
-                .leftJoinAndSelect("camposRonda.equipamiento", "equipamiento")
-                .leftJoinAndSelect("equipamiento.sistema", "sistema")
-                .leftJoinAndSelect("sistema.planta", "planta")
-                .getMany()
-                next()
-                res.status(200).send(r);
-            } catch (e) {
-                await responseError(res, e)
-            }
         }
+    } else {
+        try {
+            let r = await getConnection().getRepository(PlantillaRonda).createQueryBuilder("plantillaRonda")
+                .leftJoinAndSelect("plantillaRonda.campoRondaPlantillaRonda", "enlaceRonda")
+                .leftJoinAndSelect("enlaceRonda.campoRonda", "camposRonda")
+                .leftJoinAndSelect("camposRonda.equipamiento", "equipamiento")
+                .leftJoinAndSelect("equipamiento.sistema", "sistema")
+                .leftJoinAndSelect("sistema.planta", "planta")
+                .getMany()
+            next()
+            res.status(200).send(r);
+        } catch (e) {
+            await responseError(res, e)
+        }
+    }
 
 });
 
 router.post('/execute/campos-ronda', async (req, res, next) => {
-    
+
     try {
         let r = await getConnection().getRepository(CampoRonda).createQueryBuilder("campoRonda")
-        .leftJoinAndSelect("campoRonda.equipamiento", "equipamiento")
-        .leftJoinAndSelect("equipamiento.sistema", "sistema")
-        .leftJoinAndSelect("sistema.planta", "planta")
-        .getMany()
+            .leftJoinAndSelect("campoRonda.equipamiento", "equipamiento")
+            .leftJoinAndSelect("equipamiento.sistema", "sistema")
+            .leftJoinAndSelect("sistema.planta", "planta")
+            .getMany()
         next()
         res.status(200).send(r);
     } catch (e) {
         await responseError(res, e)
     }
-    
+
 });
 
 
@@ -183,13 +207,13 @@ router.post('/execute/campos-ronda', async (req, res, next) => {
 router.post('/execute/plantillas-habilitadas', async (req, res, next) => { // TODO: Chequear llegada del filter
     try {
         let r = await getConnection().getRepository(PlantillaRonda).createQueryBuilder("plantillaRonda")
-        .leftJoinAndSelect("plantillaRonda.horariosRecurrentes", "horario")
-        .leftJoinAndSelect("horario.horarioPersona", "horarioUsuario")
-        .leftJoinAndSelect("horarioUsuario.user", "user")
-        .where('user.id='+req.body.filters["idUsuario"])
-        .getMany()
+            .leftJoinAndSelect("plantillaRonda.horariosRecurrentes", "horario")
+            .leftJoinAndSelect("horario.horarioPersona", "horarioUsuario")
+            .leftJoinAndSelect("horarioUsuario.user", "user")
+            .where('user.id=' + req.body.filters["idUsuario"])
+            .getMany()
         let validPlantillaRonda = new Array<PlantillaRonda>();
-        for (let p of r){
+        for (let p of r) {
             for (let h of p.horariosRecurrentes) {
                 if (TimeCalculator.availableNow(h)) { // TODO: Fijarse en el servicio que no se creen mal los dias
                     validPlantillaRonda.push(p);
@@ -206,15 +230,15 @@ router.post('/execute/plantillas-habilitadas', async (req, res, next) => { // TO
 
 router.post('/execute/plantillas-proximas-fechas', async (req, res, next) => {
     try {
-        
+
         let r = await getConnection().getRepository(PlantillaRonda).createQueryBuilder("plantillaRonda")
-        .leftJoinAndSelect("plantillaRonda.horariosRecurrentes", "horario")
-        .leftJoinAndSelect("horario.horarioPersona", "horarioUsuario")
-        .leftJoinAndSelect("horarioUsuario.user", "user")
-        .where('user.id='+req.body.filters["idUsuario"])
-        .getMany()
+            .leftJoinAndSelect("plantillaRonda.horariosRecurrentes", "horario")
+            .leftJoinAndSelect("horario.horarioPersona", "horarioUsuario")
+            .leftJoinAndSelect("horarioUsuario.user", "user")
+            .where('user.id=' + req.body.filters["idUsuario"])
+            .getMany()
         let nextDates = new Array<PlantillaRondaDates>();
-        for (let p of r){
+        for (let p of r) {
             for (let h of p.horariosRecurrentes) {
                 nextDates.push(new PlantillaRondaDates(h.plantillaId, TimeCalculator.nextOcurrences(h)));
             }
@@ -227,14 +251,14 @@ router.post('/execute/plantillas-proximas-fechas', async (req, res, next) => {
 });
 
 router.post('/execute/plantillas-horarios', async (req, res, next) => {
-    
+
     if (!("filters" in req.body)) {
         try {
             let r = await getConnection().getRepository(PlantillaRonda).createQueryBuilder("plantillaRonda")
-            .leftJoinAndSelect("plantillaRonda.horariosRecurrentes", "horario")
-            .leftJoinAndSelect("horario.horarioPersona", "horarioUsuario")
-            .leftJoinAndSelect("horarioUsuario.user", "user")
-            .getMany()
+                .leftJoinAndSelect("plantillaRonda.horariosRecurrentes", "horario")
+                .leftJoinAndSelect("horario.horarioPersona", "horarioUsuario")
+                .leftJoinAndSelect("horarioUsuario.user", "user")
+                .getMany()
             next()
             res.send(r);
         } catch (e) {
@@ -243,11 +267,11 @@ router.post('/execute/plantillas-horarios', async (req, res, next) => {
     } else {
         try {
             let r = await getConnection().getRepository(PlantillaRonda).createQueryBuilder("plantillaRonda")
-            .leftJoinAndSelect("plantillaRonda.horariosRecurrentes", "horario")
-            .leftJoinAndSelect("horario.horarioPersona", "horarioUsuario")
-            .leftJoinAndSelect("horarioUsuario.user", "user")
-            .where('user.id='+req.body.filters["idUsuario"])
-            .getMany()
+                .leftJoinAndSelect("plantillaRonda.horariosRecurrentes", "horario")
+                .leftJoinAndSelect("horario.horarioPersona", "horarioUsuario")
+                .leftJoinAndSelect("horarioUsuario.user", "user")
+                .where('user.id=' + req.body.filters["idUsuario"])
+                .getMany()
             next()
             res.send(r);
         } catch (e) {

@@ -22,6 +22,7 @@ const PlantillaRondaDates_1 = require("../helpers/PlantillaRondaDates");
 const FallaSistema_1 = require("../entity/FallaSistema");
 const FallaEquipamiento_1 = require("../entity/FallaEquipamiento");
 const EstadoFalla_1 = require("../entity/EstadoFalla");
+const Ronda_1 = require("../entity/Ronda");
 var later = require("later");
 var express = require('express');
 var router = express.Router();
@@ -57,6 +58,26 @@ router.post('/execute', (req, res, next) => __awaiter(void 0, void 0, void 0, fu
         yield apiHandler_1.responseError(res, e);
     }
     next();
+}));
+router.post('/execute/reporte-ronda', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let r;
+        if (req.body.id === 0) {
+            r = yield typeorm_1.getConnection().getRepository(Ronda_1.Ronda).createQueryBuilder("ronda")
+                .select("ronda").getMany();
+        }
+        else {
+            r = yield typeorm_1.getConnection().getRepository(Ronda_1.Ronda).createQueryBuilder("ronda")
+                .select("ronda").where('ronda.userId=' + req.body.id).getMany();
+        }
+        console.log("res");
+        console.log(r);
+        next();
+        res.status(200).send(r);
+    }
+    catch (e) {
+        yield apiHandler_1.responseError(res, e);
+    }
 }));
 router.post('/execute/estado-falla', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
