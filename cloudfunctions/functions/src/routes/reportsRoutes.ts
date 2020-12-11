@@ -57,6 +57,14 @@ router.post('/execute', async (req, res, next) => {
 
 
 
+router.post('/execute/ejp', async (req, res, next) => {
+
+  
+    let r = await getConnection().getRepository(EstadoFalla).createQueryBuilder("estado_falla")
+    .select("estado_falla").getMany();
+    res.status(200).send(r);
+    
+})
 
 
 router.post('/execute/reporte-ronda', async (req, res, next) => {

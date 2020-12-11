@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "proyecto-s2i"
+    "default": "proyecto-s2i",
+    "koa-s2i-test": "proyecto-s2i-test"
   }
 }

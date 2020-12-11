@@ -59,6 +59,11 @@ router.post('/execute', (req, res, next) => __awaiter(void 0, void 0, void 0, fu
     }
     next();
 }));
+router.post('/execute/ejp', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    let r = yield typeorm_1.getConnection().getRepository(EstadoFalla_1.EstadoFalla).createQueryBuilder("estado_falla")
+        .select("estado_falla").getMany();
+    res.status(200).send(r);
+}));
 router.post('/execute/reporte-ronda', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let r;
