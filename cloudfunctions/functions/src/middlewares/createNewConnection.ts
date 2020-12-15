@@ -16,8 +16,8 @@ export const createNewConnection = async (req: Request, res: Response, next: Nex
             "type": "mysql",
             "host": "35.225.71.53",
             "port": 3306,
-            "username": "koa_user",
-            "password": ")}!'w9!\\,Z-gR2y';R)S!F+\\ay;u,}RN`hcj8$aL",
+            "username": "koa-develop",
+            "password": "koa-develop",
             "database": "koa_develop",
             "synchronize": false, // NO DEJAR SYNCHRONIZE EN KOA_DEVELOP
             "migrationsRun": false,
