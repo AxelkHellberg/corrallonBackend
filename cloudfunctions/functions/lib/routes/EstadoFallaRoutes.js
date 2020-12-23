@@ -25,7 +25,7 @@ const currentClass = EstadoFalla_1.EstadoFalla;
 /******************************************** */
 router.get('/fallasGuiaManiobra', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        let r = yield typeorm_1.getConnection().query("SELECT * FROM koa_develop.notificacion_falla nf INNER JOIN koa_develop.valor_campo_maniobra vcm ON nf.id = vcm.notificacionFallaId");
+        let r = yield typeorm_1.getConnection().query("SELECT nf.createdAt,nf.id as idFalla,nf.descripcion,nf.estadoFallaId,nf.tipoFallaId,vcm.guiaManiobraId ,vcm.campoManiobraId , vcm.valor, vcm.valorNormal , ef.id  as idEstadoFalla, ef.nombre as nombreEstadoFalla, ef.posicion , gm.nombre as nombreGuiaManiobra, gm.plantillaGuiaManiobraId FROM koa_develop.notificacion_falla nf INNER JOIN koa_develop.valor_campo_maniobra vcm ON nf.id = vcm.notificacionFallaId INNER JOIN koa_develop.estado_falla ef ON ef.id = nf.estadoFallaId INNER JOIN koa_develop.guia_maniobra gm ON gm.id = vcm.guiaManiobraId   ");
         console.log("res");
         console.log(r);
         res.status(200).send(r);
@@ -36,7 +36,7 @@ router.get('/fallasGuiaManiobra', (req, res, next) => __awaiter(void 0, void 0, 
 }));
 router.get('/fallasRondas', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        let r = yield typeorm_1.getConnection().query("SELECT * FROM koa_develop.notificacion_falla nf INNER JOIN koa_develop.valor_campo_ronda vcr ON nf.id = vcr.notificacionFallaId ");
+        let r = yield typeorm_1.getConnection().query("SELECT nf.createdAt,nf.id as idFalla,nf.descripcion,nf.estadoFallaId,nf.tipoFallaId,vcr.campoRondaId ,vcr.rondaId , vcr.valor , vcr.valorNormal , ef.id  as idEstadoFalla, ef.nombre as nombreEstadoFalla, ef.posicion , cr.nombre as nombreRonda, cr.SistemaId, cr.equipamientoId FROM koa_develop.notificacion_falla nf INNER JOIN koa_develop.valor_campo_ronda vcr ON nf.id = vcr.notificacionFallaId INNER JOIN koa_develop.estado_falla ef ON ef.id = nf.estadoFallaId INNER JOIN koa_develop.campo_ronda cr ON cr.id = vcr.campoRondaId  ");
         console.log("res");
         console.log(r);
         res.status(200).send(r);
