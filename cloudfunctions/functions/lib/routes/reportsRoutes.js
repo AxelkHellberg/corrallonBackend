@@ -261,5 +261,32 @@ router.post('/execute/plantillas-horarios', (req, res, next) => __awaiter(void 0
         }
     }
 }));
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+router.post('/execute/cantidades/estado', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let r = yield typeorm_1.getConnection().query("SELECT estadoRondaId,er.nombre,COUNT(*) as cantidad FROM koa_develop.ronda r INNER JOIN koa_develop.estado_ronda er ON r.estadoRondaId = er.id GROUP BY estadoRondaId, er.nombre ");
+        console.log("res");
+        console.log(r);
+        next();
+        res.status(200).send(r);
+        console.log("EsTE ES EL ROUTER:");
+        console.log(router);
+    }
+    catch (e) {
+        yield apiHandler_1.responseError(res, e);
+    }
+}));
+router.post('/execute/cantidades/usuario', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let r = yield typeorm_1.getConnection().query("SELECT userId, u.username ,COUNT(*) as cantidad FROM koa_develop.ronda r INNER JOIN koa_develop.`user` u ON r.userId = u.id GROUP BY userId,u.username ");
+        console.log("res");
+        console.log(r);
+        next();
+        res.status(200).send(r);
+    }
+    catch (e) {
+        yield apiHandler_1.responseError(res, e);
+    }
+}));
 module.exports = router;
 //# sourceMappingURL=reportsRoutes.js.map

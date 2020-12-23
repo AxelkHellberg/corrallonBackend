@@ -11,4 +11,6 @@ const currentClass = Profile
 
 router = addToGenericRoute(router, currentClass, service)
 
+
+
 module.exports = router;

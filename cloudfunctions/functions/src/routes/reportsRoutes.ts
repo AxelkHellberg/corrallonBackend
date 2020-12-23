@@ -6,7 +6,7 @@ import { Msg } from "../msg/Msg";
 import { Report } from "../entity/Report";
 import { responseError } from "../components/apiHandler";
 import { CampoRondaPlantillaRonda } from "../entity/CampoRondaPlantillaRonda";
-import { getConnection } from "typeorm";
+import { Any, getConnection } from "typeorm";
 import { PlantillaRonda } from "../entity/PlantillaRonda";
 import { CampoRonda } from "../entity/CampoRonda";
 import { schedule } from "later";
@@ -20,6 +20,7 @@ var later = require("later")
 var express = require('express');
 var router = express.Router();
 const jwt = require("../components/jwt")
+
 
 /******************CONFIG CLASS************************** */
 const service = new ReportService()
@@ -105,6 +106,7 @@ router.post('/execute/estado-falla', async (req, res, next) => {
 
     }
 })
+
 
 router.post('/execute/notificaiones-fallas', async (req, res, next) => {
 
@@ -287,5 +289,39 @@ router.post('/execute/plantillas-horarios', async (req, res, next) => {
         }
     }
 });
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+router.post('/execute/cantidades/estado', async (req, res, next) => {
+
+    try {
+        let r = await getConnection().query("SELECT estadoRondaId,er.nombre,COUNT(*) as cantidad FROM koa_develop.ronda r INNER JOIN koa_develop.estado_ronda er ON r.estadoRondaId = er.id GROUP BY estadoRondaId, er.nombre ")
+        console.log("res");
+        console.log(r);
+        next()
+        res.status(200).send(r);
+        console.log("EsTE ES EL ROUTER:")
+        console.log(router);
+    } catch (e) {
+        await responseError(res, e)
+
+    }
+})
+
+router.post('/execute/cantidades/usuario', async (req, res, next) => {
+
+    try {
+        let r = await getConnection().query("SELECT userId, u.username ,COUNT(*) as cantidad FROM koa_develop.ronda r INNER JOIN koa_develop.`user` u ON r.userId = u.id GROUP BY userId,u.username ")
+        console.log("res");
+        console.log(r);
+        next()
+        res.status(200).send(r);
+        
+    } catch (e) {
+        await responseError(res, e)
+
+    }
+})
 
 module.exports = router;
