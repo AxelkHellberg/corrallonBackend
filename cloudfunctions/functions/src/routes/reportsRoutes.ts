@@ -6,7 +6,7 @@ import { Msg } from "../msg/Msg";
 import { Report } from "../entity/Report";
 import { responseError } from "../components/apiHandler";
 import { CampoRondaPlantillaRonda } from "../entity/CampoRondaPlantillaRonda";
-import { getConnection } from "typeorm";
+import { Any, getConnection } from "typeorm";
 import { PlantillaRonda } from "../entity/PlantillaRonda";
 import { CampoRonda } from "../entity/CampoRonda";
 import { schedule } from "later";

@@ -9,6 +9,5 @@ const service = new EstadoFallaService()
 const currentClass = EstadoFalla
 /******************************************** */
 
-router = addToGenericRoute(router, currentClass, service)
 
 module.exports = router;
