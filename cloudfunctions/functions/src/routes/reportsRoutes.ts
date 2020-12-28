@@ -301,8 +301,6 @@ router.post('/execute/cantidades/estado', async (req, res, next) => {
         console.log(r);
         next()
         res.status(200).send(r);
-        console.log("EsTE ES EL ROUTER:")
-        console.log(router);
     } catch (e) {
         await responseError(res, e)
 

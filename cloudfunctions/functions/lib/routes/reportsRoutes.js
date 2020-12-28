@@ -269,8 +269,6 @@ router.post('/execute/cantidades/estado', (req, res, next) => __awaiter(void 0, 
         console.log(r);
         next();
         res.status(200).send(r);
-        console.log("EsTE ES EL ROUTER:");
-        console.log(router);
     }
     catch (e) {
         yield apiHandler_1.responseError(res, e);
