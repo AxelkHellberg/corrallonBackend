@@ -261,10 +261,10 @@ router.post('/execute/plantillas-horarios', (req, res, next) => __awaiter(void 0
         }
     }
 }));
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////
 router.post('/execute/cantidades/estado', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        let r = yield typeorm_1.getConnection().query("SELECT estadoRondaId,er.nombre,COUNT(*) as cantidad FROM koa_develop.ronda r INNER JOIN koa_develop.estado_ronda er ON r.estadoRondaId = er.id GROUP BY estadoRondaId, er.nombre ");
+        let r = yield typeorm_1.getConnection().query("SELECT estadoRondaId,er.nombre,COUNT(*) as cantidad FROM " + "koa_test" + ".ronda r INNER JOIN  " + "koa_test." + "estado_ronda er ON r.estadoRondaId = er.id GROUP BY estadoRondaId, er.nombre ");
         console.log("res");
         console.log(r);
         next();
@@ -276,10 +276,21 @@ router.post('/execute/cantidades/estado', (req, res, next) => __awaiter(void 0, 
 }));
 router.post('/execute/cantidades/usuario', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        let r = yield typeorm_1.getConnection().query("SELECT userId, u.username ,COUNT(*) as cantidad FROM koa_develop.ronda r INNER JOIN koa_develop.`user` u ON r.userId = u.id GROUP BY userId,u.username ");
+        let r = yield typeorm_1.getConnection().query("SELECT userId, u.username ,COUNT(*) as cantidad FROM " + "koa_test" + ".ronda r INNER JOIN " + "koa_test" + ".`user` u ON r.userId = u.id GROUP BY userId,u.username ");
         console.log("res");
         console.log(r);
         next();
+        res.status(200).send(r);
+    }
+    catch (e) {
+        yield apiHandler_1.responseError(res, e);
+    }
+}));
+router.post('/execute/TagsNoAsignadosSistemas', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let r = yield typeorm_1.getConnection().query("SELECT * FROM " + "koa_test" + ".tag t WHERE t.designado = 0 and t.tipoTagId = 1");
+        console.log("res");
+        console.log(r);
         res.status(200).send(r);
     }
     catch (e) {
