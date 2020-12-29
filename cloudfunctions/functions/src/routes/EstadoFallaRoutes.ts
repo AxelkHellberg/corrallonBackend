@@ -24,7 +24,7 @@ router.get('/fallasGuiaManiobra', async (req, res, next) => {
     try {
         let r = await getConnection().query("SELECT nf.createdAt,nf.id as idFalla,nf.descripcion,nf.estadoFallaId,nf.tipoFallaId,vcm.guiaManiobraId ,vcm.campoManiobraId , vcm.valor, vcm.valorNormal , ef.id  as idEstadoFalla, ef.nombre as nombreEstadoFalla, ef.posicion , gm.nombre as nombreGuiaManiobra, gm.plantillaGuiaManiobraId FROM "+ GlobalVariable.DATA_BASE_NAME +".notificacion_falla nf INNER JOIN "+ GlobalVariable.DATA_BASE_NAME +".valor_campo_maniobra vcm ON nf.id = vcm.notificacionFallaId INNER JOIN "+ GlobalVariable.DATA_BASE_NAME +".estado_falla ef ON ef.id = nf.estadoFallaId INNER JOIN "+ GlobalVariable.DATA_BASE_NAME +".guia_maniobra gm ON gm.id = vcm.guiaManiobraId   ");
 
-        console.log("res Pasando2");
+        console.log("res");
         console.log(r);
         res.status(200).send(r);
         

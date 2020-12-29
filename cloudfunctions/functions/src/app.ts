@@ -1,3 +1,4 @@
+///////////////////////////////////////////////////app.ts
 import { createConnection } from "typeorm";
 import { checkJwt } from "./middlewares/checkJwt";
 import { validatePermissionsEntity } from "./middlewares/validatePermissionsEntity";
