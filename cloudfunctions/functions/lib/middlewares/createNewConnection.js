@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.createNewConnection = void 0;
 const typeorm_1 = require("typeorm");
 const apiHandler_1 = require("../components/apiHandler");
+const global_1 = require("../global");
 exports.createNewConnection = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         console.log("Recuperando conexion");
@@ -22,11 +23,11 @@ exports.createNewConnection = (req, res, next) => __awaiter(void 0, void 0, void
         console.log("Creando conexion");
         typeorm_1.createConnection({
             "type": "mysql",
-            "host": "35.225.71.53",
+            "host": global_1.GlobalVariable.DATA_BASE_IP,
             "port": 3306,
-            "username": "koa-develop",
-            "password": "koa-develop",
-            "database": "koa_develop",
+            "username": global_1.GlobalVariable.DATA_BASE_USER,
+            "password": global_1.GlobalVariable.DATA_BASE_PASS,
+            "database": global_1.GlobalVariable.DATA_BASE_NAME,
             "synchronize": false,
             "migrationsRun": false,
             "logging": false,

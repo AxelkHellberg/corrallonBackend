@@ -1,8 +1,10 @@
+/////////////////////////////////////////////////////////////////create New Connection
 import { getPublicServices } from "../components/publicService";
 import { Request, Response, NextFunction, response } from "express";
 import { normalizeUrl } from "../components/utils";
 import { createConnection, getConnection } from "typeorm";
 import { responseError } from "../components/apiHandler";
+import { GlobalVariable } from '../global';
 
 export const createNewConnection = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -14,11 +16,11 @@ export const createNewConnection = async (req: Request, res: Response, next: Nex
         console.log("Creando conexion")
         createConnection({
             "type": "mysql",
-            "host": "35.225.71.53",
+            "host": GlobalVariable.DATA_BASE_IP,
             "port": 3306,
-            "username": "koa-develop",
-            "password": "koa-develop",
-            "database": "koa_develop",
+            "username": GlobalVariable.DATA_BASE_USER,
+            "password": GlobalVariable.DATA_BASE_PASS,
+            "database": GlobalVariable.DATA_BASE_NAME,
             "synchronize": false, // NO DEJAR SYNCHRONIZE EN KOA_DEVELOP
             "migrationsRun": false,
             "logging": false,

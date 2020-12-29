@@ -23,6 +23,7 @@ const FallaSistema_1 = require("../entity/FallaSistema");
 const FallaEquipamiento_1 = require("../entity/FallaEquipamiento");
 const EstadoFalla_1 = require("../entity/EstadoFalla");
 const Ronda_1 = require("../entity/Ronda");
+const global_1 = require("../global");
 var later = require("later");
 var express = require('express');
 var router = express.Router();
@@ -259,6 +260,53 @@ router.post('/execute/plantillas-horarios', (req, res, next) => __awaiter(void 0
         catch (e) {
             yield apiHandler_1.responseError(res, e);
         }
+    }
+}));
+//////////////////////////////////////////////////////////////////////////////////REPORT ROUTES
+router.post('/execute/cantidades/estado', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let r = yield typeorm_1.getConnection().query("SELECT estadoRondaId,er.nombre,COUNT(*) as cantidad FROM " + global_1.GlobalVariable.DATA_BASE_NAME + ".ronda r INNER JOIN  " + global_1.GlobalVariable.DATA_BASE_NAME + ".estado_ronda er ON r.estadoRondaId = er.id GROUP BY estadoRondaId, er.nombre ");
+        console.log("res");
+        console.log(r);
+        next();
+        res.status(200).send(r);
+    }
+    catch (e) {
+        yield apiHandler_1.responseError(res, e);
+    }
+}));
+router.post('/execute/cantidades/usuario', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let r = yield typeorm_1.getConnection().query("SELECT userId, u.username ,COUNT(*) as cantidad FROM " + global_1.GlobalVariable.DATA_BASE_NAME + ".ronda r INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".`user` u ON r.userId = u.id GROUP BY userId,u.username ");
+        console.log("res");
+        console.log(r);
+        next();
+        res.status(200).send(r);
+    }
+    catch (e) {
+        yield apiHandler_1.responseError(res, e);
+    }
+}));
+router.post('/execute/TagsNoAsignadosSistemas', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let r = yield typeorm_1.getConnection().query("SELECT * FROM " + global_1.GlobalVariable.DATA_BASE_NAME + ".tag t WHERE t.asignado = 0 and t.tipoTagId = 1");
+        console.log("res");
+        console.log(r);
+        res.status(200).send(r);
+    }
+    catch (e) {
+        yield apiHandler_1.responseError(res, e);
+    }
+}));
+router.post('/execute/TagsNoAsignadosEquipos', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let r = yield typeorm_1.getConnection().query("SELECT * FROM " + global_1.GlobalVariable.DATA_BASE_NAME + ".tag t WHERE t.asignado = 0 and t.tipoTagId = 2");
+        console.log("res");
+        console.log(r);
+        res.status(200).send(r);
+    }
+    catch (e) {
+        yield apiHandler_1.responseError(res, e);
     }
 }));
 module.exports = router;
