@@ -22,6 +22,7 @@ var express = require('express');
 var router = express.Router();
 const jwt = require("../components/jwt")
 
+
 /******************CONFIG CLASS************************** */
 const service = new ReportService()
 const currentClass = Report
@@ -106,6 +107,7 @@ router.post('/execute/estado-falla', async (req, res, next) => {
 
     }
 })
+
 
 router.post('/execute/notificaiones-fallas', async (req, res, next) => {
 

@@ -35,6 +35,8 @@ appOnPremise.use(express.static(path.join(__dirname, 'public')));
 
 const auth = require('./routes/authRoutes');
 const reports = require('./routes/reportsRoutes');
+
+
 const genericEntitiesServicePath = [] //all services that need the same validation path
 genericEntitiesServicePath.push({ "route": require('./routes/usersRoutes'), "serviceName": "users" })
 genericEntitiesServicePath.push({ "route": require('./routes/plantasRoutes'), "serviceName": "plantas" })
@@ -72,6 +74,7 @@ genericEntitiesServicePath.push({ "route": require('./routes/horarioUsuarioRoute
 appOnPremise.use('/auth', createNewConnection, auth);
 appOnPremise.use('/reports', createNewConnection, [checkJwt, validatePermissionsReports, authorizationDecision], reports);
 
+
 for (let service of genericEntitiesServicePath) {
   appOnPremise.use('/' + ENTITIES_BASE_URL + '/' + service.serviceName, createNewConnection, [checkPublicService, checkJwt, validatePermissionsEntity, validatePermissionsUser, authorizationDecision], service.route, [test]);
 }
@@ -93,7 +96,10 @@ appOnPremise.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.json({
+    message: err.message,
+    error: err
+  });
 });
 
 let cloudFunction = null

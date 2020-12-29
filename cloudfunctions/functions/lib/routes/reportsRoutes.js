@@ -262,10 +262,17 @@ router.post('/execute/plantillas-horarios', (req, res, next) => __awaiter(void 0
         }
     }
 }));
+<<<<<<< HEAD
 //////////////////////////////////////////////////////////////////////////////////REPORT ROUTES
 router.post('/execute/cantidades/estado', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let r = yield typeorm_1.getConnection().query("SELECT estadoRondaId,er.nombre,COUNT(*) as cantidad FROM " + global_1.GlobalVariable.DATA_BASE_NAME + ".ronda r INNER JOIN  " + global_1.GlobalVariable.DATA_BASE_NAME + ".estado_ronda er ON r.estadoRondaId = er.id GROUP BY estadoRondaId, er.nombre ");
+=======
+//////////////////////////////////////////////////////////////////////////////////
+router.post('/execute/cantidades/estado', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let r = yield typeorm_1.getConnection().query("SELECT estadoRondaId,er.nombre,COUNT(*) as cantidad FROM " + "koa_test" + ".ronda r INNER JOIN  " + "koa_test." + "estado_ronda er ON r.estadoRondaId = er.id GROUP BY estadoRondaId, er.nombre ");
+>>>>>>> aba14540e032f0155796c846840612c8bb1ed99b
         console.log("res");
         console.log(r);
         next();
@@ -277,7 +284,11 @@ router.post('/execute/cantidades/estado', (req, res, next) => __awaiter(void 0, 
 }));
 router.post('/execute/cantidades/usuario', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+<<<<<<< HEAD
         let r = yield typeorm_1.getConnection().query("SELECT userId, u.username ,COUNT(*) as cantidad FROM " + global_1.GlobalVariable.DATA_BASE_NAME + ".ronda r INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".`user` u ON r.userId = u.id GROUP BY userId,u.username ");
+=======
+        let r = yield typeorm_1.getConnection().query("SELECT userId, u.username ,COUNT(*) as cantidad FROM " + "koa_test" + ".ronda r INNER JOIN " + "koa_test" + ".`user` u ON r.userId = u.id GROUP BY userId,u.username ");
+>>>>>>> aba14540e032f0155796c846840612c8bb1ed99b
         console.log("res");
         console.log(r);
         next();
@@ -289,6 +300,7 @@ router.post('/execute/cantidades/usuario', (req, res, next) => __awaiter(void 0,
 }));
 router.post('/execute/TagsNoAsignadosSistemas', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+<<<<<<< HEAD
         let r = yield typeorm_1.getConnection().query("SELECT * FROM " + global_1.GlobalVariable.DATA_BASE_NAME + ".tag t WHERE t.asignado = 0 and t.tipoTagId = 1");
         console.log("res");
         console.log(r);
@@ -301,6 +313,9 @@ router.post('/execute/TagsNoAsignadosSistemas', (req, res, next) => __awaiter(vo
 router.post('/execute/TagsNoAsignadosEquipos', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let r = yield typeorm_1.getConnection().query("SELECT * FROM " + global_1.GlobalVariable.DATA_BASE_NAME + ".tag t WHERE t.asignado = 0 and t.tipoTagId = 2");
+=======
+        let r = yield typeorm_1.getConnection().query("SELECT * FROM " + "koa_test" + ".tag t WHERE t.designado = 0 and t.tipoTagId = 1");
+>>>>>>> aba14540e032f0155796c846840612c8bb1ed99b
         console.log("res");
         console.log(r);
         res.status(200).send(r);
