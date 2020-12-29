@@ -31,4 +31,22 @@ router.get('/traerTareas', async (req, res, next) => {
     }
 })
 
+router.post('/crearTarea', async (req, res, next) => {
+
+    try {
+        let r = await getConnection().query("INSERT INTO "+ GlobalVariable.DATA_BASE_NAME +".campo_ronda (createdAt,updateAt,descripcion,nombre,valorNormal,valorMin,valorMax,equipamientoId,tipoCampoRondaId,unidadMedidaId,funcionamientoSistema,obligatorioSistema,funcionamientoEquipo,obligatorioEquipo) VALUES (NOW(),NOW(),'"+ req.body.descripcion +"','"+ req.body.nombre +"','"+ req.body.valorNormal +"','"+ req.body.valorMin +"','"+ req.body.valorMax +"',"+ req.body.equipamientoId +","+ req.body.tipoCampoRondaId +","+ req.body.unidadMedidaId +",1,0,1,0)");
+
+
+        console.log("DESC");
+        console.log(req.body.descripcion)
+        console.log(r);
+        res.status(200).send(r);
+        
+    } catch (e) {
+        await responseError(res, e)
+
+
+    }
+})
+
 module.exports = router;
