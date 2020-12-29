@@ -16,6 +16,7 @@ import { FallaSistema } from "../entity/FallaSistema";
 import { FallaEquipamiento } from "../entity/FallaEquipamiento";
 import { EstadoFalla } from "../entity/EstadoFalla";
 import { Ronda } from "../entity/Ronda";
+import { GlobalVariable } from "../global";
 var later = require("later")
 var express = require('express');
 var router = express.Router();
@@ -298,7 +299,7 @@ router.post('/execute/plantillas-horarios', async (req, res, next) => {
 router.post('/execute/cantidades/estado', async (req, res, next) => {
 
     try {
-        let r = await getConnection().query("SELECT estadoRondaId,er.nombre,COUNT(*) as cantidad FROM "+ "koa_test" +".ronda r INNER JOIN  "+"koa_test."+"estado_ronda er ON r.estadoRondaId = er.id GROUP BY estadoRondaId, er.nombre ")
+        let r = await getConnection().query("SELECT estadoRondaId,er.nombre,COUNT(*) as cantidad FROM "+ GlobalVariable.DATA_BASE_NAME +".ronda r INNER JOIN  "+GlobalVariable.DATA_BASE_NAME+".estado_ronda er ON r.estadoRondaId = er.id GROUP BY estadoRondaId, er.nombre ")
 
         console.log("res");
         console.log(r);
@@ -313,7 +314,7 @@ router.post('/execute/cantidades/estado', async (req, res, next) => {
 router.post('/execute/cantidades/usuario', async (req, res, next) => {
 
     try {
-        let r = await getConnection().query("SELECT userId, u.username ,COUNT(*) as cantidad FROM "+ "koa_test" +".ronda r INNER JOIN "+ "koa_test" +".`user` u ON r.userId = u.id GROUP BY userId,u.username ")
+        let r = await getConnection().query("SELECT userId, u.username ,COUNT(*) as cantidad FROM "+ GlobalVariable.DATA_BASE_NAME +".ronda r INNER JOIN "+ GlobalVariable.DATA_BASE_NAME +".`user` u ON r.userId = u.id GROUP BY userId,u.username ")
 
         console.log("res");
         console.log(r);
@@ -331,7 +332,7 @@ router.post('/execute/cantidades/usuario', async (req, res, next) => {
 router.post('/execute/TagsNoAsignadosSistemas', async (req, res, next) => {
 
     try {
-        let r = await getConnection().query("SELECT * FROM "+ "koa_test" +".tag t WHERE t.designado = 0 and t.tipoTagId = 1");
+        let r = await getConnection().query("SELECT * FROM "+ GlobalVariable.DATA_BASE_NAME +".tag t WHERE t.designado = 0 and t.tipoTagId = 1");
 
         console.log("res");
         console.log(r);
@@ -342,6 +343,23 @@ router.post('/execute/TagsNoAsignadosSistemas', async (req, res, next) => {
 
     }
 })
+
+
+router.post('/execute/TagsNoAsignadosEquipos', async (req, res, next) => {
+
+    try {
+        let r = await getConnection().query("SELECT * FROM "+ GlobalVariable.DATA_BASE_NAME +".tag t WHERE t.designado = 0 and t.tipoTagId = 2");
+
+        console.log("res");
+        console.log(r);
+        res.status(200).send(r);
+        
+    } catch (e) {
+        await responseError(res, e)
+
+    }
+})
+
 
 
 module.exports = router;
