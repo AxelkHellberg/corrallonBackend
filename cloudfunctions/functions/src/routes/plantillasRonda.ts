@@ -16,6 +16,6 @@ const service = new PlantillaRondaService()
 const currentClass = PlantillaRonda
 /******************************************** */
 
-
+router = addToGenericRoute(router, currentClass, service)
 
 module.exports = router;
