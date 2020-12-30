@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const genericRoutes_1 = require("./genericRoutes");
 const TagService_1 = require("../services/TagService");
 const Tag_1 = require("../entity/Tag");
 const typeorm_1 = require("typeorm");
@@ -20,9 +21,21 @@ var router = express.Router();
 const service = new TagService_1.TagService();
 const currentClass = Tag_1.Tag;
 /******************************************** */
+router = genericRoutes_1.addToGenericRoute(router, currentClass, service);
 router.post('/deshabilitarTagSeleccionado', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let r = yield typeorm_1.getConnection().query("UPDATE " + global_1.GlobalVariable.DATA_BASE_NAME + ".tag SET asignado = 1 WHERE id=" + req.body.id);
+        console.log("res");
+        console.log(r);
+        res.status(200).send(r);
+    }
+    catch (e) {
+        yield apiHandler_1.responseError(res, e);
+    }
+}));
+router.post('/obtenerTagsPorTipo', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let r = yield typeorm_1.getConnection().query("SELECT * FROM " + global_1.GlobalVariable.DATA_BASE_NAME + ".tag t WHERE tipoTagId =" + req.body.id);
         console.log("res");
         console.log(r);
         res.status(200).send(r);
