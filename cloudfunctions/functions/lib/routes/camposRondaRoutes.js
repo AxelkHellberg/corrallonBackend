@@ -23,7 +23,7 @@ const currentClass = CampoRonda_1.CampoRonda;
 /******************************************** */
 router.get('/traerTareas', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        let r = yield typeorm_1.getConnection().query("SELECT p.nombre as Planta,s.nombre as Sistema,e.nombre Equipo,cr.nombre NombreTarea,cr.descripcion Descripcion,um.nombre UnidadMedida FROM " + global_1.GlobalVariable.DATA_BASE_NAME + ".campo_ronda cr INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".equipamiento e ON cr.equipamientoId = e.id INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".sistema s ON e.sistemaId = s.id INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".planta p ON p.id = s.plantaId INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".unidad_medida um ON um.id = cr.unidadMedidaId ");
+        let r = yield typeorm_1.getConnection().query("SELECT p.nombre as Planta,s.nombre as Sistema,e.nombre Equipo,cr.nombre NombreTarea,cr.descripcion Descripcion,um.nombre UnidadMedida,cr.id as idTarea FROM " + global_1.GlobalVariable.DATA_BASE_NAME + ".campo_ronda cr INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".equipamiento e ON cr.equipamientoId = e.id INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".sistema s ON e.sistemaId = s.id INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".planta p ON p.id = s.plantaId INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".unidad_medida um ON um.id = cr.unidadMedidaId ");
         console.log("res");
         console.log(r);
         res.status(200).send(r);
