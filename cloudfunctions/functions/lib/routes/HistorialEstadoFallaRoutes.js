@@ -65,5 +65,17 @@ router.post('/crearTarea', (req, res, next) => __awaiter(void 0, void 0, void 0,
         yield apiHandler_1.responseError(res, e);
     }
 }));
+router.post('/cambiarObligatorio', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let r = yield typeorm_1.getConnection().query("UPDATE " + global_1.GlobalVariable.DATA_BASE_NAME + ".campo_ronda SET obligatorioEquipo = 1 WHERE id=" + req.body.idTarea);
+        console.log("DESC");
+        console.log(req.body.descripcion);
+        console.log(r);
+        res.status(200).send(r);
+    }
+    catch (e) {
+        yield apiHandler_1.responseError(res, e);
+    }
+}));
 module.exports = router;
 //# sourceMappingURL=HistorialEstadoFallaRoutes.js.map

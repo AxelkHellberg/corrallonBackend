@@ -11,5 +11,6 @@ const service = new CampoRondaService_1.CampoRondaService();
 const currentClass = CampoRonda_1.CampoRonda;
 /******************************************** */
 router = genericRoutes_1.addToGenericRoute(router, currentClass, service);
+///Los serivios de tareas (campos ronda) se encuentran en historialEstadoFallasRoutes.ts
 module.exports = router;
 //# sourceMappingURL=camposRondaRoutes.js.map

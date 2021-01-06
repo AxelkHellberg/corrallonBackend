@@ -75,4 +75,22 @@ router.post('/crearTarea', async (req, res, next) => {
     }
 })
 
+router.post('/cambiarObligatorio', async (req, res, next) => {
+
+    try {
+        let r = await getConnection().query("UPDATE "+ GlobalVariable.DATA_BASE_NAME +".campo_ronda SET obligatorioEquipo = 1 WHERE id=" +req.body.idTarea );
+
+
+        console.log("DESC");
+        console.log(req.body.descripcion)
+        console.log(r);
+        res.status(200).send(r);
+        
+    } catch (e) {
+        await responseError(res, e)
+
+
+    }
+})
+
 module.exports = router;

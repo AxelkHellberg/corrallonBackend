@@ -18,5 +18,6 @@ const currentClass = CampoRonda
 
 router = addToGenericRoute(router, currentClass, service)
 
+///Los serivios de tareas (campos ronda) se encuentran en historialEstadoFallasRoutes.ts
 
 module.exports = router;
