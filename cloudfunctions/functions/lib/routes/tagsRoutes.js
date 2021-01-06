@@ -33,6 +33,17 @@ router.post('/deshabilitarTagSeleccionado', (req, res, next) => __awaiter(void 0
         yield apiHandler_1.responseError(res, e);
     }
 }));
+router.post('/activarTag', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let r = yield typeorm_1.getConnection().query("UPDATE " + global_1.GlobalVariable.DATA_BASE_NAME + ".tag SET asignado = 0 WHERE id=" + req.body.tagId);
+        console.log("res");
+        console.log(r);
+        res.status(200).send(r);
+    }
+    catch (e) {
+        yield apiHandler_1.responseError(res, e);
+    }
+}));
 router.post('/obtenerTagsPorTipo', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let r = yield typeorm_1.getConnection().query("SELECT * FROM " + global_1.GlobalVariable.DATA_BASE_NAME + ".tag t WHERE tipoTagId =" + req.body.id);
