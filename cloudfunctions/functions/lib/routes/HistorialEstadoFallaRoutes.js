@@ -67,9 +67,7 @@ router.post('/crearTarea', (req, res, next) => __awaiter(void 0, void 0, void 0,
 }));
 router.post('/cambiarObligatorio', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        let r = yield typeorm_1.getConnection().query("UPDATE " + global_1.GlobalVariable.DATA_BASE_NAME + ".campo_ronda SET obligatorioEquipo = 1 WHERE id=" + req.body.idTarea);
-        console.log("DESC");
-        console.log(req.body.descripcion);
+        let r = yield typeorm_1.getConnection().query("UPDATE " + global_1.GlobalVariable.DATA_BASE_NAME + ".campo_ronda_plantilla_ronda SET tareaObligatoria = 1 WHERE campoRondaId=" + req.body.idTarea + " and plantillaRondaId=" + req.body.idPlantilla);
         console.log(r);
         res.status(200).send(r);
     }
