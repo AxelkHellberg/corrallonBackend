@@ -78,7 +78,29 @@ router.post('/crearTarea', async (req, res, next) => {
 router.post('/cambiarObligatorio', async (req, res, next) => {
 
     try {
-        let r = await getConnection().query("UPDATE "+ GlobalVariable.DATA_BASE_NAME +".campo_ronda_plantilla_ronda SET tareaObligatoria = 1 WHERE campoRondaId=" +req.body.idTarea+ " and plantillaRondaId=" + req.body.idPlantilla  );
+        let cont = 0
+        let r
+        req.body.idTareaData.forEach(element => {
+            r = getConnection().query("UPDATE "+ GlobalVariable.DATA_BASE_NAME +".campo_ronda_plantilla_ronda SET tareaObligatoria = 1 WHERE campoRondaId=" +req.body.idTareaData[cont] + " and plantillaRondaId=" + req.body.idPlantilla  );
+            console.log(req.body.idTareaData[cont])
+            cont += 1
+        });
+
+
+        console.log(r);
+        res.status(200).send(r);
+        
+    } catch (e) {
+        await responseError(res, e)
+
+
+    }
+})
+
+router.post('/traerTareasCompleto', async (req, res, next) => {
+
+    try {
+        let r = await getConnection().query("SELECT p.nombre plantaNombre,p.id plantaId, s.nombre sistemaNombre,s.id sistemaId, e.nombre nombreEquipo,e.id equipoId, cr.nombre nombreTarea,cr.id tareaId,cr.tipoCampoRondaId tipoTareaId,tcr.nombre tipoTareaNombre,cr.unidadMedidaId unidadDeMedidaId, crpr.plantillaRondaId FROM "+ GlobalVariable.DATA_BASE_NAME +".planta p INNER JOIN "+ GlobalVariable.DATA_BASE_NAME +".sistema s ON p.id = s.plantaId INNER JOIN "+ GlobalVariable.DATA_BASE_NAME +".equipamiento e ON e.sistemaId = s.id INNER JOIN "+ GlobalVariable.DATA_BASE_NAME +".campo_ronda cr ON e.id = cr.equipamientoId INNER JOIN "+ GlobalVariable.DATA_BASE_NAME +".campo_ronda_plantilla_ronda crpr ON cr.id = crpr.campoRondaId INNER JOIN "+ GlobalVariable.DATA_BASE_NAME +".tipo_campo_ronda tcr ON tcr.id = cr.tipoCampoRondaId WHERE crpr.plantillaRondaId =" +req.body.idPlantillaRonda+ " GROUP BY p.nombre,p.id, s.nombre,s.id, e.nombre,e.id , cr.nombre,cr.id,cr.tipoCampoRondaId ,tcr.nombre,cr.unidadMedidaId, crpr.plantillaRondaId");
 
 
         console.log(r);

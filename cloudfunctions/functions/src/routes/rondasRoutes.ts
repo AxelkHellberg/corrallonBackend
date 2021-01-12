@@ -15,6 +15,7 @@ const service = new RondaService()
 const currentClass = Ronda
 /******************************************** */
 
+router = addToGenericRoute(router, currentClass, service)
 
 router.post('/:id/valores-fallas', async (req, res, next) => {
     console.log("CREANDO RONDAAAAAAAAAAAAAAAAAAAAA")
@@ -49,6 +50,6 @@ router.post('/:id/valores-fallas', async (req, res, next) => {
     res.send(data)
     next()
 });
-router = addToGenericRoute(router, currentClass, service)
+
 
 module.exports = router;

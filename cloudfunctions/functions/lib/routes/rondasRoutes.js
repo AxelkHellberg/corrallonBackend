@@ -22,6 +22,7 @@ const NotificacionFalla_1 = require("../entity/NotificacionFalla");
 const service = new RondaService_1.RondaService();
 const currentClass = Ronda_1.Ronda;
 /******************************************** */
+router = genericRoutes_1.addToGenericRoute(router, currentClass, service);
 router.post('/:id/valores-fallas', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     console.log("CREANDO RONDAAAAAAAAAAAAAAAAAAAAA");
     let data = req.body;
@@ -56,6 +57,5 @@ router.post('/:id/valores-fallas', (req, res, next) => __awaiter(void 0, void 0,
     res.send(data);
     next();
 }));
-router = genericRoutes_1.addToGenericRoute(router, currentClass, service);
 module.exports = router;
 //# sourceMappingURL=rondasRoutes.js.map

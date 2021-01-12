@@ -39,7 +39,14 @@ router.post('/crearPlantillaRonda', (req, res, next) => __awaiter(void 0, void 0
 }));
 router.post('/asociarTareasEnRonda', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        let r = yield typeorm_1.getConnection().query("INSERT INTO " + global_1.GlobalVariable.DATA_BASE_NAME + ".campo_ronda_plantilla_ronda (campoRondaId,plantillaRondaId) VALUES(" + req.body.idTarea + "," + req.body.idInsertado + ")");
+        let r;
+        console.log(req.body);
+        let cont = 0;
+        req.body.idTareaData.forEach(element => {
+            r = typeorm_1.getConnection().query("INSERT INTO " + global_1.GlobalVariable.DATA_BASE_NAME + ".campo_ronda_plantilla_ronda (campoRondaId,plantillaRondaId) VALUES(" + req.body.idTareaData[cont] + "," + req.body.idInsertado + ")");
+            console.log(req.body.idTareaData[cont]);
+            cont += 1;
+        });
         console.log(r);
         res.status(200).send(r);
     }

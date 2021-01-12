@@ -67,7 +67,23 @@ router.post('/crearTarea', (req, res, next) => __awaiter(void 0, void 0, void 0,
 }));
 router.post('/cambiarObligatorio', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        let r = yield typeorm_1.getConnection().query("UPDATE " + global_1.GlobalVariable.DATA_BASE_NAME + ".campo_ronda_plantilla_ronda SET tareaObligatoria = 1 WHERE campoRondaId=" + req.body.idTarea + " and plantillaRondaId=" + req.body.idPlantilla);
+        let cont = 0;
+        let r;
+        req.body.idTareaData.forEach(element => {
+            r = typeorm_1.getConnection().query("UPDATE " + global_1.GlobalVariable.DATA_BASE_NAME + ".campo_ronda_plantilla_ronda SET tareaObligatoria = 1 WHERE campoRondaId=" + req.body.idTareaData[cont] + " and plantillaRondaId=" + req.body.idPlantilla);
+            console.log(req.body.idTareaData[cont]);
+            cont += 1;
+        });
+        console.log(r);
+        res.status(200).send(r);
+    }
+    catch (e) {
+        yield apiHandler_1.responseError(res, e);
+    }
+}));
+router.post('/traerTareasCompleto', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let r = yield typeorm_1.getConnection().query("SELECT p.nombre plantaNombre,p.id plantaId, s.nombre sistemaNombre,s.id sistemaId, e.nombre nombreEquipo,e.id equipoId, cr.nombre nombreTarea,cr.id tareaId,cr.tipoCampoRondaId tipoTareaId,tcr.nombre tipoTareaNombre,cr.unidadMedidaId unidadDeMedidaId, crpr.plantillaRondaId FROM " + global_1.GlobalVariable.DATA_BASE_NAME + ".planta p INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".sistema s ON p.id = s.plantaId INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".equipamiento e ON e.sistemaId = s.id INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".campo_ronda cr ON e.id = cr.equipamientoId INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".campo_ronda_plantilla_ronda crpr ON cr.id = crpr.campoRondaId INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".tipo_campo_ronda tcr ON tcr.id = cr.tipoCampoRondaId WHERE crpr.plantillaRondaId =" + req.body.idPlantillaRonda + " GROUP BY p.nombre,p.id, s.nombre,s.id, e.nombre,e.id , cr.nombre,cr.id,cr.tipoCampoRondaId ,tcr.nombre,cr.unidadMedidaId, crpr.plantillaRondaId");
         console.log(r);
         res.status(200).send(r);
     }
