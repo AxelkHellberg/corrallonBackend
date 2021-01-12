@@ -23,9 +23,20 @@ const service = new HorarioService_1.HorarioService();
 const currentClass = Horario_1.Horario;
 /******************************************** */
 router = genericRoutes_1.addToGenericRoute(router, currentClass, service);
-router.post('/traerRondasHoyPorUsuario', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+router.post('/traerRondasDesbloqueadas', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        let r = yield typeorm_1.getConnection().query("SELECT h.horaInicio ,h.horaFin ,u.username, pr.nombre,h.fechaInicio as fecha FROM " + global_1.GlobalVariable.DATA_BASE_NAME + ".horario h INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".horario_persona hp ON h.id = hp.horarioId INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".`user` u ON u.id = hp.userId INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".plantilla_ronda pr ON h.plantillaId = pr.id WHERE h.fechaInicio = CURDATE() and u.username ='" + req.body.username + "'");
+        let r = yield typeorm_1.getConnection().query("SELECT h.horaInicio ,h.horaFin ,u.username, pr.nombre,h.fechaInicio as fecha,pr.id as plantillaId FROM " + global_1.GlobalVariable.DATA_BASE_NAME + ".horario h INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".horario_persona hp ON h.id = hp.horarioId INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".`user` u ON u.id = hp.userId INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".plantilla_ronda pr ON h.plantillaId = pr.id WHERE h.fechaInicio = CURDATE() and u.username ='" + req.body.username + "' and h.horaInicio <= DATE_SUB(CURRENT_TIME() , INTERVAL 3 HOUR) and h.horaFin >= DATE_SUB(CURRENT_TIME() , INTERVAL 3 HOUR) ");
+        console.log("res");
+        console.log(r);
+        res.status(200).send(r);
+    }
+    catch (e) {
+        yield apiHandler_1.responseError(res, e);
+    }
+}));
+router.post('/traerRondasBloqueadas', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let r = yield typeorm_1.getConnection().query("SELECT h.horaInicio ,h.horaFin ,u.username, pr.nombre,h.fechaInicio as fecha FROM " + global_1.GlobalVariable.DATA_BASE_NAME + ".horario h INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".horario_persona hp ON h.id = hp.horarioId INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".`user` u ON u.id = hp.userId INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".plantilla_ronda pr ON h.plantillaId = pr.id WHERE h.fechaInicio = CURDATE() and u.username ='" + req.body.username + "' and (h.horaInicio > DATE_SUB(CURRENT_TIME() , INTERVAL 3 HOUR) or h.horaFin < DATE_SUB(CURRENT_TIME() , INTERVAL 3 HOUR)) ");
         console.log("res");
         console.log(r);
         res.status(200).send(r);
