@@ -40,14 +40,17 @@ router.post('/asociarTareasEnRonda', async (req, res, next) => {
          let r
          console.log(req.body)
          let cont = 0
-         req.body.idTareaData.forEach(element => {
-            r = getConnection().query("INSERT INTO "+ GlobalVariable.DATA_BASE_NAME +".campo_ronda_plantilla_ronda (campoRondaId,plantillaRondaId) VALUES("+ req.body.idTareaData[cont] +","+ req.body.idInsertado +")");
+         let connection = getConnection();
+         req.body.idTareaData.forEach( element => {
+            r =  connection.query("INSERT INTO "+ GlobalVariable.DATA_BASE_NAME +".campo_ronda_plantilla_ronda (campoRondaId,plantillaRondaId) VALUES("+ req.body.idTareaData[cont] +","+ req.body.idInsertado +")");
             console.log(req.body.idTareaData[cont])
             cont+=1;
-            });
-        console.log(r);
-        res.status(200).send(r);
-        
+            })
+        console.log("STATUS CODE:")
+        console.log(res.statusCode)
+        res.status(200).send();
+
+
     } catch (e) {
         await responseError(res, e)
 

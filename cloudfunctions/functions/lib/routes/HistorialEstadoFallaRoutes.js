@@ -69,13 +69,18 @@ router.post('/cambiarObligatorio', (req, res, next) => __awaiter(void 0, void 0,
     try {
         let cont = 0;
         let r;
+        let connection = typeorm_1.getConnection();
+        console.log("connecion:");
+        console.log(connection);
         req.body.idTareaData.forEach(element => {
-            r = typeorm_1.getConnection().query("UPDATE " + global_1.GlobalVariable.DATA_BASE_NAME + ".campo_ronda_plantilla_ronda SET tareaObligatoria = 1 WHERE campoRondaId=" + req.body.idTareaData[cont] + " and plantillaRondaId=" + req.body.idPlantilla);
+            r = connection.query("UPDATE " + global_1.GlobalVariable.DATA_BASE_NAME + ".campo_ronda_plantilla_ronda SET tareaObligatoria = 1 WHERE campoRondaId=" + req.body.idTareaData[cont] + " and plantillaRondaId=" + req.body.idPlantilla);
             console.log(req.body.idTareaData[cont]);
             cont += 1;
         });
         console.log(r);
-        res.status(200).send(r);
+        console.log("STATUS CODE:");
+        console.log(res.statusCode);
+        res.status(200).send();
     }
     catch (e) {
         yield apiHandler_1.responseError(res, e);
@@ -83,7 +88,17 @@ router.post('/cambiarObligatorio', (req, res, next) => __awaiter(void 0, void 0,
 }));
 router.post('/traerTareasCompleto', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        let r = yield typeorm_1.getConnection().query("SELECT p.nombre plantaNombre,p.id plantaId, s.nombre sistemaNombre,s.id sistemaId, e.nombre nombreEquipo,e.id equipoId, cr.nombre nombreTarea,cr.id tareaId,cr.tipoCampoRondaId tipoTareaId,tcr.nombre tipoTareaNombre,cr.unidadMedidaId unidadDeMedidaId, crpr.plantillaRondaId FROM " + global_1.GlobalVariable.DATA_BASE_NAME + ".planta p INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".sistema s ON p.id = s.plantaId INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".equipamiento e ON e.sistemaId = s.id INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".campo_ronda cr ON e.id = cr.equipamientoId INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".campo_ronda_plantilla_ronda crpr ON cr.id = crpr.campoRondaId INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".tipo_campo_ronda tcr ON tcr.id = cr.tipoCampoRondaId WHERE crpr.plantillaRondaId =" + req.body.idPlantillaRonda + " GROUP BY p.nombre,p.id, s.nombre,s.id, e.nombre,e.id , cr.nombre,cr.id,cr.tipoCampoRondaId ,tcr.nombre,cr.unidadMedidaId, crpr.plantillaRondaId");
+        let r = yield typeorm_1.getConnection().query("SELECT p.nombre plantaNombre,p.id plantaId, s.nombre sistemaNombre,s.id sistemaId, e.nombre nombreEquipo,e.id equipoId, cr.nombre nombreTarea,cr.id tareaId,cr.tipoCampoRondaId tipoTareaId,tcr.nombre tipoTareaNombre,cr.unidadMedidaId unidadDeMedidaId,cr.descripcion descripcionTarea,cr.tipoCampoRondaId tipoTareaId,crpr.plantillaRondaId, t.nombre nombreTag, t.id tagId, cr.valorNormal ,cr.valorMin ,cr.valorMax,crpr.completada,crpr.especificacion,crpr.tareaObligatoria  FROM " + global_1.GlobalVariable.DATA_BASE_NAME + ".planta p INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".sistema s ON p.id = s.plantaId INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".equipamiento e ON e.sistemaId = s.id INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".campo_ronda cr ON e.id = cr.equipamientoId INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".campo_ronda_plantilla_ronda crpr ON cr.id = crpr.campoRondaId INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".tipo_campo_ronda tcr ON tcr.id = cr.tipoCampoRondaId INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".tag t ON t.id = e.tagId  WHERE crpr.plantillaRondaId =" + req.body.idPlantillaRonda + " GROUP BY p.nombre,p.id, s.nombre,s.id, e.nombre,e.id , cr.nombre,cr.id,cr.tipoCampoRondaId ,tcr.nombre,cr.unidadMedidaId, crpr.plantillaRondaId, t.nombre, t.id ,cr.descripcion ,cr.tipoCampoRondaId, cr.valorNormal ,cr.valorMin ,cr.valorMax,crpr.completada,crpr.especificacion,crpr.tareaObligatoria ");
+        console.log(r);
+        res.status(200).send(r);
+    }
+    catch (e) {
+        yield apiHandler_1.responseError(res, e);
+    }
+}));
+router.post('/cambiarEspecificacion', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let r = yield typeorm_1.getConnection().query("UPDATE " + global_1.GlobalVariable.DATA_BASE_NAME + ".campo_ronda_plantilla_ronda r SET especificacion = '" + req.body.especificacion + "' WHERE r.plantillaRondaId =" + req.body.idPlantillaRonda + "  AND r.campoRondaId =" + req.body.idTarea + " ");
         console.log(r);
         res.status(200).send(r);
     }
