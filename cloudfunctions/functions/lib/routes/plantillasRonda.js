@@ -56,5 +56,15 @@ router.post('/asociarTareasEnRonda', (req, res, next) => __awaiter(void 0, void 
         yield apiHandler_1.responseError(res, e);
     }
 }));
+router.post('/CrearRondaNuevo', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let r = yield typeorm_1.getConnection().query("INSERT INTO " + global_1.GlobalVariable.DATA_BASE_NAME + ".ronda (userId,estadoRondaId,plantillaRondaId) VALUES(" + req.body.userId + ",2," + req.body.plantillaRondaId + ")");
+        console.log(r);
+        res.status(200).send(r);
+    }
+    catch (e) {
+        yield apiHandler_1.responseError(res, e);
+    }
+}));
 module.exports = router;
 //# sourceMappingURL=plantillasRonda.js.map

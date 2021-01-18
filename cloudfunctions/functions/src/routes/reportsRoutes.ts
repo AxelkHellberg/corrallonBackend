@@ -376,4 +376,18 @@ router.post('/execute/NombreDescripcionRondas', async (req, res, next) => {
     }
 })
 
+router.post('/execute/ultimaRondaInsertada', async (req, res, next) => {
+
+    try {
+        let rondaId = await getConnection().query("SELECT MAX(id) as rondaId FROM "+ GlobalVariable.DATA_BASE_NAME +".ronda");
+
+        res.status(200).send(rondaId);
+        
+    } catch (e) {
+        await responseError(res, e)
+
+
+    }
+})
+
 module.exports = router;

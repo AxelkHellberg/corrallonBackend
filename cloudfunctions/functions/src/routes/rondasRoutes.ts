@@ -10,6 +10,9 @@ import { ValorCampoRonda } from "../entity/ValorCampoRonda";
 import { ValorCampoRondaService } from "../services/ValorCampoRondaService";
 import { NotificacionFallaService } from "../services/NotificacionFallaService";
 import { NotificacionFalla } from "../entity/NotificacionFalla";
+import { getConnection } from "typeorm";
+import { GlobalVariable } from "../global";
+import { responseError } from "../components/apiHandler";
 /******************************************** */
 const service = new RondaService()
 const currentClass = Ronda
@@ -50,6 +53,7 @@ router.post('/:id/valores-fallas', async (req, res, next) => {
     res.send(data)
     next()
 });
+
 
 
 module.exports = router;

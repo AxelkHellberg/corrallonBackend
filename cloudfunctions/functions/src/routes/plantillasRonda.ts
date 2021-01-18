@@ -58,4 +58,23 @@ router.post('/asociarTareasEnRonda', async (req, res, next) => {
     }
 })
 
+router.post('/CrearRondaNuevo', async (req, res, next) => {
+
+    try {
+        let r = await getConnection().query("INSERT INTO "+ GlobalVariable.DATA_BASE_NAME +".ronda (userId,estadoRondaId,plantillaRondaId) VALUES(" +req.body.userId+ ",2," +req.body.plantillaRondaId+ ")");
+
+
+
+
+        console.log(r);
+        res.status(200).send(r);
+        
+    } catch (e) {
+        await responseError(res, e)
+
+
+    }
+})
+
+
 module.exports = router;

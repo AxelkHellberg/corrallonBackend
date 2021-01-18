@@ -320,5 +320,14 @@ router.post('/execute/NombreDescripcionRondas', (req, res, next) => __awaiter(vo
         yield apiHandler_1.responseError(res, e);
     }
 }));
+router.post('/execute/ultimaRondaInsertada', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let rondaId = yield typeorm_1.getConnection().query("SELECT MAX(id) as rondaId FROM " + global_1.GlobalVariable.DATA_BASE_NAME + ".ronda");
+        res.status(200).send(rondaId);
+    }
+    catch (e) {
+        yield apiHandler_1.responseError(res, e);
+    }
+}));
 module.exports = router;
 //# sourceMappingURL=reportsRoutes.js.map
