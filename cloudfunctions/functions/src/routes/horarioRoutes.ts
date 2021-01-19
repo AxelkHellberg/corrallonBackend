@@ -19,7 +19,7 @@ router.post('/traerRondasDesbloqueadas', async (req, res, next) => {
 
     try {
 
-        let r = await getConnection().query("SELECT h.horaInicio ,h.horaFin ,u.username, pr.nombre,h.fechaInicio as fecha,pr.id as plantillaId FROM "+ GlobalVariable.DATA_BASE_NAME +".horario h INNER JOIN "+ GlobalVariable.DATA_BASE_NAME +".horario_persona hp ON h.id = hp.horarioId INNER JOIN "+ GlobalVariable.DATA_BASE_NAME +".`user` u ON u.id = hp.userId INNER JOIN "+ GlobalVariable.DATA_BASE_NAME +".plantilla_ronda pr ON h.plantillaId = pr.id WHERE h.fechaInicio = CURDATE() and u.username ='"+ req.body.username+"' and h.horaInicio <= DATE_SUB(CURRENT_TIME() , INTERVAL 3 HOUR) and h.horaFin >= DATE_SUB(CURRENT_TIME() , INTERVAL 3 HOUR) ");
+        let r = await getConnection().query("SELECT r.id rondaId,h.horaInicio ,h.horaFin ,u.username, pr.nombre,h.fechaInicio as fecha,pr.id as plantillaId FROM "+ GlobalVariable.DATA_BASE_NAME +".horario h INNER JOIN "+ GlobalVariable.DATA_BASE_NAME +".horario_persona hp ON h.id = hp.horarioId INNER JOIN "+ GlobalVariable.DATA_BASE_NAME +".`user` u ON u.id = hp.userId INNER JOIN "+ GlobalVariable.DATA_BASE_NAME +".plantilla_ronda pr ON h.plantillaId = pr.id INNER JOIN "+ GlobalVariable.DATA_BASE_NAME +".ronda r ON r.plantillaRondaId = pr.id  WHERE h.fechaInicio = CURDATE() and u.username ='"+ req.body.username+"' and h.horaInicio <= DATE_SUB(CURRENT_TIME() , INTERVAL 3 HOUR) and h.horaFin >= DATE_SUB(CURRENT_TIME() , INTERVAL 3 HOUR) ");
 
         console.log("res");
         console.log(r);
