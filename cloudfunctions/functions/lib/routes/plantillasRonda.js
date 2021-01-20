@@ -66,5 +66,16 @@ router.post('/CrearRondaNuevo', (req, res, next) => __awaiter(void 0, void 0, vo
         yield apiHandler_1.responseError(res, e);
     }
 }));
+router.post('/traerPlantillasRondas', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let r = yield typeorm_1.getConnection().query("SELECT pr.id,pr.nombre ,pr.funcionamientoEquipo,pr.funcionamientoSistema ,pr.obligatorioEquipo ,pr.obligatorioSistema ,pr.createdAt ,pr.updateAt ,pr.horarios FROM " + global_1.GlobalVariable.DATA_BASE_NAME + ".plantilla_ronda pr  ");
+        console.log("res");
+        console.log(r);
+        res.status(200).send(r);
+    }
+    catch (e) {
+        yield apiHandler_1.responseError(res, e);
+    }
+}));
 module.exports = router;
 //# sourceMappingURL=plantillasRonda.js.map

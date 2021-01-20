@@ -139,7 +139,9 @@ router.post('/traerIdTareas', (req, res, next) => __awaiter(void 0, void 0, void
 }));
 router.post('/finalizarRonda', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        let r = yield typeorm_1.getConnection().query("UPDATE " + global_1.GlobalVariable.DATA_BASE_NAME + ".ronda SET estadoRondaId = 1 WHERE id = " + req.body.rondaId + "");
+        let r = yield typeorm_1.getConnection().query("UPDATE " + global_1.GlobalVariable.DATA_BASE_NAME + ".ronda SET estadoRondaId = 1 WHERE id = " + req.body.rondaId);
+        //poner console log y ver que muestra req.body.rondaId hay error que dice que esta undefined
+        console.log(req.body.rondaId);
         console.log(r);
         res.status(200).send(r);
     }

@@ -76,5 +76,20 @@ router.post('/CrearRondaNuevo', async (req, res, next) => {
     }
 })
 
+router.post('/traerPlantillasRondas', async (req, res, next) => {
+
+    try {
+        let r = await getConnection().query("SELECT pr.id,pr.nombre ,pr.funcionamientoEquipo,pr.funcionamientoSistema ,pr.obligatorioEquipo ,pr.obligatorioSistema ,pr.createdAt ,pr.updateAt ,pr.horarios FROM "+ GlobalVariable.DATA_BASE_NAME +".plantilla_ronda pr  ");
+
+        console.log("res");
+        console.log(r);
+        res.status(200).send(r);
+        
+    } catch (e) {
+        await responseError(res, e)
+
+    }
+})
+
 
 module.exports = router;

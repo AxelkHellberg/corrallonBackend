@@ -18,6 +18,9 @@ const ValorCampoRonda_1 = require("../entity/ValorCampoRonda");
 const ValorCampoRondaService_1 = require("../services/ValorCampoRondaService");
 const NotificacionFallaService_1 = require("../services/NotificacionFallaService");
 const NotificacionFalla_1 = require("../entity/NotificacionFalla");
+const typeorm_1 = require("typeorm");
+const global_1 = require("../global");
+const apiHandler_1 = require("../components/apiHandler");
 /******************************************** */
 const service = new RondaService_1.RondaService();
 const currentClass = Ronda_1.Ronda;
@@ -56,6 +59,17 @@ router.post('/:id/valores-fallas', (req, res, next) => __awaiter(void 0, void 0,
     }
     res.send(data);
     next();
+}));
+router.post('/traerRondas', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let r = yield typeorm_1.getConnection().query("SELECT r.id rondaId,pr.id,pr.createdAt,pr.funcionamientoEquipo,pr.funcionamientoSistema ,pr.horarios,pr.nombre ,pr.obligatorioEquipo ,pr.obligatorioSistema ,pr.updateAt FROM " + global_1.GlobalVariable.DATA_BASE_NAME + ".ronda r INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".plantilla_ronda pr ON r.plantillaRondaId = pr.id ");
+        console.log("res");
+        console.log(r);
+        res.status(200).send(r);
+    }
+    catch (e) {
+        yield apiHandler_1.responseError(res, e);
+    }
 }));
 module.exports = router;
 //# sourceMappingURL=rondasRoutes.js.map

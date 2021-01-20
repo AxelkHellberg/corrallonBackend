@@ -189,9 +189,10 @@ router.post('/traerIdTareas', async (req, res, next) => {
 router.post('/finalizarRonda', async (req, res, next) => {
 
     try {
-        let r = await getConnection().query("UPDATE "+ GlobalVariable.DATA_BASE_NAME +".ronda SET estadoRondaId = 1 WHERE id = " +req.body.rondaId+ "")
+        let r = await getConnection().query("UPDATE "+ GlobalVariable.DATA_BASE_NAME +".ronda SET estadoRondaId = 1 WHERE id = " +req.body.rondaId)
 
         //poner console log y ver que muestra req.body.rondaId hay error que dice que esta undefined
+        console.log(req.body.rondaId)
          console.log(r)
        res.status(200).send(r);
         

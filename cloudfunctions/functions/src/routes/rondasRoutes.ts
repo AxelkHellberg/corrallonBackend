@@ -54,6 +54,19 @@ router.post('/:id/valores-fallas', async (req, res, next) => {
     next()
 });
 
+router.post('/traerRondas', async (req, res, next) => {
 
+    try {
+        let r = await getConnection().query("SELECT r.id rondaId,pr.id,pr.createdAt,pr.funcionamientoEquipo,pr.funcionamientoSistema ,pr.horarios,pr.nombre ,pr.obligatorioEquipo ,pr.obligatorioSistema ,pr.updateAt FROM "+ GlobalVariable.DATA_BASE_NAME +".ronda r INNER JOIN "+ GlobalVariable.DATA_BASE_NAME +".plantilla_ronda pr ON r.plantillaRondaId = pr.id ");
+
+        console.log("res");
+        console.log(r);
+        res.status(200).send(r);
+        
+    } catch (e) {
+        await responseError(res, e)
+
+    }
+})
 
 module.exports = router;
