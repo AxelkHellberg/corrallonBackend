@@ -203,20 +203,23 @@ router.post('/finalizarRonda', async (req, res, next) => {
     }
 })
 
-router.post('/asignarTareas', async (req, res, next) => {
+router.post('/asignarTareassss', async (req, res, next) => {
 
     try {
         let cont = 0
         let r
         console.log("PRIMER ID DE TAREA ANTES DE FOR")
         console.log(req.body.tareasId[cont].campoRondaId)
+        console.log("REQ BODY")
+        console.log(req.body)
         console.log("RONDA ID:")
         console.log(req.body.rondaId)
         let connection = getConnection()
         req.body.tareasId.forEach(element => {
-            r = connection.query("INSERT INTO "+ GlobalVariable.DATA_BASE_NAME +".tarea_asignada (rondaId,tareaId,completada,especificacion) VALUES(" +req.body.rondaId+ "," +req.body.tareasId[cont].campoRondaId + ",0,'Sin especificacion')" );
-            console.log(req.body.tareasId[cont].campoRondaId)
-            cont += 1
+        r = connection.query("INSERT INTO "+ GlobalVariable.DATA_BASE_NAME +".tarea_asignada (rondaId,tareaId,completada,especificacion,horarioId) VALUES(" +req.body.rondaId+ "," +element.campoRondaId + ",0,'Sin especificacion'," +req.body.horarioId+ ")" );
+        
+        console.log(req.body.tareasId[cont].campoRondaId)
+        cont += 1
         })
 
            res.status(200).send(r);

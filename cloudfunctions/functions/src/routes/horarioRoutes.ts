@@ -50,7 +50,7 @@ router.post('/traerRondasBloqueadas', async (req, res, next) => {
 router.post('/crearHorario', async (req, res, next) => {
 
     try {
-        let r = await getConnection().query("INSERT INTO "+ GlobalVariable.DATA_BASE_NAME +".horario (tipoRecurrencia,fechaInicio,fechaFin,plantillaId,horaInicio,horaFin,dias) VALUES("+ req.body.tipoRecurrencia+",'"+ req.body.fechaInicio+"','"+ req.body.fechaFin+"',"+ req.body.rondaId+",'"+ req.body.horaInicio+"','"+ req.body.horaFin+"',"+ req.body.dias+")");
+        let r = await getConnection().query("INSERT INTO "+ GlobalVariable.DATA_BASE_NAME +".horario (tipoRecurrencia,fechaInicio,fechaFin,plantillaId,horaInicio,horaFin,dias) VALUES("+ req.body.tipoRecurrencia+",STR_TO_DATE('"+ req.body.fechaInicio+"', '%d-%m-%Y'),STR_TO_DATE('"+ req.body.fechaFin+"', '%d-%m-%Y'),"+ req.body.rondaId+",'"+ req.body.horaInicio+"','"+ req.body.horaFin+"',"+ req.body.dias+")");
 
         console.log("res");
         console.log(r);

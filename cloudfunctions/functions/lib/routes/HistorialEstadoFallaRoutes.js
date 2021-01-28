@@ -149,17 +149,19 @@ router.post('/finalizarRonda', (req, res, next) => __awaiter(void 0, void 0, voi
         yield apiHandler_1.responseError(res, e);
     }
 }));
-router.post('/asignarTareas', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+router.post('/asignarTareassss', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let cont = 0;
         let r;
         console.log("PRIMER ID DE TAREA ANTES DE FOR");
         console.log(req.body.tareasId[cont].campoRondaId);
+        console.log("REQ BODY");
+        console.log(req.body);
         console.log("RONDA ID:");
         console.log(req.body.rondaId);
         let connection = typeorm_1.getConnection();
         req.body.tareasId.forEach(element => {
-            r = connection.query("INSERT INTO " + global_1.GlobalVariable.DATA_BASE_NAME + ".tarea_asignada (rondaId,tareaId,completada,especificacion) VALUES(" + req.body.rondaId + "," + req.body.tareasId[cont].campoRondaId + ",0,'Sin especificacion')");
+            r = connection.query("INSERT INTO " + global_1.GlobalVariable.DATA_BASE_NAME + ".tarea_asignada (rondaId,tareaId,completada,especificacion,horarioId) VALUES(" + req.body.rondaId + "," + element.campoRondaId + ",0,'Sin especificacion'," + req.body.horarioId + ")");
             console.log(req.body.tareasId[cont].campoRondaId);
             cont += 1;
         });
