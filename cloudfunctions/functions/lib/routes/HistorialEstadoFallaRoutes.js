@@ -171,5 +171,16 @@ router.post('/asignarTareassss', (req, res, next) => __awaiter(void 0, void 0, v
         yield apiHandler_1.responseError(res, e);
     }
 }));
+router.post('/crearHorarioUsuario', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let r = yield typeorm_1.getConnection().query("INSERT INTO " + global_1.GlobalVariable.DATA_BASE_NAME + ".horario_persona (userId,horarioId) VALUES(" + req.body.userId + "," + req.body.horarioId + ")");
+        console.log("res");
+        console.log(r);
+        res.status(200).send(r);
+    }
+    catch (e) {
+        yield apiHandler_1.responseError(res, e);
+    }
+}));
 module.exports = router;
 //# sourceMappingURL=HistorialEstadoFallaRoutes.js.map

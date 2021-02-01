@@ -25,7 +25,7 @@
     "typeorm": "^0.2.28"
   },
   "engines": {
-    "node": "10"
+    "node": "8"
   },
   "devDependencies": {
     "firebase-functions-test": "^0.2.2"
