@@ -12,21 +12,22 @@
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
     "startOld": "node ./bin/www"
- },
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "cookie-parser": "^1.4.5",
     "firebase-admin": "^9.2.0",
     "firebase-functions": "^3.11.0",
+    "firebase-tools": "^8.13.0",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",
     "typeorm": "^0.2.28"
   },
   "engines": {
-    "node": "8"
-  },
+    "node": ">= 8"
+},
   "devDependencies": {
     "firebase-functions-test": "^0.2.2"
   }

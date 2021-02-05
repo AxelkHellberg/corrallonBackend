@@ -246,4 +246,19 @@ router.post('/crearHorarioUsuario', async (req, res, next) => {
     }
 })
 
+router.post('/traerInfoTarea', async (req, res, next) => {
+
+    try {
+        let r = await getConnection().query("SELECT cr.id tareaId,cr.descripcion tareaDescripcion,cr.nombre tareaNombre,cr.equipamientoId equipoId,cr.unidadMedidaId,cr.tipoCampoRondaId,cr.valorNormal,cr.valorMax,cr.valorMin,e.nombre nombreEquipo,e.sistemaId,s.nombre nombreSistema,s.id sistemaId,p.nombre nombrePlanta,p.id plantaId FROM "+ GlobalVariable.DATA_BASE_NAME +".campo_ronda cr INNER JOIN "+ GlobalVariable.DATA_BASE_NAME +".equipamiento e ON cr.equipamientoId = e.id INNER JOIN "+ GlobalVariable.DATA_BASE_NAME +".sistema s ON e.sistemaId = s.id INNER JOIN "+ GlobalVariable.DATA_BASE_NAME +".planta p ON s.plantaId = p.id WHERE cr.id = "+ req.body.tareaId);
+
+        console.log("res");
+        console.log(r);
+        res.status(200).send(r);
+        
+    } catch (e) {
+        await responseError(res, e)
+
+    }
+})
+
 module.exports = router;

@@ -91,5 +91,4 @@ router.post('/traerPlantillasRondas', async (req, res, next) => {
     }
 })
 
-
 module.exports = router;

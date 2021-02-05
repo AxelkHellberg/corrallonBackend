@@ -182,5 +182,16 @@ router.post('/crearHorarioUsuario', (req, res, next) => __awaiter(void 0, void 0
         yield apiHandler_1.responseError(res, e);
     }
 }));
+router.post('/traerInfoTarea', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let r = yield typeorm_1.getConnection().query("SELECT cr.id tareaId,cr.descripcion tareaDescripcion,cr.nombre tareaNombre,cr.equipamientoId equipoId,cr.unidadMedidaId,cr.tipoCampoRondaId,cr.valorNormal,cr.valorMax,cr.valorMin,e.nombre nombreEquipo,e.sistemaId,s.nombre nombreSistema,s.id sistemaId,p.nombre nombrePlanta,p.id plantaId FROM " + global_1.GlobalVariable.DATA_BASE_NAME + ".campo_ronda cr INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".equipamiento e ON cr.equipamientoId = e.id INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".sistema s ON e.sistemaId = s.id INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".planta p ON s.plantaId = p.id WHERE cr.id = " + req.body.tareaId);
+        console.log("res");
+        console.log(r);
+        res.status(200).send(r);
+    }
+    catch (e) {
+        yield apiHandler_1.responseError(res, e);
+    }
+}));
 module.exports = router;
 //# sourceMappingURL=HistorialEstadoFallaRoutes.js.map
