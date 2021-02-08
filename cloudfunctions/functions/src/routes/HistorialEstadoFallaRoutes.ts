@@ -249,7 +249,22 @@ router.post('/crearHorarioUsuario', async (req, res, next) => {
 router.post('/traerInfoTarea', async (req, res, next) => {
 
     try {
-        let r = await getConnection().query("SELECT cr.id tareaId,cr.descripcion tareaDescripcion,cr.nombre tareaNombre,cr.equipamientoId equipoId,cr.unidadMedidaId,cr.tipoCampoRondaId,cr.valorNormal,cr.valorMax,cr.valorMin,e.nombre nombreEquipo,e.sistemaId,s.nombre nombreSistema,s.id sistemaId,p.nombre nombrePlanta,p.id plantaId FROM "+ GlobalVariable.DATA_BASE_NAME +".campo_ronda cr INNER JOIN "+ GlobalVariable.DATA_BASE_NAME +".equipamiento e ON cr.equipamientoId = e.id INNER JOIN "+ GlobalVariable.DATA_BASE_NAME +".sistema s ON e.sistemaId = s.id INNER JOIN "+ GlobalVariable.DATA_BASE_NAME +".planta p ON s.plantaId = p.id WHERE cr.id = "+ req.body.tareaId);
+        let r = await getConnection().query("SELECT cr.id tareaId,cr.descripcion tareaDescripcion,cr.nombre tareaNombre,cr.equipamientoId equipoId,cr.unidadMedidaId,cr.tipoCampoRondaId,cr.valorNormal,cr.valorMax,cr.valorMin,e.nombre nombreEquipo,e.sistemaId,s.nombre nombreSistema,s.id sistemaId,p.nombre nombrePlanta,p.id plantaId,tcr.nombre nombreTipoTarea,um.nombre nombreUnidadMedida FROM "+ GlobalVariable.DATA_BASE_NAME +".campo_ronda cr INNER JOIN "+ GlobalVariable.DATA_BASE_NAME +".equipamiento e ON cr.equipamientoId = e.id INNER JOIN "+ GlobalVariable.DATA_BASE_NAME +".sistema s ON e.sistemaId = s.id INNER JOIN "+ GlobalVariable.DATA_BASE_NAME +".planta p ON s.plantaId = p.id INNER JOIN "+ GlobalVariable.DATA_BASE_NAME +".tipo_campo_ronda tcr ON cr.tipoCampoRondaId = tcr.id INNER JOIN "+ GlobalVariable.DATA_BASE_NAME +".unidad_medida um ON cr.unidadMedidaId = um.id  WHERE cr.id = "+ req.body.tareaId);
+
+        console.log("res");
+        console.log(r);
+        res.status(200).send(r);
+        
+    } catch (e) {
+        await responseError(res, e)
+
+    }
+})
+
+router.post('/editarTarea', async (req, res, next) => {
+
+    try {
+        let r = await getConnection().query("UPDATE "+ GlobalVariable.DATA_BASE_NAME +".campo_ronda SET descripcion = '"+ req.body.descripcion+"',nombre = '"+ req.body.nombreTarea+"',valorNormal = '"+ req.body.valorNormal+"',valorMax = '"+ req.body.valorMax+"',valorMin = '"+ req.body.valorMin+"',equipamientoId = "+ req.body.equipoId+", tipoCampoRondaId = "+ req.body.tipoCampoRondaId+",unidadMedidaId = "+ req.body.unidadMedidaId+" WHERE id = "+ req.body.tareaId+"");
 
         console.log("res");
         console.log(r);
