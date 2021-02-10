@@ -311,7 +311,7 @@ router.post('/execute/TagsNoAsignadosEquipos', (req, res, next) => __awaiter(voi
 }));
 router.post('/execute/NombreDescripcionRondas', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        let r = yield typeorm_1.getConnection().query("SELECT nombre,descripcion FROM " + global_1.GlobalVariable.DATA_BASE_NAME + ".plantilla_ronda");
+        let r = yield typeorm_1.getConnection().query("SELECT id,nombre,descripcion FROM " + global_1.GlobalVariable.DATA_BASE_NAME + ".plantilla_ronda");
         console.log("res");
         console.log(r);
         res.status(200).send(r);

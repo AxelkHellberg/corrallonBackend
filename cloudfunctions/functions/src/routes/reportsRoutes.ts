@@ -363,7 +363,7 @@ router.post('/execute/TagsNoAsignadosEquipos', async (req, res, next) => {
 router.post('/execute/NombreDescripcionRondas', async (req, res, next) => {
 
     try {
-        let r = await getConnection().query("SELECT nombre,descripcion FROM "+ GlobalVariable.DATA_BASE_NAME +".plantilla_ronda");
+        let r = await getConnection().query("SELECT id,nombre,descripcion FROM "+ GlobalVariable.DATA_BASE_NAME +".plantilla_ronda");
 
         console.log("res");
         console.log(r);

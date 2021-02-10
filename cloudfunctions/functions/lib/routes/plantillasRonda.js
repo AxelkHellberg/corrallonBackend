@@ -37,6 +37,16 @@ router.post('/crearPlantillaRonda', (req, res, next) => __awaiter(void 0, void 0
         yield apiHandler_1.responseError(res, e);
     }
 }));
+router.post('/editarPlantillaRonda', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let r = yield typeorm_1.getConnection().query("UPDATE " + global_1.GlobalVariable.DATA_BASE_NAME + ".plantilla_ronda SET nombre='" + req.body.nombre + "', descripcion='" + req.body.descripcion + "' WHERE id=" + req.body.plantillaRondaId);
+        console.log(r);
+        res.status(200).send(r);
+    }
+    catch (e) {
+        yield apiHandler_1.responseError(res, e);
+    }
+}));
 router.post('/asociarTareasEnRonda', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let r;
@@ -56,6 +66,20 @@ router.post('/asociarTareasEnRonda', (req, res, next) => __awaiter(void 0, void 
         yield apiHandler_1.responseError(res, e);
     }
 }));
+router.post('/eliminarTareasDePlantllaRonda', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let r;
+        console.log(req.body);
+        let cont = 0;
+        let connection = typeorm_1.getConnection();
+        r = connection.query("DELETE FROM " + global_1.GlobalVariable.DATA_BASE_NAME + ".campo_ronda_plantilla_ronda WHERE plantillaRondaId=" + req.body.idInsertado);
+        cont += 1;
+        res.status(200).send();
+    }
+    catch (e) {
+        yield apiHandler_1.responseError(res, e);
+    }
+}));
 router.post('/CrearRondaNuevo', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let r = yield typeorm_1.getConnection().query("INSERT INTO " + global_1.GlobalVariable.DATA_BASE_NAME + ".ronda (userId,estadoRondaId,plantillaRondaId) VALUES(" + req.body.userId + ",2," + req.body.plantillaRondaId + ")");
@@ -69,6 +93,17 @@ router.post('/CrearRondaNuevo', (req, res, next) => __awaiter(void 0, void 0, vo
 router.post('/traerPlantillasRondas', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let r = yield typeorm_1.getConnection().query("SELECT pr.id,pr.nombre ,pr.funcionamientoEquipo,pr.funcionamientoSistema ,pr.obligatorioEquipo ,pr.obligatorioSistema ,pr.createdAt ,pr.updateAt ,pr.horarios FROM " + global_1.GlobalVariable.DATA_BASE_NAME + ".plantilla_ronda pr  ");
+        console.log("res");
+        console.log(r);
+        res.status(200).send(r);
+    }
+    catch (e) {
+        yield apiHandler_1.responseError(res, e);
+    }
+}));
+router.post('/traerPlantillaRondaCompleta', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let r = yield typeorm_1.getConnection().query("SELECT pr.id plantillaId, pr.nombre nombrePlantilla, pr.descripcion descripcionPlantilla, crpr.campoRondaId tareaId, crpr.tareaObligatoria,cr.nombre nombreTarea, cr.descripcion descripcionTarea, cr.valorMax, cr.valorMin, cr.valorNormal,cr.equipamientoId equipoId,e.nombre nombreEquipo,e.sistemaId,s.nombre nombreSistema,s.plantaId,p.nombre nombrePlanta, um.id unidadMedidaId, um.nombre nombreUnidadMedida FROM " + global_1.GlobalVariable.DATA_BASE_NAME + ".plantilla_ronda pr INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".campo_ronda_plantilla_ronda crpr ON pr.id = crpr.plantillaRondaId INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".campo_ronda cr ON cr.id = crpr.campoRondaId INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".equipamiento e ON e.id = cr.equipamientoId INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".sistema s ON s.id = e.sistemaId INNER JOIN " + global_1.GlobalVariable.DATA_BASE_NAME + ".planta p ON p.id = s.plantaId INNER JOIN koa_develop.unidad_medida um ON um.id = cr.unidadMedidaId WHERE pr.id = " + req.body.plantillaId);
         console.log("res");
         console.log(r);
         res.status(200).send(r);
