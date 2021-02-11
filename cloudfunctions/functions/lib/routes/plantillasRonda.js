@@ -37,6 +37,17 @@ router.post('/crearPlantillaRonda', (req, res, next) => __awaiter(void 0, void 0
         yield apiHandler_1.responseError(res, e);
     }
 }));
+router.post('/eliminarPlantillaRonda', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        typeorm_1.getConnection().query("DELETE FROM " + global_1.GlobalVariable.DATA_BASE_NAME + ".campo_ronda_plantilla_ronda WHERE plantillaRondaId=" + req.body.plantillaRondaId);
+        let r = yield typeorm_1.getConnection().query("DELETE FROM " + global_1.GlobalVariable.DATA_BASE_NAME + ".plantilla_ronda WHERE id=" + req.body.plantillaRondaId);
+        console.log(r);
+        res.status(200).send(r);
+    }
+    catch (e) {
+        yield apiHandler_1.responseError(res, e);
+    }
+}));
 router.post('/editarPlantillaRonda', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let r = yield typeorm_1.getConnection().query("UPDATE " + global_1.GlobalVariable.DATA_BASE_NAME + ".plantilla_ronda SET nombre='" + req.body.nombre + "', descripcion='" + req.body.descripcion + "' WHERE id=" + req.body.plantillaRondaId);
