@@ -37,10 +37,10 @@ router.post('/crearPlantillaRonda', async (req, res, next) => {
 router.post('/eliminarPlantillaRonda', async (req, res, next) => {
 
     try {
-        getConnection().query("DELETE FROM "+ GlobalVariable.DATA_BASE_NAME +".campo_ronda_plantilla_ronda WHERE plantillaRondaId="+ req.body.plantillaRondaId);
 
-        let r = await getConnection().query("DELETE FROM "+ GlobalVariable.DATA_BASE_NAME +".plantilla_ronda WHERE id="+ req.body.plantillaRondaId);
+        let r = await getConnection().query("DELETE FROM "+ GlobalVariable.DATA_BASE_NAME +".plantilla_ronda WHERE id="+ req.body.plantillaRondaId)
 
+        
         console.log(r);
         res.status(200).send(r);
         

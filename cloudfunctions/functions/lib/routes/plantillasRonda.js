@@ -39,7 +39,6 @@ router.post('/crearPlantillaRonda', (req, res, next) => __awaiter(void 0, void 0
 }));
 router.post('/eliminarPlantillaRonda', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        typeorm_1.getConnection().query("DELETE FROM " + global_1.GlobalVariable.DATA_BASE_NAME + ".campo_ronda_plantilla_ronda WHERE plantillaRondaId=" + req.body.plantillaRondaId);
         let r = yield typeorm_1.getConnection().query("DELETE FROM " + global_1.GlobalVariable.DATA_BASE_NAME + ".plantilla_ronda WHERE id=" + req.body.plantillaRondaId);
         console.log(r);
         res.status(200).send(r);
