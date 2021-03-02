@@ -106,6 +106,16 @@ router.post('/cambiarEspecificacion', (req, res, next) => __awaiter(void 0, void
         yield apiHandler_1.responseError(res, e);
     }
 }));
+router.post('/traerProductos', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let r = yield typeorm_1.getConnection().query("SELECT * FROM Producto");
+        console.log(r);
+        res.status(200).send(r);
+    }
+    catch (e) {
+        yield apiHandler_1.responseError(res, e);
+    }
+}));
 router.post('/cambiarDetalleRonda', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let r = yield typeorm_1.getConnection().query("UPDATE " + global_1.GlobalVariable.DATA_BASE_NAME + ".ronda r SET detalle = '" + req.body.detalle + "' WHERE r.id =" + req.body.rondaId);

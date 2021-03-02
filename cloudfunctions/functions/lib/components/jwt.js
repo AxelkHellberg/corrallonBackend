@@ -8,7 +8,7 @@ let keys = require("../config/keys");
 //console.log(token)
 // PAYLOAD
 function createAccessToken(user) {
-    let payload = { "u": user.id, "p": user.profileId };
+    let payload = { "u": 1, "p": 1 };
     let token = jwt.sign(payload, keys.privateKey, keys.verifyOptions);
     return token;
     //console.log("Token - " + token)

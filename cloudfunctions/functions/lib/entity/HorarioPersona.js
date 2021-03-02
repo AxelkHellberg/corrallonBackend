@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.HorarioPersona = void 0;
 const typeorm_1 = require("typeorm");
 const GenericEntity_1 = require("./GenericEntity");
-const User_1 = require("./User");
 const Horario_1 = require("./Horario");
 let HorarioPersona = class HorarioPersona extends GenericEntity_1.GenericEntity {
 };
@@ -24,11 +23,6 @@ __decorate([
     typeorm_1.PrimaryColumn(),
     __metadata("design:type", Number)
 ], HorarioPersona.prototype, "horarioId", void 0);
-__decorate([
-    typeorm_1.ManyToOne(type => User_1.User, user => user.id),
-    typeorm_1.JoinColumn({ name: "userId" }),
-    __metadata("design:type", User_1.User)
-], HorarioPersona.prototype, "user", void 0);
 __decorate([
     typeorm_1.ManyToOne(type => Horario_1.Horario, horario => horario.id),
     typeorm_1.JoinColumn({ name: "horarioId" }),

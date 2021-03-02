@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.GuiaManiobra = void 0;
 const typeorm_1 = require("typeorm");
 const GenericEntity_1 = require("./GenericEntity");
-const User_1 = require("./User");
 const ErrorVDF_1 = require("../components/ErrorVDF");
 const Msg_1 = require("../msg/Msg");
 const ValorCampoManiobra_1 = require("./ValorCampoManiobra");
@@ -37,12 +36,6 @@ __decorate([
     typeorm_1.Column(),
     __metadata("design:type", Number)
 ], GuiaManiobra.prototype, "userId", void 0);
-__decorate([
-    typeorm_1.ManyToOne(type => User_1.User, user => user.guiasManiobras, { onDelete: 'CASCADE' }),
-    typeorm_1.JoinColumn({ name: "userId" }),
-    typeorm_1.Index(),
-    __metadata("design:type", User_1.User)
-], GuiaManiobra.prototype, "user", void 0);
 __decorate([
     typeorm_1.Column(),
     __metadata("design:type", Number)

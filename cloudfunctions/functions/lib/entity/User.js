@@ -12,102 +12,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const typeorm_1 = require("typeorm");
 const GenericEntity_1 = require("./GenericEntity");
-const ErrorVDF_1 = require("../components/ErrorVDF");
-const Msg_1 = require("../msg/Msg");
-const Profile_1 = require("./Profile");
-const GuiaManiobra_1 = require("./GuiaManiobra");
-const Ronda_1 = require("./Ronda");
-const HorarioPersona_1 = require("./HorarioPersona");
 let encriptutils = require('../components/encryputils');
 let User = class User extends GenericEntity_1.GenericEntity {
-    constructor() {
-        super(...arguments);
-        this.fileNumber = null; //Legajo
-        this.username = null;
-        this.password = null;
-        this.profileId = 1;
-    }
-    validateInsert() {
-        if (this.password == null)
-            throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.PASSWORD_MANDATORY, Msg_1.Msg.PASSWORD_MANDATORY, 400);
-        if (this.username == null)
-            throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.USERNAME_MANDATORY, Msg_1.Msg.USERNAME_MANDATORY, 400);
-        if (this.name == null)
-            throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.NAME_MANDATORY, Msg_1.Msg.NAME_MANDATORY, 400);
-        if (this.dni == null)
-            throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.DNI_MANDATORY, Msg_1.Msg.DNI_MANDATORY, 400);
-    }
-    encryptPassword() {
-        this.password = encriptutils.encrypt(this.password);
-    }
 };
 __decorate([
     typeorm_1.PrimaryGeneratedColumn(),
-    __metadata("design:type", Number)
-], User.prototype, "id", void 0);
+    __metadata("design:type", String)
+], User.prototype, "LoginName", void 0);
 __decorate([
     typeorm_1.Column(),
     __metadata("design:type", String)
-], User.prototype, "name", void 0);
-__decorate([
-    typeorm_1.Column(),
-    __metadata("design:type", String)
-], User.prototype, "lastName", void 0);
-__decorate([
-    typeorm_1.Column({ nullable: true }),
-    __metadata("design:type", String)
-], User.prototype, "fileNumber", void 0);
-__decorate([
-    typeorm_1.Column(),
-    __metadata("design:type", String)
-], User.prototype, "dni", void 0);
-__decorate([
-    typeorm_1.Column({
-        nullable: false
-    }),
-    __metadata("design:type", String)
-], User.prototype, "username", void 0);
-__decorate([
-    typeorm_1.Column({
-        nullable: false
-    }),
-    __metadata("design:type", String)
-], User.prototype, "password", void 0);
-__decorate([
-    typeorm_1.Column(),
-    __metadata("design:type", Number)
-], User.prototype, "profileId", void 0);
-__decorate([
-    typeorm_1.ManyToOne(type => Profile_1.Profile, profile => profile.users),
-    typeorm_1.JoinColumn({ name: "profileId" }),
-    typeorm_1.Index(),
-    __metadata("design:type", Profile_1.Profile)
-], User.prototype, "profile", void 0);
-__decorate([
-    typeorm_1.BeforeInsert(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], User.prototype, "validateInsert", null);
-__decorate([
-    typeorm_1.BeforeInsert(),
-    typeorm_1.BeforeUpdate(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], User.prototype, "encryptPassword", null);
-__decorate([
-    typeorm_1.OneToMany(type => GuiaManiobra_1.GuiaManiobra, guiaManiobra => guiaManiobra.user),
-    __metadata("design:type", Array)
-], User.prototype, "guiasManiobras", void 0);
-__decorate([
-    typeorm_1.OneToMany(type => Ronda_1.Ronda, ronda => ronda.user),
-    __metadata("design:type", Array)
-], User.prototype, "rondas", void 0);
-__decorate([
-    typeorm_1.OneToMany(type => HorarioPersona_1.HorarioPersona, horarioPersona => horarioPersona.user),
-    __metadata("design:type", Array)
-], User.prototype, "horarioPersona", void 0);
+], User.prototype, "Password", void 0);
 User = __decorate([
     typeorm_1.Entity()
 ], User);

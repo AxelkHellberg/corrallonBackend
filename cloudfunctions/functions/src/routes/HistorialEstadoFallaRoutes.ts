@@ -138,6 +138,22 @@ router.post('/cambiarEspecificacion', async (req, res, next) => {
     }
 })
 
+router.post('/traerProductos', async (req, res, next) => {
+
+    try {
+        let r = await getConnection().query("SELECT * FROM Producto");
+
+
+        console.log(r);
+        res.status(200).send(r);
+        
+    } catch (e) {
+        await responseError(res, e)
+
+
+    }
+})
+
 router.post('/cambiarDetalleRonda', async (req, res, next) => {
 
     try {

@@ -24,22 +24,32 @@ class UserRepository /**config *//**config */  extends GenericRepository_1.Gener
         super(...arguments);
         this.existeUsernameToInsert = function (username) {
             return __awaiter(this, void 0, void 0, function* () {
-                const user = yield this.getRepository().findOne({ where: { "username": username } });
+                const user = yield this.getRepository().findOne({ where: { "LoginName": username } });
                 return user != null;
             });
         };
         this.existeUsernameToUpdate = function (username, id) {
             return __awaiter(this, void 0, void 0, function* () {
-                const user = yield this.getRepository().findOne({ where: { "username": username, "id": typeorm_1.Not(id) } });
+                const user = yield this.getRepository().findOne({ where: { "LoginName": username, "id": typeorm_1.Not(id) } });
                 return user != null;
             });
         };
+        /*     login = async function (username, password): Promise<Users> {
+                const user: Users = await this.getRepository().findOne({ where: { "LoginName": username, "Password": encriptutils.encrypt(password) } });
+                return user
+            } */
         this.login = function (username, password) {
             return __awaiter(this, void 0, void 0, function* () {
-                const user = yield this.getRepository().findOne({ where: { "username": username, "password": encriptutils.encrypt(password) } });
+                const user = yield typeorm_1.getConnection().query("SELECT * FROM users WHERE LoginName='" + username + "' and Password=" + password);
                 return user;
             });
         };
+        /*     public async delete(delObj: User): Promise<any> {
+                if (delObj.id == 1){
+                    throw new ErrorVDF(Msg.USUARIO_ADMINISTRADOR_NO_ELIMINABLE,Msg.USUARIO_ADMINISTRADOR_NO_ELIMINABLE, 400)
+                }
+                return super.delete(delObj);
+            } */
     }
     getRepository() {
         return typeorm_1.getRepository(myClass);
@@ -52,7 +62,7 @@ class UserRepository /**config *//**config */  extends GenericRepository_1.Gener
             save: { get: () => super.save }
         });
         return __awaiter(this, void 0, void 0, function* () {
-            if (yield this.existeUsernameToInsert(newObj.username))
+            if (yield this.existeUsernameToInsert(newObj.LoginName))
                 throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.USERNAME_DUPLICATED, Msg_1.Msg.USERNAME_DUPLICATED, 400);
             return _super.save.call(this, newObj);
         });
@@ -65,17 +75,6 @@ class UserRepository /**config *//**config */  extends GenericRepository_1.Gener
             if (data.username != null && (yield this.existeUsernameToUpdate(data.username, id)))
                 throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.USERNAME_DUPLICATED, Msg_1.Msg.USERNAME_DUPLICATED, 400);
             return _super.updateById.call(this, data, id);
-        });
-    }
-    delete(delObj) {
-        const _super = Object.create(null, {
-            delete: { get: () => super.delete }
-        });
-        return __awaiter(this, void 0, void 0, function* () {
-            if (delObj.id == 1) {
-                throw new ErrorVDF_1.ErrorVDF(Msg_1.Msg.USUARIO_ADMINISTRADOR_NO_ELIMINABLE, Msg_1.Msg.USUARIO_ADMINISTRADOR_NO_ELIMINABLE, 400);
-            }
-            return _super.delete.call(this, delObj);
         });
     }
 }

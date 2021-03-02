@@ -14,10 +14,10 @@ export class HorarioPersona extends GenericEntity {
   @PrimaryColumn()
   horarioId: number;
 
-  @ManyToOne(type => User, user => user.id)
+/*   @ManyToOne(type => User, user => user.id)
   @JoinColumn({ name: "userId" })
   public user!: User;
-
+ */
   @ManyToOne(type => Horario, horario => horario.id)
   @JoinColumn({ name: "horarioId" })
   public horario!: Horario;

@@ -17,10 +17,10 @@ export class GuiaManiobra extends GenericEntity {
     @Column()
     userId: number;
 
-    @ManyToOne(type => User, user => user.guiasManiobras, { onDelete: 'CASCADE' })
+/*     @ManyToOne(type => User, user => user.guiasManiobras, { onDelete: 'CASCADE' })
     @JoinColumn({ name: "userId" })
     @Index()
-    public user: User;
+    public user: User; */
 
     @Column()
     plantillaGuiaManiobraId: number; //GET

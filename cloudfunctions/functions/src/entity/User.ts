@@ -12,11 +12,11 @@ let encriptutils = require('../components/encryputils')
 export class User extends GenericEntity {
 
     @PrimaryGeneratedColumn()
-    id: number;
+    LoginName: string;
 
     @Column()
-    name: string;
-
+    Password: string;
+/* 
     @Column()
     lastName: string;
 
@@ -71,5 +71,5 @@ export class User extends GenericEntity {
 
     @OneToMany(type => HorarioPersona, horarioPersona => horarioPersona.user)
     public horarioPersona: HorarioPersona[]
-
+ */
 }

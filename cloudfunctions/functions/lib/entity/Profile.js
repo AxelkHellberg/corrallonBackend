@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Profile = void 0;
 const typeorm_1 = require("typeorm");
 const GenericEntity_1 = require("./GenericEntity");
-const User_1 = require("./User");
 const PermissionWS_1 = require("./PermissionWS");
 const Report_1 = require("./Report");
 let encriptutils = require('../components/encryputils');
@@ -37,10 +36,6 @@ __decorate([
     typeorm_1.JoinTable({ name: "permissionReport" }),
     __metadata("design:type", Array)
 ], Profile.prototype, "reportAvailable", void 0);
-__decorate([
-    typeorm_1.OneToMany(type => User_1.User, user => user.profile),
-    __metadata("design:type", Array)
-], Profile.prototype, "users", void 0);
 Profile = __decorate([
     typeorm_1.Entity()
 ], Profile);

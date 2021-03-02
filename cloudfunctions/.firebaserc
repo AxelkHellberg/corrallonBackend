@@ -1,6 +1,6 @@
 {
   "projects": {
-    "default": "proyecto-s2i",
-    "koa-s2i-test": "proyecto-s2i-test"
+    "corralon": "proyecto-corralon",
+    "default": "proyecto-corralon"
   }
 }

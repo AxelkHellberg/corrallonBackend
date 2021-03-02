@@ -15,9 +15,9 @@ export const createNewConnection = async (req: Request, res: Response, next: Nex
     catch (e) {
         console.log("Creando conexion")
         createConnection({
-            "type": "mysql",
+            "type": "mssql",
             "host": GlobalVariable.DATA_BASE_IP,
-            "port": 3306,
+            "port": 1433,
             "username": GlobalVariable.DATA_BASE_USER,
             "password": GlobalVariable.DATA_BASE_PASS,
             "database": GlobalVariable.DATA_BASE_NAME,

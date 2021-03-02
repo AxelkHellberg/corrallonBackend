@@ -22,9 +22,9 @@ exports.createNewConnection = (req, res, next) => __awaiter(void 0, void 0, void
     catch (e) {
         console.log("Creando conexion");
         typeorm_1.createConnection({
-            "type": "mysql",
+            "type": "mssql",
             "host": global_1.GlobalVariable.DATA_BASE_IP,
-            "port": 3306,
+            "port": 1433,
             "username": global_1.GlobalVariable.DATA_BASE_USER,
             "password": global_1.GlobalVariable.DATA_BASE_PASS,
             "database": global_1.GlobalVariable.DATA_BASE_NAME,

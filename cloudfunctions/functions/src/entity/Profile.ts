@@ -20,9 +20,9 @@ export class Profile extends GenericEntity {
     @ManyToMany(type => Report, report => report.allowedProfiles, { onDelete: 'CASCADE' })
     @JoinTable({ name: "permissionReport" })
     reportAvailable: Report[];
-
+/* 
     @OneToMany(type => User, user => user.profile)
-    public users: User[]
+    public users: User[] */
 
 }
 

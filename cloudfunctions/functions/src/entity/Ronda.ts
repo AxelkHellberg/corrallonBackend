@@ -30,9 +30,9 @@ export class Ronda extends GenericEntity {
     @Column()
     public userId: number;
 
-    @ManyToOne(type => User, user => user.rondas, { onDelete: 'CASCADE' })
+/*     @ManyToOne(type => User, user => user.rondas, { onDelete: 'CASCADE' })
     @JoinColumn({ name: "userId" })
-    public user: User;
+    public user: User; */
 
     @Column()
     public estadoRondaId: number;

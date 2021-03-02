@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Ronda = void 0;
 const typeorm_1 = require("typeorm");
 const GenericEntity_1 = require("./GenericEntity");
-const User_1 = require("./User");
 const EstadoRonda_1 = require("./EstadoRonda");
 const PlantillaRonda_1 = require("./PlantillaRonda");
 const ValorCampoRonda_1 = require("./ValorCampoRonda");
@@ -40,11 +39,6 @@ __decorate([
     typeorm_1.Column(),
     __metadata("design:type", Number)
 ], Ronda.prototype, "userId", void 0);
-__decorate([
-    typeorm_1.ManyToOne(type => User_1.User, user => user.rondas, { onDelete: 'CASCADE' }),
-    typeorm_1.JoinColumn({ name: "userId" }),
-    __metadata("design:type", User_1.User)
-], Ronda.prototype, "user", void 0);
 __decorate([
     typeorm_1.Column(),
     __metadata("design:type", Number)
